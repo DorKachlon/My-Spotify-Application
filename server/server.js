@@ -1,8 +1,8 @@
 const mysql = require("mysql");
 const express = require("express");
+const app = express();
 require("dotenv").config();
 
-const app = express();
 app.use(express.json());
 
 const mysqlCon = mysql.createConnection({
@@ -25,23 +25,23 @@ mysqlCon.connect(function (err) {
 
 //GET
 app.get("/song/:id", (req, res) => {
-    SpecificID(req, res, "song", "id", "SELECT *");
+    SpecificID(req, res, "song", "id");
 });
 
 app.get("/album/:id", (req, res) => {
-    SpecificID(req, res, "album", "album_id", "SELECT *");
+    SpecificID(req, res, "album", "album_id");
 });
 
 app.get("/artist/:id", (req, res) => {
-    SpecificID(req, res, "artist", "artist_id", "SELECT *");
+    SpecificID(req, res, "artist", "artist_id");
 });
 
 app.get("/playlist/:id", (req, res) => {
-    SpecificID(req, res, "playlist", "playlist_id", "SELECT *");
+    SpecificID(req, res, "playlist", "playlist_id");
 });
 
-function SpecificID(req, res, album, column, action) {
-    let sql = `${action} FROM ${album} WHERE ${column} = ${req.params.id}`;
+function SpecificID(req, res, table, column) {
+    let sql = `SELECT * FROM ${table} WHERE ${column} = ${req.params.id}`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
         console.log("Post fetched...");
@@ -49,6 +49,39 @@ function SpecificID(req, res, album, column, action) {
     });
 }
 
+app.get("/top_songs/", (req, res) => {
+    topTwenty(req, res, "interactions_by_song", "song");
+});
+app.get("/top_albums/", (req, res) => {
+    topTwenty(req, res, "interactions_by_album", "album");
+});
+app.get("/top_playlist/", (req, res) => {
+    topTwenty(req, res, "interactions_by_playlist", "playlist");
+});
+
+function topTwenty(req, res, table, secTable) {
+    const sql = `
+    SELECT ${secTable}.* ,${
+        secTable !== "playlist" && "artist.name"
+    }, SUM(play_count) AS counter_player FROM ${table}
+    INNER JOIN ${secTable} 
+        ON ${table}.${secTable}_id = ${secTable}.song_id
+        ${
+            secTable !== "playlist" &&
+            `INNER JOIN artist ON ${secTable}.artist_id=artist.artist_id`
+        }
+    GROUP BY ${table}.${secTable}_id
+    ORDER BY counter_player desc
+    LIMIT 1`;
+
+    mysqlCon.query(sql, (err, result) => {
+        if (err) {
+            res.send(err.message);
+            throw err;
+        }
+        res.send(result);
+    });
+}
 //POST
 app.post("/song", (req, res) => {
     postReq(res, req, "song");
