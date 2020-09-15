@@ -50,7 +50,24 @@ function SpecificID(req, res, table, column) {
 }
 
 app.get("/top_songs/", (req, res) => {
-    topTwenty(req, res, "interactions_by_song", "song");
+    const sql = `
+    SELECT song.song_id, song.name, song.youtube_link,song.length,song.lyrics,song.created_at,artist.name AS artist_name, album.name AS album_name,album.cover_img,SUM(play_count) AS counter_player FROM interactions_by_song
+    INNER JOIN song 
+        ON interactions_by_song.song_id = song.song_id
+    INNER JOIN artist 
+        ON song.artist_id = artist.artist_id
+    INNER JOIN album 
+        ON song.album_id = album.album_id
+    GROUP BY interactions_by_song.song_id
+     ORDER BY counter_player desc
+     LIMIT 20;`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) {
+            res.send(err.message);
+            throw err;
+        }
+        res.send(result);
+    });
 });
 app.get("/top_albums/", (req, res) => {
     topTwenty(req, res, "interactions_by_album", "album");
@@ -62,7 +79,7 @@ app.get("/top_playlist/", (req, res) => {
 function topTwenty(req, res, table, secTable) {
     const sql = `
     SELECT ${secTable}.* ,${
-        secTable !== "playlist" && "artist.name"
+        secTable !== "playlist" && "artist.name AS artist_name"
     }, SUM(play_count) AS counter_player FROM ${table}
     INNER JOIN ${secTable} 
         ON ${table}.${secTable}_id = ${secTable}.song_id
@@ -72,7 +89,7 @@ function topTwenty(req, res, table, secTable) {
         }
     GROUP BY ${table}.${secTable}_id
     ORDER BY counter_player desc
-    LIMIT 1`;
+    LIMIT 20`;
 
     mysqlCon.query(sql, (err, result) => {
         if (err) {

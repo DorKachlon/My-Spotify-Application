@@ -1,0 +1,15 @@
+.MuiTab-wrapper {
+    font-size: 1.3em;
+    margin: 0.5em 4em;
+    /* position: fixed; */
+}
+.MuiTab-wrapper:hover {
+    color: rgba(70, 192, 117, 0.87);
+}
+
+.MuiTabs-flexContainer {
+    display: flex;
+    justify-content: space-around;
+    justify-content: center;
+    /* margin: 0px, 20em; */
+}
