@@ -94,7 +94,16 @@ CREATE TABLE IF NOT EXISTS `user_album`(
    	FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`)
 );
 
-CREATE TABLE IF NOT EXISTS `interactions`(
+CREATE TABLE IF NOT EXISTS `user_artist`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `user_id` INT NOT NULL,
+    `artist_id` INT NOT NULL,
+    PRIMARY KEY (`id`),
+    FOREIGN KEY(`artist_id`) REFERENCES `artist`(`artist_id`),
+   	FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `interactions_by_song`(
     `id` INT NOT NULL AUTO_INCREMENT,
     `user_id` INT NOT NULL,
     `song_id` INT NOT NULL,
@@ -104,5 +113,28 @@ CREATE TABLE IF NOT EXISTS `interactions`(
     PRIMARY KEY(`id`),
  	FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`),
     FOREIGN KEY(`song_id`) REFERENCES `song`(`song_id`)
+);
+CREATE TABLE IF NOT EXISTS `interactions_by_playlist`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `user_id` INT NOT NULL,
+    `playlist_id` INT NOT NULL,
+    `is_liked` BOOLEAN NOT NULL,
+    `play_count` INT NOT NULL,
+    `created_at` DATE NOT NULL,
+    PRIMARY KEY(`id`),
+ 	FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`),
+    FOREIGN KEY(`playlist_id`) REFERENCES `playlist`(`playlist_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `interactions_by_album`(
+    `id` INT NOT NULL AUTO_INCREMENT,
+    `user_id` INT NOT NULL,
+    `album_id` INT NOT NULL,
+    `is_liked` BOOLEAN NOT NULL,
+    `play_count` INT NOT NULL,
+    `created_at` DATE NOT NULL,
+    PRIMARY KEY(`id`),
+ 	FOREIGN KEY(`user_id`) REFERENCES `user`(`user_id`),
+    FOREIGN KEY(`album_id`) REFERENCES `album`(`album_id`)
 );
     

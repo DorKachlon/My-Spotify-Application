@@ -1,3 +1,25 @@
-.carouselTopSongs{
-    margin: 5em ;
+.carouselTopSongs {
+    margin: 5em;
+}
+ h2{
+     color:white;
+ }
+button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-next-15 {
+    background-color: white;
+    opacity: 1;
+}
+button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-next-15:hover {
+    background-color: green;
+    opacity: 1;
+}
+button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-prev-16{
+    background-color: white;
+    opacity: 1;
+}
+button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-prev-16:hover{
+    background-color: green;
+    opacity: 1;
+}
+span.MuiIconButton-label{
+    color: black;
 }
