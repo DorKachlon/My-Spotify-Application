@@ -2,8 +2,19 @@
 * {
     padding: 0px;
     margin: 0px;
-
+    text-decoration: none;
     /* font-family: 'Baloo Tammudu 2', cursive; */
     font-family: "Raleway", sans-serif;
 }
 
+.MuiTabs-scroller.MuiTabs-fixed {
+    position: fixed;
+    z-index: 1;
+}
+.MuiTabs-scroller.MuiTabs-fixed.scrolled{
+background-color: grey;
+}
+
+.scrollingBacground >div{
+background: linear-gradient(0deg, rgba(9,41,34,0.9) 0%, rgba(0,0,0,0.9) 87%);
+}

@@ -1,12 +1,23 @@
-.carouselTopSongs {
-    margin: 5em;
+.carouselTopTwenty {
+    margin: 3em 5em 4em;
 }
- h2{
+.welcomeTitle{
+    color:white;
+    margin-left: 6vw;
+    margin-top:3vw;
+    font-size: 3em;
+}
+ .topTitle{
      color:white;
+     margin-left: 10vw;
+     margin-bottom: 2vw;
  }
 button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-next-15 {
     background-color: white;
+    margin-right: 8vw;
+    margin-bottom: 10vw;
     opacity: 1;
+    font-size: 10vw;
 }
 button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-next-15:hover {
     background-color: green;
@@ -14,6 +25,7 @@ button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonV
 }
 button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-prev-16{
     background-color: white;
+    margin-left: 8vw;
     opacity: 1;
 }
 button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-prev-16:hover{

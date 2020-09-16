@@ -8,6 +8,7 @@
     width: 10vw;
     opacity: 0.8;
     margin: 0 1em;
+
 }
 .containerSingleItem:hover {
     opacity: 1;

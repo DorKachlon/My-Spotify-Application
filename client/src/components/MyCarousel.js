@@ -1,6 +1,6 @@
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import TopSongs from "./TopSongs";
+import TopTwenty from "./TopTwenty";
 export default function MyCarousel({
     topSongsArtistPlaylistAlbum,
     i,
@@ -8,21 +8,25 @@ export default function MyCarousel({
 }) {
     return (
         <Carousel autoPlay={false} navButtonsAlwaysVisible={true}>
-            <TopSongs
+            <TopTwenty
                 elements={topSongsArtistPlaylistAlbum[i].slice(0, 5)}
                 product={product}
+                topSongs={i === 0 ? topSongsArtistPlaylistAlbum[0] : null}
             />
-            <TopSongs
+            <TopTwenty
                 elements={topSongsArtistPlaylistAlbum[i].slice(5, 10)}
                 product={product}
+                topSongs={i === 0 ? topSongsArtistPlaylistAlbum[0] : null}
             />
-            <TopSongs
+            <TopTwenty
                 elements={topSongsArtistPlaylistAlbum[i].slice(10, 15)}
                 product={product}
+                topSongs={i === 0 ? topSongsArtistPlaylistAlbum[0] : null}
             />
-            <TopSongs
+            <TopTwenty
                 elements={topSongsArtistPlaylistAlbum[i].slice(15, 20)}
                 product={product}
+                topSongs={i === 0 ? topSongsArtistPlaylistAlbum[0] : null}
             />
         </Carousel>
     );

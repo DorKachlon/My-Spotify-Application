@@ -36,59 +36,59 @@ export default function Home() {
 
     return (
         <>
-            <h1>WELCOME</h1>
-            <div className="carouselTopSongs">
+            <h1 className="welcomeTitle">WELCOME</h1>
+            <div className="carouselTopTwenty">
                 {topSongsArtistPlaylistAlbum[0] && (
                     <>
-                        <h2>Top 20 songs</h2>
+                        <h2 className="topTitle">Top 20 songs</h2>
                         <MyCarousel
                             topSongsArtistPlaylistAlbum={
                                 topSongsArtistPlaylistAlbum
                             }
                             i={0}
-                            product={"songs"}
+                            product={"song"}
                         />
                     </>
                 )}
             </div>
-            <div className="carouselTopSongs">
+            <div className="carouselTopTwenty">
                 {topSongsArtistPlaylistAlbum[1] && (
                     <>
-                        <h2>Top 20 Artists</h2>
+                        <h2 className="topTitle">Top 20 Artists</h2>
                         <MyCarousel
                             topSongsArtistPlaylistAlbum={
                                 topSongsArtistPlaylistAlbum
                             }
                             i={1}
-                            product={"artists"}
+                            product={"artist"}
                         />
                     </>
                 )}
             </div>
-            <div className="carouselTopSongs">
+            <div className="carouselTopTwenty">
                 {topSongsArtistPlaylistAlbum[1] && (
                     <>
-                        <h2>Top 20 Playlists</h2>
+                        <h2 className="topTitle">Top 20 Playlists</h2>
                         <MyCarousel
                             topSongsArtistPlaylistAlbum={
                                 topSongsArtistPlaylistAlbum
                             }
                             i={2}
-                            product={"playlists"}
+                            product={"playlist"}
                         />
                     </>
                 )}
             </div>
-            <div className="carouselTopSongs">
+            <div className="carouselTopTwenty">
                 {topSongsArtistPlaylistAlbum[1] && (
                     <>
-                        <h2>Top 20 Albums</h2>
+                        <h2 className="topTitle">Top 20 Albums</h2>
                         <MyCarousel
                             topSongsArtistPlaylistAlbum={
                                 topSongsArtistPlaylistAlbum
                             }
                             i={3}
-                            product={"albums"}
+                            product={"album"}
                         />
                     </>
                 )}
