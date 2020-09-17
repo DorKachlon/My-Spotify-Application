@@ -2,24 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "../styles/TopTwenty.css";
 
-export default function TopTwenty({ elements, product, topSongs }) {
+export default function TopTwenty({ elements, product }) {
     return (
         <div className="singleCarousel">
             {elements.map((elem, i) => {
                 const id = `${product}_id`;
-                const link = `/${product}/${elem[id]}`;
+                let link;
+                if (product === "song") {
+                    link = `/song/${elem[id]}?topSongs=1`;
+                } else {
+                    link = `/${product}/${elem[id]}`;
+                }
                 return (
-                    <Link
-                        to={
-                            topSongs !== null
-                                ? {
-                                      pathname: link,
-                                      state: { obj: elem, topSongs: topSongs },
-                                  }
-                                : { pathname: link, state: { obj: elem } }
-                        }
-                        key={i}
-                    >
+                    <Link to={link} key={i}>
                         <div className="containerSingleItem">
                             <div className="containerImage" onClick={() => {}}>
                                 <img

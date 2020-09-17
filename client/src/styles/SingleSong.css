@@ -1,0 +1,61 @@
+.YoutubeVid {
+    border: 0;
+    border-radius: 5%;
+    margin: 13vh 0 0 0;
+}
+.containerSingleSong {
+    display: flex;
+    justify-content: space-between;
+}
+.containerDataList {
+    display: flex;
+    flex-direction: column;
+}
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-dense.MuiListItem-gutters {
+    background-color: transparent;
+    border-color: white;
+    border: 5px 0;
+}
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-dense.MuiListItem-gutters:hover {
+    background-color: rgba(255, 255, 255, 0.404);
+}
+.MuiListItem-root {
+    flex-direction: column;
+    width: 200vw;
+}
+.makeStyles-root-5 {
+    border-radius: 5px;
+}
+nav.MuiListItem-root.MuiListItem-gutters {
+    padding: 0;
+}
+.containerList {
+    height: 80vh;
+    overflow: auto;
+}
+.containerItem {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.imgListItem {
+    width: 2em;
+    border-radius: 3px;
+    margin: 0.5em 1em;
+}
+.containerNames {
+    display: flex;
+    flex-direction: column;
+    margin: 1em 0;
+    font-size: 0.5em;
+    color: black;
+}
+.nameListItem {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button {
+    align-items: flex-start;
+    padding: 0;
+}

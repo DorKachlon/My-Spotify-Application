@@ -25,7 +25,7 @@ mysqlCon.connect(function (err) {
 
 //GET
 app.get("/song/:id", (req, res) => {
-    SpecificID(req, res, "song", "id");
+    SpecificID(req, res, "song", "song_id");
 });
 
 app.get("/album/:id", (req, res) => {

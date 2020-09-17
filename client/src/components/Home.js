@@ -11,6 +11,7 @@ export default function Home() {
     ] = useState([]);
 
     console.log("render home");
+    
     useEffect(() => {
         (async function loadTop() {
             let newArr = [];
@@ -66,7 +67,7 @@ export default function Home() {
                 )}
             </div>
             <div className="carouselTopTwenty">
-                {topSongsArtistPlaylistAlbum[1] && (
+                {topSongsArtistPlaylistAlbum[2] && (
                     <>
                         <h2 className="topTitle">Top 20 Playlists</h2>
                         <MyCarousel
@@ -80,7 +81,7 @@ export default function Home() {
                 )}
             </div>
             <div className="carouselTopTwenty">
-                {topSongsArtistPlaylistAlbum[1] && (
+                {topSongsArtistPlaylistAlbum[3] && (
                     <>
                         <h2 className="topTitle">Top 20 Albums</h2>
                         <MyCarousel

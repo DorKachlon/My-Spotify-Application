@@ -1,0 +1,6 @@
+.artistImg {
+    mask-image: linear-gradient( 0deg, transparent 40%, black 100%);
+    margin: -20vh 0px -20vh 0px;
+    width: 100%;
+    height: 120vh;
+}

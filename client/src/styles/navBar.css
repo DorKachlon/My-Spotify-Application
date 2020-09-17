@@ -1,6 +1,7 @@
 .MuiTab-wrapper {
     font-size: 1.3em;
-    margin: 0.5em 4em;
+    /* margin: 0.5em 4em; */
+    margin: 1vw 2vw
     /* position: fixed; */
 }
 .MuiTab-wrapper:hover {
@@ -13,4 +14,6 @@
     justify-content: center;
     /* margin: 0px, 20em; */
 }
-
+span.MuiTab-wrapper {
+    margin: 0 !important; 
+}

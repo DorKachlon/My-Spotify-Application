@@ -27,6 +27,7 @@ export default function NavBar() {
                 indicatorColor="secondary"
                 className={scrolling ? "scrollingBacground" : "nothing"}
             >
+                
                 <Tab label="Home" component={Link} to="/" />
                 <Tab label="Songs" component={Link} to="/songs" />
                 <Tab label="Albums" component={Link} to="/albums" />
