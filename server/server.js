@@ -41,7 +41,9 @@ app.get("/album/:id", (req, res) => {
     });
 });
 app.get("/album/songs/:idAlbum", (req, res) => {
-    let sql = `SELECT song.* FROM song
+    let sql = `SELECT song.* ,artist.name AS artist_name FROM song
+    INNER JOIN artist 
+    ON song.artist_id = artist.artist_id
     WHERE album_id = ${req.params.idAlbum}
     order by track_number;`;
     mysqlCon.query(sql, (err, result) => {

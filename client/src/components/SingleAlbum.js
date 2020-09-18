@@ -2,11 +2,10 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
-
+import MyList from "./MyList";
 export default function SingleAlbum() {
     const { pathname, search } = useLocation();
     const [albumAndList, setAlbumAndList] = useState();
-    console.log(albumAndList);
     useEffect(() => {
         (async function loadSong() {
             try {
@@ -27,5 +26,20 @@ export default function SingleAlbum() {
             }
         })();
     }, [pathname, search]);
-    return <div style={{ color: "white" }}>SingleAlbum</div>;
+    return (
+        <>
+            {albumAndList && (
+                <>
+                    <MyList
+                        list={albumAndList[1]}
+                        search={search}
+                        pathname={pathname}
+                        coverImg={albumAndList[0].cover_img}
+                        artistName={albumAndList[0].artist_name}
+                    />
+                    <div style={{ color: "white" }}>SingleAlbum</div>
+                </>
+            )}
+        </>
+    );
 }

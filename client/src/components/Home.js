@@ -10,7 +10,7 @@ export default function Home() {
         setTopSongsArtistPlaylistAlbum,
     ] = useState([]);
 
-    console.log("render home");
+    // console.log("render home");
     
     useEffect(() => {
         (async function loadTop() {
