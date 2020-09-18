@@ -29,15 +29,58 @@ app.get("/song/:id", (req, res) => {
 });
 
 app.get("/album/:id", (req, res) => {
-    SpecificID(req, res, "album", "album_id");
+    // SpecificID(req, res, "album", "album_id");
+    let sql = `SELECT album.*, artist.name AS artist_name FROM album 
+    INNER JOIN artist 
+    ON album.artist_id = artist.artist_id
+    WHERE album_id = ${req.params.id}`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
+app.get("/album/songs/:idAlbum", (req, res) => {
+    let sql = `SELECT song.* FROM song
+    WHERE album_id = ${req.params.idAlbum}
+    order by track_number;`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
 });
 
 app.get("/artist/:id", (req, res) => {
     SpecificID(req, res, "artist", "artist_id");
 });
-
+app.get("/album/songs/:idAlbum", (req, res) => {
+    let sql = `SELECT song.* FROM song
+    WHERE album_id = ${req.params.idAlbum}
+    order by track_number;`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
 app.get("/playlist/:id", (req, res) => {
     SpecificID(req, res, "playlist", "playlist_id");
+});
+app.get("/playlist/songs/:idPlaylist", (req, res) => {
+    let sql = `SELECT playlist_song.playlist_id,song.* ,album.cover_img,artist.name AS artist_name FROM playlist_song
+    INNER JOIN song 
+    ON playlist_song.song_id = song.song_id
+        INNER JOIN album 
+        ON song.album_id = album.album_id
+            INNER JOIN artist 
+        ON song.artist_id = artist.artist_id
+        WHERE playlist_id=${req.params.idPlaylist};`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
 });
 
 function SpecificID(req, res, table, column) {

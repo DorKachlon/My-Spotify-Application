@@ -1,34 +1,18 @@
 .YoutubeVid {
+    width: 60vw;
+    height: 60vh;
     border: 0;
     border-radius: 5%;
     margin: 13vh 0 0 0;
 }
 .containerSingleSong {
     display: flex;
-    justify-content: space-between;
 }
-.containerDataList {
+.containerPlaylistNameList {
     display: flex;
     flex-direction: column;
 }
-.MuiButtonBase-root.MuiListItem-root.MuiListItem-dense.MuiListItem-gutters {
-    background-color: transparent;
-    border-color: white;
-    border: 5px 0;
-}
-.MuiButtonBase-root.MuiListItem-root.MuiListItem-dense.MuiListItem-gutters:hover {
-    background-color: rgba(255, 255, 255, 0.404);
-}
-.MuiListItem-root {
-    flex-direction: column;
-    width: 200vw;
-}
-.makeStyles-root-5 {
-    border-radius: 5px;
-}
-nav.MuiListItem-root.MuiListItem-gutters {
-    padding: 0;
-}
+
 .containerList {
     height: 80vh;
     overflow: auto;
@@ -43,19 +27,43 @@ nav.MuiListItem-root.MuiListItem-gutters {
     width: 2em;
     border-radius: 3px;
     margin: 0.5em 1em;
+    position: relative;
+}
+.imgPlay {
+    width: 2em;
+    border-radius: 3px;
+    margin: 0.5em 1em;
+    position: absolute;
+    opacity: 0.7;
+    visibility: hidden;
 }
 .containerNames {
     display: flex;
     flex-direction: column;
     margin: 1em 0;
     font-size: 0.5em;
-    color: black;
+    text-decoration: none;
 }
 .nameListItem {
     font-size: 1.5em;
     font-weight: bold;
 }
-.MuiButtonBase-root.MuiListItem-root.MuiListItem-gutters.MuiListItem-button {
-    align-items: flex-start;
-    padding: 0;
+.duration {
+    font-family: Arial, Helvetica, sans-serif;
+    margin-left: auto;
+    text-align: right;
+    margin-right: 1em;
+}
+.dataSong {
+    background-color: green;
+}
+.dataPlaylist {
+    background-color: pink;
+    width: 40vw;
+    display: flex;
+}
+.autoPlay{
+    margin-left:auto ;
+    display: flex;
+    align-items: center;
 }

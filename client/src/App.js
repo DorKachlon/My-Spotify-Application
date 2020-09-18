@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Home from "./components/Home";
 import NavBar from "./components/NavBar";
@@ -22,6 +22,7 @@ const myTheme = createMuiTheme({
 });
 
 function App() {
+    const [checked, setChecked] = useState(true);
     return (
         <div className="body">
             <ThemeProvider theme={myTheme}>
@@ -45,7 +46,12 @@ function App() {
                             <Route path="/songs" component={Songs} />
                             <Route path="/albums" component={Albums} />
                             <Route path="/playlists" component={Playlist} />
-                            <Route path="/song/:id" component={SingleSong} />
+                            <Route path="/song/:id">
+                                <SingleSong
+                                    checked={checked}
+                                    setChecked={setChecked}
+                                />
+                            </Route>
                             <Route
                                 path="/artist/:id"
                                 component={SingleArtist}
