@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     rootList: {
-        width: "40vw",
+        width: "35vw",
         backgroundColor: "transparent",
         borderRadius: "5px",
         marginTop: "auto",
@@ -17,7 +17,6 @@ const useStyles = makeStyles((theme) => ({
     },
 
     itemOfList: {
-        width: "38vw",
         padding: 0,
         color: "white",
         borderRadius: "5px",
@@ -30,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
         margin: "3px",
     },
     itemSelected: {
-        width: "38vw",
         padding: 0,
         backgroundColor: "rgb(40, 184, 105)",
         color: "white",
@@ -42,7 +40,10 @@ const useStyles = makeStyles((theme) => ({
     },
     List: {
         padding: 0,
+        marginLeft:"1vw",
+        
     },
+    divider: { backgroundColor: "grey" },
 }));
 
 export default function MyList({
@@ -71,6 +72,8 @@ export default function MyList({
             component="nav"
             aria-label="main mailbox folders"
             className={classes.List}
+            style={pathname.includes("song")?{width: "35vw"}:{width: "94vw"}}
+
         >
             <div className="containerList">
                 {list.map((songObj) => {
@@ -94,6 +97,7 @@ export default function MyList({
                                             ? classes.itemSelected
                                             : classes.itemOfList
                                     }
+                                    style={pathname.includes("song")?{width: "35vw"}:{width: "94vw"}}
                                 >
                                     <div className="containerItem">
                                         <img
@@ -125,7 +129,7 @@ export default function MyList({
                                         {lengthSong(songObj.length)}
                                     </div>
                                 </ListItem>
-                                <Divider />
+                                <Divider className={classes.divider} />
                             </div>
                         </Link>
                     );

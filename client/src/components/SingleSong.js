@@ -6,15 +6,18 @@ import { useLocation } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import Switch from "@material-ui/core/Switch";
 import MyList from "./MyList";
-const useStyles = makeStyles((theme) => ({
+import { Link } from "react-router-dom";
+const useStyles = makeStyles(() => ({
     rootList: {
-        width: "40vw",
+        width: "39vw",
         backgroundColor: "transparent",
         borderRadius: "5px",
-        marginTop: "auto",
-        padding: 0,
-        position: "absolute",
-        bottom: 0,
+        height: "80vh",
+        // marginTop: "auto",
+        // padding: 0,
+        // position: "absolute",
+        // bottom: 0,
+        overflow: "auto",
     },
 
     itemOfList: {
@@ -117,9 +120,37 @@ export default function SingleSong({ checked, setChecked }) {
                     <div className="containerPlaylistNameList">
                         <div className="dataPlaylist">
                             <div>
-                                {search.includes("topSongs")
-                                    ? "The top 20 songs"
-                                    : songAndList[2].name}
+                                <div className="name-of-album-playlist">
+                                    <div>
+                                        {search.includes("topSongs")
+                                            ? "The top 20 songs"
+                                            : `${songAndList[2].name} `}
+                                    </div>
+
+                                    {!search.includes("topSongs") && (
+                                        <span className="album-playlist">
+                                            &nbsp; • {product}
+                                        </span>
+                                    )}
+                                </div>
+                                {product === "album" && (
+                                    <Link
+                                    to={`/artist/${songAndList[2].artist_id}`}
+                                    style={{ cursor: "pointer" }}
+                                    >
+                                        <div className="artist-name">
+                                            <img
+                                                className="artist-cover-img"
+                                                src={
+                                                    songAndList[2]
+                                                        .artist_cover_img
+                                                }
+                                                alt=""
+                                            />
+                                            {songAndList[2].artist_name}
+                                        </div>
+                                    </Link>
+                                )}
                             </div>
                             <div className="autoPlay">
                                 <div>auto play:</div>

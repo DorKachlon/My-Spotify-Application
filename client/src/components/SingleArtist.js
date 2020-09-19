@@ -29,7 +29,7 @@ export default function SingleArtist() {
         <>
             {artiatAndList && (
                 <>
-                    <div class="pickgradient">
+                    <div className="pickgradient">
                         <img
                             className="artistImg"
                             src={artiatAndList[0].cover_img}

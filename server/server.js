@@ -30,7 +30,7 @@ app.get("/song/:id", (req, res) => {
 
 app.get("/album/:id", (req, res) => {
     // SpecificID(req, res, "album", "album_id");
-    let sql = `SELECT album.*, artist.name AS artist_name FROM album 
+    let sql = `SELECT album.*, artist.name AS artist_name, artist.cover_img AS artist_cover_img FROM album 
     INNER JOIN artist 
     ON album.artist_id = artist.artist_id
     WHERE album_id = ${req.params.id}`;

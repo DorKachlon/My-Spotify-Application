@@ -9,13 +9,23 @@
     display: flex;
 }
 .containerPlaylistNameList {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 80vh;
+    gap: 1px 1px;
+    grid-template-areas:
+        "dataPlaylist"
+        "makeStyles-rootList-5";
+}
+.makeStyles-rootList-5 {
+    grid-area: makeStyles-rootList-5;
 }
 
 .containerList {
-    height: 80vh;
-    overflow: auto;
+    /* height: 80vh; */
+    /* overflow: auto; */
 }
 .containerItem {
     display: flex;
@@ -53,17 +63,39 @@
     margin-left: auto;
     text-align: right;
     margin-right: 1em;
+    color: white;
 }
 .dataSong {
     background-color: green;
 }
 .dataPlaylist {
-    background-color: pink;
-    width: 40vw;
-    display: flex;
-}
-.autoPlay{
-    margin-left:auto ;
+    grid-area: dataPlaylist;
+    border-radius: 5px;
+    margin-top: 10px;
+    background-color: white;
     display: flex;
     align-items: center;
+}
+.autoPlay {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+.album-playlist {
+    color: grey;
+}
+.artist-name {
+    display: flex;
+    align-items: center;
+    margin: 10px 0 0 10px;
+    font-size: 0.8em;
+}
+.artist-cover-img {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+}
+.name-of-album-playlist {
+    display: flex;
+    font-size: 1em;
 }
