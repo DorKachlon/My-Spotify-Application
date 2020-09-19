@@ -11,7 +11,7 @@ export default function NavBar() {
         setValue(newValue);
     };
     const changeBackground = () => {
-        if (window.scrollY >= 80) {
+        if (window.scrollY >= 40) {
             setScrolling(true);
         } else {
             setScrolling(false);
@@ -27,7 +27,6 @@ export default function NavBar() {
                 indicatorColor="secondary"
                 className={scrolling ? "scrollingBacground" : "nothing"}
             >
-                
                 <Tab label="Home" component={Link} to="/" />
                 <Tab label="Songs" component={Link} to="/songs" />
                 <Tab label="Albums" component={Link} to="/albums" />

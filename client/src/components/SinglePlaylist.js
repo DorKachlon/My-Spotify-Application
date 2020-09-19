@@ -56,7 +56,6 @@ export default function SinglePlaylist() {
                         search={search}
                         pathname={pathname}
                     />
-                    <div style={{ color: "white" }}>SingleAlbum</div>
                 </div>
             )}
         </>

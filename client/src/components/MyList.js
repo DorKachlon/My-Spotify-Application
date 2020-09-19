@@ -5,43 +5,44 @@ import { makeStyles } from "@material-ui/core/styles";
 import Divider from "@material-ui/core/Divider";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles((theme) => ({
-    rootList: {
-        width: "35vw",
-        backgroundColor: "transparent",
-        borderRadius: "5px",
-        marginTop: "auto",
-        padding: 0,
-        position: "absolute",
-        bottom: 0,
-    },
-
+const useStyles = makeStyles(() => ({
     itemOfList: {
+        width: "37vw",
         padding: 0,
         color: "white",
         borderRadius: "5px",
+        margin: "3px",
         "&:hover": {
             backgroundColor: "grey",
             "& .imgPlay": {
                 visibility: "visible !important",
             },
         },
-        margin: "3px",
+        "@media (max-width:1100px)": {
+            width: "90vw",
+        },
     },
     itemSelected: {
+        width: "37vw",
         padding: 0,
         backgroundColor: "rgb(40, 184, 105)",
         color: "white",
         borderRadius: "5px",
+        margin: "3px",
         "&:hover": {
             backgroundColor: "rgb(40, 184, 105)",
         },
-        margin: "3px",
+        "@media (max-width:1100px)": {
+            width: "90vw",
+        },
     },
     List: {
         padding: 0,
-        marginLeft:"1vw",
-        
+        marginLeft: "1vw",
+        width: "38vw",
+        "@media (max-width:1100px)": {
+            width: "90vw",
+        },
     },
     divider: { backgroundColor: "grey" },
 }));
@@ -72,8 +73,7 @@ export default function MyList({
             component="nav"
             aria-label="main mailbox folders"
             className={classes.List}
-            style={pathname.includes("song")?{width: "35vw"}:{width: "94vw"}}
-
+            style={pathname.includes("song") ? {} : { width: "93vw" }}
         >
             <div className="containerList">
                 {list.map((songObj) => {
@@ -97,7 +97,11 @@ export default function MyList({
                                             ? classes.itemSelected
                                             : classes.itemOfList
                                     }
-                                    style={pathname.includes("song")?{width: "35vw"}:{width: "94vw"}}
+                                    style={
+                                        pathname.includes("song")
+                                            ? {}
+                                            : { width: "92vw" }
+                                    }
                                 >
                                     <div className="containerItem">
                                         <img

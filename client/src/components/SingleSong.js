@@ -9,43 +9,15 @@ import MyList from "./MyList";
 import { Link } from "react-router-dom";
 const useStyles = makeStyles(() => ({
     rootList: {
-        width: "39vw",
+        width: "40vw",
         backgroundColor: "transparent",
         borderRadius: "5px",
-        height: "80vh",
-        // marginTop: "auto",
-        // padding: 0,
-        // position: "absolute",
-        // bottom: 0,
+        height: "auto",
         overflow: "auto",
-    },
-
-    itemOfList: {
-        width: "38vw",
-        padding: 0,
-        color: "white",
-        borderRadius: "5px",
-        "&:hover": {
-            backgroundColor: "grey",
-            "& .imgPlay": {
-                visibility: "visible !important",
-            },
+        "@media (max-width:1100px)": {
+            width: "97vw",
+            overflow: "visible",
         },
-        margin: "3px",
-    },
-    itemSelected: {
-        width: "38vw",
-        padding: 0,
-        backgroundColor: "rgb(40, 184, 105)",
-        color: "white",
-        borderRadius: "5px",
-        "&:hover": {
-            backgroundColor: "rgb(40, 184, 105)",
-        },
-        margin: "3px",
-    },
-    List: {
-        padding: 0,
     },
 }));
 export default function SingleSong({ checked, setChecked }) {
@@ -88,6 +60,7 @@ export default function SingleSong({ checked, setChecked }) {
     const handleChange = (event) => {
         setChecked(event.target.checked);
     };
+
     return (
         <>
             {songAndList && (
@@ -135,8 +108,8 @@ export default function SingleSong({ checked, setChecked }) {
                                 </div>
                                 {product === "album" && (
                                     <Link
-                                    to={`/artist/${songAndList[2].artist_id}`}
-                                    style={{ cursor: "pointer" }}
+                                        to={`/artist/${songAndList[2].artist_id}`}
+                                        style={{ cursor: "pointer" }}
                                     >
                                         <div className="artist-name">
                                             <img

@@ -56,6 +56,32 @@ app.get("/album/songs/:idAlbum", (req, res) => {
 app.get("/artist/:id", (req, res) => {
     SpecificID(req, res, "artist", "artist_id");
 });
+app.get("/artist/songs/:idArtist", (req, res) => {
+    let sql = `SELECT song.* ,artist.name AS artist_name, album.cover_img AS album_cover_img ,album.name AS album_name FROM song
+    INNER JOIN artist 
+    ON song.artist_id = artist.artist_id
+        INNER JOIN album 
+    ON song.album_id = album.album_id
+    WHERE song.artist_id = ${req.params.idArtist}
+    order by created_at desc;`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
+app.get("/artist/albums/:idArtist", (req, res) => {
+    let sql = `SELECT album.* ,artist.name AS artist_name FROM album
+    INNER JOIN artist 
+    ON album.artist_id = artist.artist_id
+    WHERE album.artist_id = ${req.params.idArtist}
+    order by created_at desc;`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
 app.get("/album/songs/:idAlbum", (req, res) => {
     let sql = `SELECT song.* FROM song
     WHERE album_id = ${req.params.idAlbum}

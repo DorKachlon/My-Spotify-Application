@@ -5,6 +5,19 @@
     border-radius: 5%;
     margin: 13vh 0 0 0;
 }
+@media (max-width:1100px){
+    .containerSingleSong {
+        display: flex;
+        flex-direction: column;
+    }
+    .YoutubeVid {
+        width: 95vw;
+        height: 30vh;
+        border: 0;
+        border-radius: 5%;
+        align-self:center ;
+    }
+}
 .containerSingleSong {
     display: flex;
 }

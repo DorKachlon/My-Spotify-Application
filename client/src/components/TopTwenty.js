@@ -16,7 +16,7 @@ export default function TopTwenty({ elements, product }) {
                 return (
                     <Link to={link} key={i}>
                         <div className="containerSingleItem">
-                            <div className="containerImage" onClick={() => {}}>
+                            <div className="containerImage" >
                                 <img
                                     style={
                                         product === "artist"
@@ -28,8 +28,21 @@ export default function TopTwenty({ elements, product }) {
                                     alt=""
                                 ></img>
                             </div>
-                            <p className="songName">{elem.name}</p>
-                            <p className="artistName">
+                            <p
+                                className="ProductName"
+                                style={
+                                    product === "artist"
+                                        ? { textAlign: "center" }
+                                        : {}
+                                }
+                            >
+                                {elem.name}{" "}
+                            </p>
+                            <p className="artistName" style={
+                                    product === "artist"
+                                        ? { textAlign: "center" }
+                                        : {}
+                                }>
                                 {product === "album" &&
                                     elem.artist_name + " • "}
                                 {product === "song" && elem.artist_name + " • "}
