@@ -6,7 +6,7 @@
     margin: 0;
     margin-top: 10px;
 }
-@media (max-width:1100px){
+@media (max-width: 1100px) {
     .containerSingleSong {
         display: flex;
         flex-direction: column;
@@ -16,7 +16,7 @@
         height: 30vh;
         border: 0;
         border-radius: 1%;
-        align-self:center ;
+        align-self: center;
     }
 }
 .containerSingleSong {
@@ -110,4 +110,8 @@
 .name-of-album-playlist {
     display: flex;
     font-size: 1em;
+}
+.iFrameAndDataSong > div  {
+    display: flex;
+    justify-content: center;
 }

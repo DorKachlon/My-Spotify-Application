@@ -5,6 +5,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import "../styles/SingleArtist.css";
 import { Link } from "react-router-dom";
+import Button from '@material-ui/core/Button';
 
 export default function SingleArtist() {
     const { pathname, search } = useLocation();
@@ -50,6 +51,7 @@ export default function SingleArtist() {
         }
         return newArr;
     }
+
     return (
         <>
             {artiatAndList && (
@@ -61,75 +63,96 @@ export default function SingleArtist() {
                             alt=""
                         />
                     </div>
+                    <div className="ditailsArtist">
+                        <div className="ditailsArtist-name">{artiatAndList[0].name}</div>
+                        <Button variant="outlined" color="primary">
+                            SUBSCRIBE
+                        </Button>
+                    </div>
                     <h2 className="topTitle">songs</h2>
                     {artiatAndList[2].length !== 0 && (
                         <Carousel //carousel for song
                             autoPlay={false}
                             navButtonsAlwaysVisible={true}
                         >
-                            {arrayOfFiveForAlbums(artiatAndList[1]).map((array, i) => {
-                                return (
-                                    <div className="singleCarousel" key={i}>
-                                        {array.map((elem, j) => {
-                                            const link = `/song/${elem.song_id}?artist=${elem.artist_id}`;
-                                            return (
-                                                <Link to={link} key={j}>
-                                                    <div className="containerSingleItem">
-                                                        <div className="containerImage">
-                                                            <img
-                                                                className="image"
-                                                                src={
-                                                                    elem.cover_img
-                                                                }
-                                                                alt=""
-                                                            ></img>
+                            {arrayOfFiveForAlbums(artiatAndList[1]).map(
+                                (array, i) => {
+                                    return (
+                                        <div className="singleCarousel" key={i}>
+                                            {array.map((elem, j) => {
+                                                const link = `/song/${elem.song_id}?artist=${elem.artist_id}`;
+                                                return (
+                                                    <Link to={link} key={j}>
+                                                        <div className="containerSingleItemArtist">
+                                                            <div className="containerImage">
+                                                                <img
+                                                                    className="image"
+                                                                    src={
+                                                                        elem.cover_img
+                                                                    }
+                                                                    alt=""
+                                                                ></img>
+                                                            </div>
+                                                            <p className="ProductName">
+                                                                {elem.name}
+                                                            </p>
+                                                            <p className="year">
+                                                                {elem.created_at.slice(
+                                                                    0,
+                                                                    10
+                                                                )}
+                                                            </p>
                                                         </div>
-                                                        <p className="ProductName">
-                                                            {elem.name}
-                                                        </p>
-                                                            <p className="year">{elem.created_at.slice(0, 10)}</p>
-                                                    </div>
-                                                </Link>
-                                            );
-                                        })}
-                                    </div>
-                                );
-                            })}
-                        </Carousel>)}
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
+                                    );
+                                }
+                            )}
+                        </Carousel>
+                    )}
                     <h2 className="topTitle">Albums</h2>
                     {artiatAndList[2].length !== 0 && (
                         <Carousel //carousel for albums
                             autoPlay={false}
                             navButtonsAlwaysVisible={true}
                         >
-                            {arrayOfFiveForAlbums(artiatAndList[2]).map((array, i) => {
-                                return (
-                                    <div className="singleCarousel" key={i}>
-                                        {array.map((elem, j) => {
-                                            const link = `/album/${elem.album_id}`;
-                                            return (
-                                                <Link to={link} key={j}>
-                                                    <div className="containerSingleItem">
-                                                        <div className="containerImage">
-                                                            <img
-                                                                className="image"
-                                                                src={
-                                                                    elem.cover_img
-                                                                }
-                                                                alt=""
-                                                            ></img>
+                            {arrayOfFiveForAlbums(artiatAndList[2]).map(
+                                (array, i) => {
+                                    return (
+                                        <div className="singleCarousel" key={i}>
+                                            {array.map((elem, j) => {
+                                                const link = `/album/${elem.album_id}`;
+                                                return (
+                                                    <Link to={link} key={j}>
+                                                        <div className="containerSingleItemArtist">
+                                                            <div className="containerImage">
+                                                                <img
+                                                                    className="image"
+                                                                    src={
+                                                                        elem.cover_img
+                                                                    }
+                                                                    alt=""
+                                                                ></img>
+                                                            </div>
+                                                            <p className="ProductName">
+                                                                {elem.name}
+                                                            </p>
+                                                            <p className="year">
+                                                                {elem.created_at.slice(
+                                                                    0,
+                                                                    10
+                                                                )}
+                                                            </p>
                                                         </div>
-                                                        <p className="ProductName">
-                                                            {elem.name}
-                                                        </p>
-                                                            <p className="year">{elem.created_at.slice(0, 10)}</p>
-                                                    </div>
-                                                </Link>
-                                            );
-                                        })}
-                                    </div>
-                                );
-                            })}
+                                                    </Link>
+                                                );
+                                            })}
+                                        </div>
+                                    );
+                                }
+                            )}
                         </Carousel>
                     )}
                 </>

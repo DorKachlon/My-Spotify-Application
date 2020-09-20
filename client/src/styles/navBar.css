@@ -23,3 +23,15 @@ span.MuiTab-wrapper {
         margin: 0;
     }
 }
+
+label#free-solo-2-demo-label{
+    color: green;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.3em;
+    
+}
+.searchBar{
+    position: absolute;
+    right: 10px;
+    top: 0;
+}

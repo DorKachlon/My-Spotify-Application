@@ -24,8 +24,27 @@ mysqlCon.connect(function (err) {
 });
 
 //GET
+app.get("/search/:word", (req, res) => {
+    let sql = ` SELECT artist.name FROM artist
+    WHERE artist.name like "%${req.params.word}%"
+    UNION
+    SELECT song.name FROM song
+    WHERE song.name like "%${req.params.word}%"
+    UNION
+    SELECT album.name FROM album
+    WHERE album.name like "%${req.params.word}%"
+    UNION
+    SELECT playlist.name FROM playlist
+    WHERE playlist.name like "%${req.params.word}%";`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
+
 app.get("/song/:id", (req, res) => {
-        let sql = `SELECT song.* , artist.cover_img AS artist_cover_img , album.cover_img AS album_cover_img , album.name AS album_name , artist.name AS artist_name FROM song 
+    let sql = ` SELECT song.* , artist.cover_img AS artist_cover_img , album.cover_img AS album_cover_img , album.name AS album_name , artist.name AS artist_name FROM song 
             INNER JOIN artist 
     ON song.artist_id = artist.artist_id
             INNER JOIN album 
@@ -37,7 +56,15 @@ app.get("/song/:id", (req, res) => {
         res.send(result);
     });
 });
-
+app.get("/song/search/:word", (req, res) => {
+    let sql = `SELECT * FROM song
+    WHERE song.name like "%${req.params.word}%";`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
 app.get("/album/:id", (req, res) => {
     // SpecificID(req, res, "album", "album_id");
     let sql = `SELECT album.*, artist.name AS artist_name, artist.cover_img AS artist_cover_img FROM album 
@@ -62,7 +89,15 @@ app.get("/album/songs/:idAlbum", (req, res) => {
         res.send(result);
     });
 });
-
+app.get("/album/search/:word", (req, res) => {
+    let sql = `SELECT * FROM album
+    WHERE album.name like "%${req.params.word}%";`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
 app.get("/artist/:id", (req, res) => {
     SpecificID(req, res, "artist", "artist_id");
 });
@@ -74,6 +109,15 @@ app.get("/artist/songs/:idArtist", (req, res) => {
     ON song.album_id = album.album_id
     WHERE song.artist_id = ${req.params.idArtist}
     order by created_at desc;`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
+app.get("/artist/search/:word", (req, res) => {
+    let sql = `SELECT * FROM artist
+    WHERE artist.name like "%${req.params.word}%";`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
         console.log("Post fetched...");
@@ -114,6 +158,15 @@ app.get("/playlist/songs/:idPlaylist", (req, res) => {
             INNER JOIN artist 
         ON song.artist_id = artist.artist_id
         WHERE playlist_id=${req.params.idPlaylist};`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
+app.get("/playlist/search/:word", (req, res) => {
+    let sql = `SELECT * FROM playlist
+    WHERE playlist.name like "%${req.params.word}%";`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
         console.log("Post fetched...");

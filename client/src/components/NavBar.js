@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import "../styles/navBar.css";
-
+import SearchBar from "./SearchBar";
 export default function NavBar() {
     const [value, setValue] = useState(0);
     const [scrolling, setScrolling] = useState(false);
@@ -31,6 +31,9 @@ export default function NavBar() {
                 <Tab label="Songs" component={Link} to="/songs" />
                 <Tab label="Albums" component={Link} to="/albums" />
                 <Tab label="Playlists" component={Link} to="/playlists" />
+                <div className="searchBar">
+                    <SearchBar />
+                </div>
             </Tabs>
         </nav>
     );

@@ -30,7 +30,8 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
     const [songAndList, setSongAndList] = useState();
     const product = search.split("=")[0].slice(1);
     const classes = useStyles();
-
+    const  pathname2= useLocation();
+    console.log(pathname2);
     useEffect(() => {
         (async function loadSongAndList() {
             try {
@@ -87,7 +88,7 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
         <>
             {songAndList && (
                 <div className="containerSingleSong">
-                    <div>
+                    <div className="iFrameAndDataSong">
                         <YouTube
                             className="YoutubeVid"
                             videoId={
@@ -99,11 +100,13 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
                             opts={
                                 autoPlay
                                     ? {
+                                        alignText:'center',
                                           playerVars: {
                                               autoplay: 1,
                                           },
                                       }
                                     : {
+                                        alignText:'center',
                                           playerVars: {
                                               autoplay: 0,
                                           },
