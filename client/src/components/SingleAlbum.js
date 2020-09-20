@@ -29,7 +29,6 @@ export default function SingleAlbum() {
                     `/album/songs/${pathname.split("/")[2]}`
                 );
                 newArr.push(dataList.data);
-                console.log(newArr);
                 setAlbumAndList(newArr);
             } catch (e) {
                 Swal.fire({

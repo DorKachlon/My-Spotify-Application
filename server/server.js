@@ -25,7 +25,17 @@ mysqlCon.connect(function (err) {
 
 //GET
 app.get("/song/:id", (req, res) => {
-    SpecificID(req, res, "song", "song_id");
+        let sql = `SELECT song.* , artist.cover_img AS artist_cover_img , album.cover_img AS album_cover_img , album.name AS album_name , artist.name AS artist_name FROM song 
+            INNER JOIN artist 
+    ON song.artist_id = artist.artist_id
+            INNER JOIN album 
+    ON song.album_id = album.album_id
+        WHERE song_id = ${req.params.id}`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
 });
 
 app.get("/album/:id", (req, res) => {
@@ -57,7 +67,7 @@ app.get("/artist/:id", (req, res) => {
     SpecificID(req, res, "artist", "artist_id");
 });
 app.get("/artist/songs/:idArtist", (req, res) => {
-    let sql = `SELECT song.* ,artist.name AS artist_name, album.cover_img AS album_cover_img ,album.name AS album_name FROM song
+    let sql = `SELECT song.* ,artist.name AS artist_name, album.cover_img AS cover_img ,album.name AS album_name FROM song
     INNER JOIN artist 
     ON song.artist_id = artist.artist_id
         INNER JOIN album 
@@ -122,7 +132,7 @@ function SpecificID(req, res, table, column) {
 
 app.get("/top_songs/", (req, res) => {
     const sql = `
-    SELECT song.song_id, song.name, song.youtube_link,song.length,song.lyrics,song.created_at,artist.name AS artist_name, album.name AS album_name,album.cover_img,SUM(play_count) AS counter_player FROM interactions_by_song
+    SELECT song.song_id, song.name, song.artist_id,song.album_id, song.youtube_link,song.length,song.lyrics,song.created_at,artist.name AS artist_name, album.name AS album_name,album.cover_img,SUM(play_count) AS counter_player FROM interactions_by_song
     INNER JOIN song 
         ON interactions_by_song.song_id = song.song_id
     INNER JOIN artist 

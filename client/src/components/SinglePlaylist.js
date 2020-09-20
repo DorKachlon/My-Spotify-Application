@@ -7,7 +7,6 @@ import "../styles/SinglePlaylist.css"
 export default function SinglePlaylist() {
     const { pathname, search } = useLocation();
     const [playlistAndList, setPlaylistAndList] = useState();
-    console.log(playlistAndList);
     useEffect(() => {
         (async function loadSong() {
             try {

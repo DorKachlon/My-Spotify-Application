@@ -12,17 +12,18 @@ import SinglePlaylist from "./components/SinglePlaylist";
 import SingleAlbum from "./components/SingleAlbum";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { green } from "@material-ui/core/colors";
+import { green, pink } from "@material-ui/core/colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
 const myTheme = createMuiTheme({
     palette: {
         secondary: green,
+        primary: pink,
     },
 });
 
 function App() {
-    const [checked, setChecked] = useState(true);
+    const [autoPlay, setAutoPlay] = useState(false);
     return (
         <div className="body">
             <ThemeProvider theme={myTheme}>
@@ -48,8 +49,8 @@ function App() {
                             <Route path="/playlists" component={Playlist} />
                             <Route path="/song/:id">
                                 <SingleSong
-                                    checked={checked}
-                                    setChecked={setChecked}
+                                    autoPlay={autoPlay}
+                                    setAutoPlay={setAutoPlay}
                                 />
                             </Route>
                             <Route

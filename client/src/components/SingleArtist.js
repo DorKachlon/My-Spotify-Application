@@ -23,7 +23,7 @@ export default function SingleArtist() {
                     `/artist/albums/${pathname.split("/")[2]}`
                 );
                 newArr.push(albums.data);
-                console.log(newArr);
+
                 setArtiatAndList(newArr);
             } catch (e) {
                 Swal.fire({
@@ -63,7 +63,7 @@ export default function SingleArtist() {
                     </div>
                     <h2 className="topTitle">songs</h2>
                     {artiatAndList[2].length !== 0 && (
-                        <Carousel //carousel for albums
+                        <Carousel //carousel for song
                             autoPlay={false}
                             navButtonsAlwaysVisible={true}
                         >
@@ -71,7 +71,7 @@ export default function SingleArtist() {
                                 return (
                                     <div className="singleCarousel" key={i}>
                                         {array.map((elem, j) => {
-                                            const link = `/album/${elem.album_id}`;
+                                            const link = `/song/${elem.song_id}?artist=${elem.artist_id}`;
                                             return (
                                                 <Link to={link} key={j}>
                                                     <div className="containerSingleItem">
@@ -79,7 +79,7 @@ export default function SingleArtist() {
                                                             <img
                                                                 className="image"
                                                                 src={
-                                                                    elem.album_cover_img
+                                                                    elem.cover_img
                                                                 }
                                                                 alt=""
                                                             ></img>

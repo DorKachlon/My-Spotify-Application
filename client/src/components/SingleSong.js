@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
+import YouTube from "react-youtube";
 import axios from "axios";
-import "../styles/SingleSong.css";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
+
+import "../styles/SingleSong.css";
 import { makeStyles } from "@material-ui/core/styles";
-import Switch from "@material-ui/core/Switch";
+
 import MyList from "./MyList";
-import { Link } from "react-router-dom";
+import DataOfSong from "./DataOfSong";
+import DataOfList from "./DataOfList";
+
 const useStyles = makeStyles(() => ({
     rootList: {
         width: "40vw",
@@ -20,11 +24,13 @@ const useStyles = makeStyles(() => ({
         },
     },
 }));
-export default function SingleSong({ checked, setChecked }) {
+
+export default function SingleSong({ autoPlay, setAutoPlay }) {
     const { pathname, search } = useLocation();
     const [songAndList, setSongAndList] = useState();
     const product = search.split("=")[0].slice(1);
     const classes = useStyles();
+
     useEffect(() => {
         (async function loadSongAndList() {
             try {
@@ -40,12 +46,13 @@ export default function SingleSong({ checked, setChecked }) {
                     );
                     newArr.push(dataList.data);
                 }
-                if (["album", "playlist"].includes(product)) {
-                    const dataAlbum = await axios.get(
+                if (["album", "playlist", "artist"].includes(product)) {
+                    const dataProduct = await axios.get(
                         `/${product}/${search.split("=")[1]}`
                     );
-                    newArr.push(dataAlbum.data[0]);
+                    newArr.push(dataProduct.data[0]);
                 }
+                console.log(newArr);
                 setSongAndList(newArr);
             } catch (e) {
                 Swal.fire({
@@ -57,86 +64,62 @@ export default function SingleSong({ checked, setChecked }) {
         })();
     }, [pathname, search, product]);
 
-    const handleChange = (event) => {
-        setChecked(event.target.checked);
-    };
+    async function endSongFunc() {
+        let currentIndex = songAndList[1].findIndex(
+            (obj) => obj.song_id === songAndList[0].song_id
+        );
+        if (songAndList[1].length === currentIndex + 1) {
+            currentIndex = -1;
+        }
 
+        const songId = songAndList[1][currentIndex + 1].song_id;
+        let newArr = [...songAndList];
+        const { data } = await axios.get(`/song/${songId}`);
+        newArr[0] = data[0];
+        window.history.replaceState(
+            null,
+            "New Page Title",
+            `/song/${songId}${search}`
+        );
+        setSongAndList(newArr);
+    }
     return (
         <>
             {songAndList && (
                 <div className="containerSingleSong">
                     <div>
-                        <iframe
+                        <YouTube
                             className="YoutubeVid"
-                            title={songAndList[0].name}
-                            style={{
-                                frameBorder: "0",
-                            }}
-                            src={
-                                checked
-                                    ? songAndList[0].youtube_link
-                                          .replace("watch?v=", "embed/")
-                                          .split("&list")[0] + "?autoplay=1"
-                                    : songAndList[0].youtube_link
-                                          .replace("watch?v=", "embed/")
-                                          .split("&list")[0]
+                            videoId={
+                                songAndList[0].youtube_link
+                                    .split("watch?v=")[1]
+                                    .split("&list")[0]
                             }
-                            allow="accelerometer; autoplay; encrypted-media"
-                            allowFullScreen
+                            onEnd={endSongFunc}
+                            opts={
+                                autoPlay
+                                    ? {
+                                          playerVars: {
+                                              autoplay: 1,
+                                          },
+                                      }
+                                    : {
+                                          playerVars: {
+                                              autoplay: 0,
+                                          },
+                                      }
+                            }
                         />
-                        <div className="dataSong">
-                            <div style={{ color: "white" }}>
-                                {songAndList[0].name}
-                            </div>
-                        </div>
+                        <DataOfSong songDetails={songAndList[0]} />
                     </div>
                     <div className="containerPlaylistNameList">
-                        <div className="dataPlaylist">
-                            <div>
-                                <div className="name-of-album-playlist">
-                                    <div>
-                                        {search.includes("topSongs")
-                                            ? "The top 20 songs"
-                                            : `${songAndList[2].name} `}
-                                    </div>
-
-                                    {!search.includes("topSongs") && (
-                                        <span className="album-playlist">
-                                            &nbsp; • {product}
-                                        </span>
-                                    )}
-                                </div>
-                                {product === "album" && (
-                                    <Link
-                                        to={`/artist/${songAndList[2].artist_id}`}
-                                        style={{ cursor: "pointer" }}
-                                    >
-                                        <div className="artist-name">
-                                            <img
-                                                className="artist-cover-img"
-                                                src={
-                                                    songAndList[2]
-                                                        .artist_cover_img
-                                                }
-                                                alt=""
-                                            />
-                                            {songAndList[2].artist_name}
-                                        </div>
-                                    </Link>
-                                )}
-                            </div>
-                            <div className="autoPlay">
-                                <div>auto play:</div>
-                                <Switch
-                                    checked={checked}
-                                    onChange={handleChange}
-                                    color="primary"
-                                    inputProps={{
-                                        "aria-label": "primary checkbox",
-                                    }}
-                                />
-                            </div>
-                        </div>
+                        <DataOfList
+                            search={search}
+                            product={product}
+                            dataOFProduct={songAndList[2]}
+                            autoPlay={autoPlay}
+                            setAutoPlay={setAutoPlay}
+                        />
                         <div className={classes.rootList}>
                             {product === "album" ? (
                                 <MyList
@@ -145,12 +128,14 @@ export default function SingleSong({ checked, setChecked }) {
                                     pathname={pathname}
                                     coverImg={songAndList[2].cover_img}
                                     artistName={songAndList[2].artist_name}
+                                    currentSong={songAndList[0]}
                                 />
                             ) : (
                                 <MyList
                                     list={songAndList[1]}
                                     search={search}
                                     pathname={pathname}
+                                    currentSong={songAndList[0]}
                                 />
                             )}
                         </div>

@@ -53,9 +53,8 @@ export default function MyList({
     pathname,
     coverImg,
     artistName,
+    currentSong,
 }) {
-    console.log("search: " + search);
-    console.log("phatname: " + pathname);
     const classes = useStyles();
     function lengthSong(length) {
         length = Number(length);
@@ -92,7 +91,7 @@ export default function MyList({
                                     button
                                     className={
                                         search &&
-                                        Number(pathname.split("/")[2]) ===
+                                        Number(currentSong.song_id) ===
                                             songObj.song_id
                                             ? classes.itemSelected
                                             : classes.itemOfList

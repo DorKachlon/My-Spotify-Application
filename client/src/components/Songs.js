@@ -1,5 +1,20 @@
-import React from "react";
-
+import React, { useState } from "react";
+import YouTube from "react-youtube";
 export default function Songs() {
-    return <div>Songs</div>;
+    const [id, setID] = useState("_yHBHDkls-A");
+    function end() {
+        setID("ctHXPuEMASs");
+    }
+    const opts = {
+        height: "390",
+        width: "640",
+        playerVars: {
+            autoplay: 1,
+        },
+    };
+    return (
+        <>
+            <YouTube videoId={id} onEnd={end} opts={opts} />
+        </>
+    );
 }
