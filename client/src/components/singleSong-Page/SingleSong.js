@@ -4,10 +4,10 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 
-import "../styles/SingleSong.css";
+import "../../styles/SingleSong.css";
 import { makeStyles } from "@material-ui/core/styles";
 
-import MyList from "./MyList";
+import MyList from "../MyList";
 import DataOfSong from "./DataOfSong";
 import DataOfList from "./DataOfList";
 
@@ -114,7 +114,6 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
                             }
                         />
                         <DataOfSong songDetails={songAndList[0]} />
-
                     </div>
                     <div className="containerPlaylistNameList">
                         <DataOfList

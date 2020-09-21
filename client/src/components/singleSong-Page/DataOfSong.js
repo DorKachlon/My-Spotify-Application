@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/DataOfSong.css";
+import "../../styles/DataOfSong.css";
 import IconButton from "@material-ui/core/IconButton";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";

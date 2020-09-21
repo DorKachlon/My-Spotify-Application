@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import "./App.css";
 
-import Home from "./components/Home";
-import NavBar from "./components/NavBar";
+import Home from "./components/home-Page/Home";
+import NavBar from "./components/navBar/NavBar";
 import Songs from "./components/Songs";
 import Albums from "./components/Albums";
 import Playlist from "./components/Playlist";
-import SingleSong from "./components/SingleSong";
+import SingleSong from "./components/singleSong-Page/SingleSong";
 import SingleArtist from "./components/SingleArtist";
 import SinglePlaylist from "./components/SinglePlaylist";
 import SingleAlbum from "./components/SingleAlbum";

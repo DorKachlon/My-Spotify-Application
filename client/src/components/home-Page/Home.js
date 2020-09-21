@@ -3,7 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import MyCarousel from "./MyCarousel";
 
-import "../styles/home.css";
+import "../../styles/home.css";
 export default function Home() {
     const [
         topSongsArtistPlaylistAlbum,
