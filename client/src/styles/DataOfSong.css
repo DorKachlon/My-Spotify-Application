@@ -1,7 +1,8 @@
 .dataSong{
     color:black;
     display: flex;
-
+    margin-top: 10px;
+    margin-left: 10px;
     background-color: rgb(40,184,105);
     border-radius: 10px 10px 0 0;
 }
@@ -46,6 +47,8 @@ p{
     justify-content: space-around;
     background-color: rgb(24,24,24);
     border-radius: 0 0 10px 10px ;
+    margin-left: 10px;
+
 }
 .song-album-ditails,.song-artist-ditails{
     display: flex;

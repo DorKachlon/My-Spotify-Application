@@ -30,7 +30,7 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
     const [songAndList, setSongAndList] = useState();
     const product = search.split("=")[0].slice(1);
     const classes = useStyles();
-    const  pathname2= useLocation();
+    const pathname2 = useLocation();
     console.log(pathname2);
     useEffect(() => {
         (async function loadSongAndList() {
@@ -39,7 +39,7 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
                 const { data } = await axios.get(pathname);
                 newArr.push(data[0]);
                 if (search.includes("topSongs")) {
-                    const dataList = await axios.get("/top_songs/");
+                    const dataList = await axios.get("/interaction/top_songs/");
                     newArr.push(dataList.data);
                 } else {
                     const dataList = await axios.get(
@@ -100,13 +100,13 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
                             opts={
                                 autoPlay
                                     ? {
-                                        alignText:'center',
+                                          alignText: "center",
                                           playerVars: {
                                               autoplay: 1,
                                           },
                                       }
                                     : {
-                                        alignText:'center',
+                                          alignText: "center",
                                           playerVars: {
                                               autoplay: 0,
                                           },
@@ -114,6 +114,7 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
                             }
                         />
                         <DataOfSong songDetails={songAndList[0]} />
+
                     </div>
                     <div className="containerPlaylistNameList">
                         <DataOfList

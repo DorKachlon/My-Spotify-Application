@@ -10,6 +10,7 @@ export default function DataOfList({
     setAutoPlay,
 }) {
     const handleChange = (event) => {
+        document.cookie = `autoPlay=${event.target.checked};path=/`;
         setAutoPlay(event.target.checked);
     };
     return (

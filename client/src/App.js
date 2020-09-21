@@ -17,7 +17,6 @@ import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { green, pink } from "@material-ui/core/colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
-
 const myTheme = createMuiTheme({
     palette: {
         secondary: green,
@@ -26,7 +25,9 @@ const myTheme = createMuiTheme({
 });
 
 function App() {
-    const [autoPlay, setAutoPlay] = useState(false);
+    const [autoPlay, setAutoPlay] = useState(
+        !document.cookie.includes("autoPlay=false")
+    );
     return (
         <div className="body">
             <ThemeProvider theme={myTheme}>

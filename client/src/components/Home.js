@@ -16,13 +16,13 @@ export default function Home() {
         (async function loadTop() {
             let newArr = [];
             try {
-                const { data } = await axios.get("/top_songs/");
+                const { data } = await axios.get("/interaction/top_songs/");
                 newArr.push(data);
-                const dataArtist = await axios.get("/top_artists/");
+                const dataArtist = await axios.get("/interaction/top_artists/");
                 newArr.push(dataArtist.data);
-                const dataPlaylist = await axios.get("/top_playlists/");
+                const dataPlaylist = await axios.get("/interaction/top_playlists/");
                 newArr.push(dataPlaylist.data);
-                const dataAlbum = await axios.get("/top_albums/");
+                const dataAlbum = await axios.get("/interaction/top_albums/");
                 newArr.push(dataAlbum.data);
                 setTopSongsArtistPlaylistAlbum(newArr);
             } catch (e) {

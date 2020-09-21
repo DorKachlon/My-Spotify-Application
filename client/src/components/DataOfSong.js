@@ -1,12 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/DataOfSong.css";
 import IconButton from "@material-ui/core/IconButton";
-// import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { Link } from "react-router-dom";
-import Divider from "@material-ui/core/Divider";
 
 export default function DataOfSong({ songDetails }) {
+    const [like, setLike] = useState(false);
+    const [sentence, setSentence] = useState(false);
+    function clickHandler() {
+        setLike(!like);
+        if (!like === true) {
+            setSentence(true);
+            setTimeout(() => {
+                setSentence(false);
+            }, 3000);
+        }
+    }
     return (
         <>
             <div className="dataSong">
@@ -17,12 +27,16 @@ export default function DataOfSong({ songDetails }) {
                     </div>
                 </div>
                 <div className="iconButton">
-                    <IconButton color="primary">
-                        <FavoriteIcon color="primary" />
+                    {sentence ? "Added to favorites" : ""}
+                    <IconButton onClick={clickHandler} color="primary">
+                        {like ? (
+                            <FavoriteIcon color="primary" />
+                        ) : (
+                            <FavoriteBorderIcon color="primary" />
+                        )}
                     </IconButton>
                 </div>
             </div>
-            <Divider style={{ background: "white" }} />
             <div className="artistAndAlbum">
                 <Link to={`/artist/${songDetails.artist_id}`}>
                     <div className="song-artist-ditails">
