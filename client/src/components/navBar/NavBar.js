@@ -86,7 +86,7 @@ export default function NavBar() {
 
     const [value, setValue] = useState(0);
     const [scrolling, setScrolling] = useState(false);
-    const [navOrMenu, setNavOrMenug] = useState(false);
+    const [navOrMenu, setNavOrMenug] = useState(window.innerWidth < 1100?true:false);
     const [drawerOpen, setDrawerOpen] = useState(false);
     const handleChange = (event, newValue) => {
         setValue(newValue);

@@ -28,11 +28,7 @@ export default function SearchBar() {
     const history = useHistory();
     function clickHendler(e) {
         if (e.keyCode === 13) {
-            if (e.currentTarget.innerText !== "SEARCH") {
-                history.push(`/search?params=${e.currentTarget.innerText}`);
-            } else {
-                history.push(`/search?params=${inputValue}`);
-            }
+                history.push(`/search?params=${inputValue}`);    
         } else {
             console.log(e.currentTarget.innerText);
             history.push(`/search?params=${e.currentTarget.innerText}`);
