@@ -1,5 +1,5 @@
 /* eslint-disable no-use-before-define */
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { fade, makeStyles } from "@material-ui/core/styles";
@@ -8,7 +8,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import axios from "axios";
 import Swal from "sweetalert2";
 import InputBase from "@material-ui/core/InputBase";
-
+import { useHistory } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     textField: {
         textAlign: "center",
@@ -76,12 +76,31 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SearchBar() {
     const classes = useStyles();
+    const [inputValue, SetInputValue] = useState([]);
     const [option, setOption] = useState([]);
+    const history = useHistory();
+    // const inputRef = useRef();
+    function clickHendler(e) {
+        if (e.keyCode === 13) {
+            if(e.currentTarget.innerText!=="SEARCH"){
+                history.push(`/search?params=${e.currentTarget.innerText}`);
+            }
+            else{
+                history.push(`/search?params=${inputValue}`);
+            }
+            // const a=inputRef.current;
+            // debugger;
+        } else {
+            console.log(e.currentTarget.innerText);
+            history.push(`/search?params=${e.currentTarget.innerText}`);
+        }
+    }
 
     async function loadOption(word) {
+        SetInputValue(word);
         if (word) {
             try {
-                const { data } = await axios.get(`search/${word}`);
+                const { data } = await axios.get(`search?params=${word}`);
                 setOption(data);
             } catch (e) {
                 Swal.fire({
@@ -97,6 +116,7 @@ export default function SearchBar() {
     return (
         <div style={{ width: 300 }}>
             <Autocomplete
+                onChange={(e) => clickHendler(e)}
                 freeSolo
                 id="free-solo-2-demo"
                 disableClearable
@@ -104,15 +124,17 @@ export default function SearchBar() {
                 renderInput={(params) => (
                     <>
                         <TextField
+                            // ref={inputRef}
+                            value={inputValue}
                             className={classes.textField}
                             color="secondary"
                             onChange={(e) => loadOption(e.target.value)}
                             {...params}
                             label={"SEARCH"}
-                            // InputProps={{
-                            //     ...params.InputProps,
-                            //     type: "search",
-                            // }}
+                            InputProps={{
+                                ...params.InputProps,
+                                type: "search",
+                            }}
                         />
                     </>
                 )}

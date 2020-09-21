@@ -11,6 +11,7 @@ import SingleArtist from "./components/SingleArtist";
 import SinglePlaylist from "./components/SinglePlaylist";
 import SingleAlbum from "./components/SingleAlbum";
 import ErrorPage from "./components/ErrorPage";
+import SearchPage from "./components/SearchPage";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { green, pink } from "@material-ui/core/colors";
@@ -64,6 +65,7 @@ function App() {
                                 component={SinglePlaylist}
                             />
                             <Route path="/album/:id" component={SingleAlbum} />
+                            <Route path="/search" component={SearchPage} />
                             <Route path="/404" component={ErrorPage} />
                         </Switch>
                     </div>

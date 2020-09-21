@@ -24,18 +24,18 @@ mysqlCon.connect(function (err) {
 });
 
 //GET
-app.get("/search/:word", (req, res) => {
+app.get("/search", (req, res) => {
     let sql = ` SELECT artist.name FROM artist
-    WHERE artist.name like "%${req.params.word}%"
+    WHERE artist.name like "%${req.query.params}%"
     UNION
     SELECT song.name FROM song
-    WHERE song.name like "%${req.params.word}%"
+    WHERE song.name like "%${req.query.params}%"
     UNION
     SELECT album.name FROM album
-    WHERE album.name like "%${req.params.word}%"
+    WHERE album.name like "%${req.query.params}%"
     UNION
     SELECT playlist.name FROM playlist
-    WHERE playlist.name like "%${req.params.word}%";`;
+    WHERE playlist.name like "%${req.query.params}%";`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
         console.log("Post fetched...");
