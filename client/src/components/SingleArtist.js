@@ -5,10 +5,11 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import "../styles/SingleArtist.css";
 import { Link } from "react-router-dom";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 
 export default function SingleArtist() {
     const { pathname, search } = useLocation();
+    const [subscribe, setSubscribe] = useState(true);
     const [artiatAndList, setArtiatAndList] = useState(); //[artist , songs , albums]
     useEffect(() => {
         (async function loadSongAndList() {
@@ -51,7 +52,9 @@ export default function SingleArtist() {
         }
         return newArr;
     }
-
+    function subscribeHandler() {
+        setSubscribe(!subscribe);
+    }
     return (
         <>
             {artiatAndList && (
@@ -64,9 +67,15 @@ export default function SingleArtist() {
                         />
                     </div>
                     <div className="ditailsArtist">
-                        <div className="ditailsArtist-name">{artiatAndList[0].name}</div>
-                        <Button variant="outlined" color="primary">
-                            SUBSCRIBE
+                        <div className="ditailsArtist-name">
+                            {artiatAndList[0].name}
+                        </div>
+                        <Button
+                            variant={subscribe ? "outlined" : "contained"}
+                            color="primary"
+                            onClick={subscribeHandler}
+                        >
+                            {subscribe ? "SUBSCRIBED" : "SUBSCRIBE"}
                         </Button>
                     </div>
                     <h2 className="topTitle">songs</h2>
