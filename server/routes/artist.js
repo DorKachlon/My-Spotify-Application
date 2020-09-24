@@ -4,6 +4,14 @@ const mysqlCon = require("../connection");
 const { specificID, postReq, putReq, deleteReq } = require("../helpFunctions");
 
 //GET REQUEST
+artistRouter.get("/", (req, res) => {
+    let sql = `SELECT * FROM artist`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
 artistRouter.get("/:id", (req, res) => {
     specificID(req, res, "artist", "artist_id");
 });

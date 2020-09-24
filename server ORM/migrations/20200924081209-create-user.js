@@ -26,6 +26,9 @@ module.exports = {
             remember_token: {
                 type: Sequelize.BOOLEAN,
             },
+            user_created_at: {
+                type: Sequelize.DATE,
+            },
             created_at: {
                 allowNull: false,
                 type: Sequelize.DATE,

@@ -8,8 +8,14 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            this.hasMany(models.Song, {
-                foreignKey,
+            this.hasMany(models.Interactions_by_playlist, {
+                foreignKey: "playlistId",
+            });
+            this.hasMany(models.User_playlist, {
+                foreignKey: "playlistId",
+            });
+            this.hasMany(models.Playlist_song, {
+                foreignKey: "playlistId",
             });
         }
     }
@@ -17,8 +23,8 @@ module.exports = (sequelize, DataTypes) => {
         {
             name: { type: DataTypes.STRING, allowNull: false },
             coverImg: { type: DataTypes.STRING, allowNull: false },
-            createdAt: { type: DataTypes.DATA, allowNull: false },
-            uploadAt: { type: DataTypes.DATA, defaultValue: sequelize.NOW },
+            releasedAt: { type: DataTypes.DATE, allowNull: false },
+
         },
         {
             sequelize,

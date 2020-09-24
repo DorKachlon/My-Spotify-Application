@@ -4,6 +4,14 @@ const mysqlCon = require("../connection");
 const { postReq, putReq, deleteReq } = require("../helpFunctions");
 
 //GET REQUEST
+albumRouter.get("/", (req, res) => {
+    let sql = `SELECT * FROM Album;`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
 albumRouter.get("/:id", (req, res) => {
     // SpecificID(req, res, "album", "album_id");
     let sql = `SELECT album.*, artist.name AS artist_name, artist.cover_img AS artist_cover_img FROM album 

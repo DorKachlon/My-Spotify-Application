@@ -8,9 +8,27 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            this.hasMany(models.User_song,{
-                foreignKey:"userId"
-            })
+            this.hasMany(models.User_song, {
+                foreignKey: "userId",
+            });
+            this.hasMany(models.User_album, {
+                foreignKey: "userId",
+            });
+            this.hasMany(models.User_artist, {
+                foreignKey: "userId",
+            });
+            this.hasMany(models.Interactions_by_playlist, {
+                foreignKey: "userId",
+            });
+            this.hasMany(models.Interactions_by_song, {
+                foreignKey: "userId",
+            });
+            this.hasMany(models.Interactions_by_album, {
+                foreignKey: "userId",
+            });
+            this.hasMany(models.User_playlist, {
+                foreignKey: "userId",
+            });
         }
     }
     User.init(
@@ -21,8 +39,10 @@ module.exports = (sequelize, DataTypes) => {
             isAdmin: { type: DataTypes.BOOLEAN, allowNull: false },
             preferenced: { type: DataTypes.JSON, allowNull: false },
             rememberToken: { type: DataTypes.BOOLEAN, allowNull: false },
-            createdAt: { type: DataTypes.DATA, defaultValue: sequelize.NOW },
-            uploadAt: { type: DataTypes.DATA, defaultValue: sequelize.NOW },
+            userCreatedAt: {
+                type: DataTypes.DATE,
+                defaultValue: sequelize.NOW,
+            },
         },
         {
             sequelize,

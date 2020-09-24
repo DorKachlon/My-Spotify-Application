@@ -17,6 +17,12 @@ module.exports = (sequelize, DataTypes) => {
             this.hasMany(models.User_song, {
                 foreignKey: "songId",
             });
+            this.hasMany(models.Interactions_by_song, {
+                foreignKey: "songId",
+            });
+            this.hasMany(models.Playlist_song, {
+                foreignKey: "songId",
+            });
         }
     }
     Song.init(
@@ -28,8 +34,6 @@ module.exports = (sequelize, DataTypes) => {
             length: { type: DataTypes.INTEGER, allowNull: false },
             trackNumber: { type: DataTypes.INTEGER, allowNull: false },
             lyrics: { type: DataTypes.STRING, allowNull: false },
-            createdAt: { type: DataTypes.DATA, allowNull: false },
-            uploadAt: { type: DataTypes.DATA, defaultValue: sequelize.NOW },
         },
         {
             sequelize,

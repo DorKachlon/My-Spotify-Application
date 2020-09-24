@@ -4,6 +4,14 @@ const { postReq, putReq, deleteReq } = require("../helpFunctions");
 const mysqlCon = require("../connection");
 
 //GET REQUEST
+songRouter.get("/", (req, res) => {
+    let sql = ` SELECT * FROM playlist_song;`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
 songRouter.get("/:id", (req, res) => {
     let sql = ` SELECT song.* , artist.cover_img AS artist_cover_img , album.cover_img AS album_cover_img , album.name AS album_name , artist.name AS artist_name FROM song 
             INNER JOIN artist 

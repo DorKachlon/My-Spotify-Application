@@ -8,14 +8,19 @@ module.exports = (sequelize, DataTypes) => {
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            // define association here
+            this.belongsTo(models.Playlist, {
+                foreignKey: "playlistId",
+            });
+            this.belongsTo(models.Song, {
+                foreignKey: "songId",
+            });
         }
     }
     Playlist_song.init(
         {
             playlistId: { type: DataTypes.INTEGER, allowNull: false },
             songId: { type: DataTypes.INTEGER, allowNull: false },
-            uploadAt: { type: DataTypes.DATA, defaultValue: sequelize.NOW },
+            releasedAt: { type: DataTypes.DATE, allowNull: false },
         },
         {
             sequelize,

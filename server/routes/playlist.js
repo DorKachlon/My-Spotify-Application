@@ -1,9 +1,17 @@
 const express = require("express");
 const playlistRouter = express.Router();
 const mysqlCon = require("../connection");
-const { specificID, postReq, putReq, deleteReq  }= require("../helpFunctions") ;
+const { specificID, postReq, putReq, deleteReq } = require("../helpFunctions");
 
 //GET REQUEST
+playlistRouter.get("/:id", (req, res) => {
+    let sql = `SELECT * FROM playlist;`;
+    mysqlCon.query(sql, (err, result) => {
+        if (err) throw err;
+        console.log("Post fetched...");
+        res.send(result);
+    });
+});
 playlistRouter.get("/:id", (req, res) => {
     specificID(req, res, "playlist", "playlist_id");
 });

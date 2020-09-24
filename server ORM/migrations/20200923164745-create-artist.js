@@ -14,6 +14,9 @@ module.exports = {
             cover_img: {
                 type: Sequelize.STRING,
             },
+            released_at: {
+                type: Sequelize.DATE,
+            },
             created_at: {
                 allowNull: false,
                 type: Sequelize.DATE,
