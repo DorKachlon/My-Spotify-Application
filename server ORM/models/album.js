@@ -9,14 +9,16 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             // define association here
+            this.hasMany(models.Song);
         }
     }
     Album.init(
         {
-            album_id: DataTypes.INTEGER,
-            name: DataTypes.STRING,
-            artist_id: DataTypes.INTEGER,
-            cover_img: DataTypes.STRING,
+            name: { type: DataTypes.STRING, allowNull: false },
+            artistId: { type: DataTypes.INTEGER, allowNull: false },
+            coverImg: { type: DataTypes.STRING, allowNull: false },
+            createdAt: { type: DataTypes.DATA, allowNull: false },
+            uploadAt: { type: DataTypes.DATA, defaultValue: sequelize.NOW },
         },
         {
             sequelize,

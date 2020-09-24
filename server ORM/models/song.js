@@ -1,30 +1,40 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model, DataTypes } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Song extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+    class Song extends Model {
+        /**
+         * Helper method for defining associations.
+         * This method is not a part of Sequelize lifecycle.
+         * The `models/index` file will call this method automatically.
+         */
+        static associate(models) {
+            this.belongsTo(models.Album, {
+                foreignKey: "albumId",
+            });
+            this.belongsTo(models.Artist, {
+                foreignKey: "artistId",
+            });
+            this.hasMany(models.User_song, {
+                foreignKey: "songId",
+            });
+        }
     }
-  };
-  Song.init({
-    song_id: DataTypes.INTEGER,
-    name: DataTypes.STRING,
-    youtube_link: DataTypes.STRING,
-    album_id: DataTypes.INTEGER,
-    artist_id: DataTypes.INTEGER,
-    length: DataTypes.INTEGER,
-    track_number: DataTypes.INTEGER,
-    lyrics: DataTypes.STRING
-  }, {
-    sequelize,
-    modelName: 'Song',
-  });
-  return Song;
+    Song.init(
+        {
+            name: { type: DataTypes.STRING, allowNull: false },
+            youtubeLink: { type: DataTypes.STRING, allowNull: false },
+            albumId: { type: DataTypes.INTEGER, allowNull: false },
+            artistId: { type: DataTypes.INTEGER, allowNull: false },
+            length: { type: DataTypes.INTEGER, allowNull: false },
+            trackNumber: { type: DataTypes.INTEGER, allowNull: false },
+            lyrics: { type: DataTypes.STRING, allowNull: false },
+            createdAt: { type: DataTypes.DATA, allowNull: false },
+            uploadAt: { type: DataTypes.DATA, defaultValue: sequelize.NOW },
+        },
+        {
+            sequelize,
+            modelName: "Song",
+        }
+    );
+    return Song;
 };

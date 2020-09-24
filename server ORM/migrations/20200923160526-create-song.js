@@ -8,9 +8,6 @@ module.exports = {
                 primaryKey: true,
                 type: Sequelize.INTEGER,
             },
-            song_id: {
-                type: Sequelize.INTEGER,
-            },
             name: {
                 type: Sequelize.STRING,
             },
@@ -32,11 +29,11 @@ module.exports = {
             lyrics: {
                 type: Sequelize.STRING,
             },
-            createdAt: {
+            created_at: {
                 allowNull: false,
                 type: Sequelize.DATE,
             },
-            updatedAt: {
+            updated_at: {
                 allowNull: false,
                 type: Sequelize.DATE,
             },

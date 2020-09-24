@@ -1,27 +1,26 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-    class Artist extends Model {
+    class Playlist_song extends Model {
         /**
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
          */
         static associate(models) {
-            this.hasMany(models.Song);
+            // define association here
         }
     }
-    Artist.init(
+    Playlist_song.init(
         {
-            name: { type: DataTypes.STRING, allowNull: false },
-            coverImg: { type: DataTypes.STRING, allowNull: false },
-            createdAt: { type: DataTypes.DATA, defaultValue: sequelize.NOW },
+            playlistId: { type: DataTypes.INTEGER, allowNull: false },
+            songId: { type: DataTypes.INTEGER, allowNull: false },
             uploadAt: { type: DataTypes.DATA, defaultValue: sequelize.NOW },
         },
         {
             sequelize,
-            modelName: "Artist",
+            modelName: "Playlist_song",
         }
     );
-    return Artist;
+    return Playlist_song;
 };
