@@ -17,6 +17,7 @@ router.get("/:artistId/songs", async (req, res) => {
     const songs = await artist.getSongs({
         include: [
             { model: Album, attributes: ["name", "coverImg"] },
+            { model: Artist, attributes: ["name", "coverImg"] },
         ],
     });
     res.json(songs);
