@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Baloo+Tammudu+2:wght@500&family=Raleway:wght@500&display=swap");
+* {
+    padding: 0px;
+    margin: 0px;
+    text-decoration: none;
+    /* font-family: 'Baloo Tammudu 2', cursive; */
+    font-family: "Raleway", sans-serif;
+
+}
+
+.MuiTabs-scroller.MuiTabs-fixed {
+    position: fixed;
+    z-index: 1;
+}
+.MuiTabs-scroller.MuiTabs-fixed.scrolled {
+    background-color: grey;
+}
+
+.scrollingBacground > div {
+    background: linear-gradient(
+        0deg,
+        rgba(9, 41, 34, 0.9) 0%,
+        rgba(0, 0, 0, 0.9) 87%
+    );
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background: transparent;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(40, 184, 105);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: white;
+}
