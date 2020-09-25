@@ -1,6 +1,6 @@
 const { Artist, Song, Album } = require("../models");
+const { Op } = require("sequelize");
 const { Router } = require("express");
-// const { currentDate } = require("../helperFunctions");
 const router = Router();
 
 //GET REQUEST
@@ -26,10 +26,20 @@ router.get("/:artistId/albums", async (req, res) => {
     const artist = await Artist.findByPk(req.params.artistId);
     const albums = await artist.getAlbums({
         include: [{ model: Artist, attributes: ["name"] }],
+        order: [["releasedAt", "DESC"]],
     });
     res.json(albums);
 });
-
+router.get("/search/:word", async (req, res) => {
+    const artists = await Artist.findAll({
+        where: {
+            name: {
+                [Op.substring]: req.params.word,
+            },
+        },
+    });
+    res.json(artists);
+});
 //POST REQUEST
 router.post("/", async (req, res) => {
     const { id, name, coverImg } = req.body;

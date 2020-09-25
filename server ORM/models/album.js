@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
          */
         static associate(models) {
             this.belongsTo(models.Artist, {
-                foreignKey: "ArtistId",
+                foreignKey: "artistId",
             });
             this.hasMany(models.User_album, {
                 foreignKey: "albumId",
@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         {
             sequelize,
             modelName: "Album",
+            paranoid: true,
         }
     );
     return Album;

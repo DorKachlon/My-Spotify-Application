@@ -45,16 +45,6 @@ albumRouter.get("/search/:word", (req, res) => {
         res.send(result);
     });
 });
-albumRouter.get("/songs/:idAlbum", (req, res) => {
-    let sql = `SELECT song.* FROM song
-    WHERE album_id = ${req.params.idAlbum}
-    order by track_number;`;
-    mysqlCon.query(sql, (err, result) => {
-        if (err) throw err;
-        console.log("Post fetched...");
-        res.send(result);
-    });
-});
 //POST REQUEST
 albumRouter.post("/", (req, res) => {
     postReq(res, req, "album");

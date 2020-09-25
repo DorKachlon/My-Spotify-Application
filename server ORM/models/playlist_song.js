@@ -18,8 +18,16 @@ module.exports = (sequelize, DataTypes) => {
     }
     Playlist_song.init(
         {
-            playlistId: { type: DataTypes.INTEGER, allowNull: false },
-            songId: { type: DataTypes.INTEGER, allowNull: false },
+            playlistId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+            },
+            songId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+            },
             releasedAt: { type: DataTypes.DATE, allowNull: false },
         },
         {
