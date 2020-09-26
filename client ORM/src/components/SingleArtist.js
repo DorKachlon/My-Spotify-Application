@@ -15,17 +15,16 @@ export default function SingleArtist() {
         (async function loadSongAndList() {
             try {
                 let newArr = [];
-                const { data } = await axios.get(pathname);
-                newArr.push(data[0]);
-                const songs = await axios.get(
-                    `/artist/songs/${pathname.split("/")[2]}`
+                const { data } = await axios.get(`/api${pathname}`);
+                newArr.push(data);
+                const { data: songs } = await axios.get(
+                    `/api/artists/${pathname.split("/")[2]}/songs`
                 );
-                newArr.push(songs.data);
-                const albums = await axios.get(
-                    `/artist/albums/${pathname.split("/")[2]}`
+                newArr.push(songs);
+                const { data: albums } = await axios.get(
+                    `/api/artists/${pathname.split("/")[2]}/albums`
                 );
-                newArr.push(albums.data);
-
+                newArr.push(albums);
                 setArtiatAndList(newArr);
             } catch (e) {
                 Swal.fire({
@@ -62,7 +61,7 @@ export default function SingleArtist() {
                     <div className="pickgradient">
                         <img
                             className="artistImg"
-                            src={artiatAndList[0].cover_img}
+                            src={artiatAndList[0].coverImg}
                             alt=""
                         />
                     </div>
@@ -89,7 +88,7 @@ export default function SingleArtist() {
                                     return (
                                         <div className="singleCarousel" key={i}>
                                             {array.map((elem, j) => {
-                                                const link = `/song/${elem.song_id}?artist=${elem.artist_id}`;
+                                                const link = `/songs/${elem.id}?artists=${elem.artistId}`;
                                                 return (
                                                     <Link to={link} key={j}>
                                                         <div className="containerSingleItemArtist">
@@ -97,7 +96,9 @@ export default function SingleArtist() {
                                                                 <img
                                                                     className="image"
                                                                     src={
-                                                                        elem.cover_img
+                                                                        elem
+                                                                            .Album
+                                                                            .coverImg
                                                                     }
                                                                     alt=""
                                                                 ></img>
@@ -106,7 +107,7 @@ export default function SingleArtist() {
                                                                 {elem.name}
                                                             </p>
                                                             <p className="year">
-                                                                {elem.created_at.slice(
+                                                                {elem.Album.releasedAt.slice(
                                                                     0,
                                                                     10
                                                                 )}
@@ -132,7 +133,7 @@ export default function SingleArtist() {
                                     return (
                                         <div className="singleCarousel" key={i}>
                                             {array.map((elem, j) => {
-                                                const link = `/album/${elem.album_id}`;
+                                                const link = `/albums/${elem.id}`;
                                                 return (
                                                     <Link to={link} key={j}>
                                                         <div className="containerSingleItemArtist">
@@ -140,7 +141,7 @@ export default function SingleArtist() {
                                                                 <img
                                                                     className="image"
                                                                     src={
-                                                                        elem.cover_img
+                                                                        elem.coverImg
                                                                     }
                                                                     alt=""
                                                                 ></img>
@@ -149,7 +150,7 @@ export default function SingleArtist() {
                                                                 {elem.name}
                                                             </p>
                                                             <p className="year">
-                                                                {elem.created_at.slice(
+                                                                {elem.releasedAt.slice(
                                                                     0,
                                                                     10
                                                                 )}

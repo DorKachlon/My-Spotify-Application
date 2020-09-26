@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 export default function DataOfSong({ songDetails }) {
     const [like, setLike] = useState(false);
     const [sentence, setSentence] = useState(false);
+    console.log('song details', songDetails);
     function clickHandler() {
         setLike(!like);
         if (!like === true) {
@@ -23,7 +24,7 @@ export default function DataOfSong({ songDetails }) {
                 <div className="song-nameANDdate">
                     <div className="song-name-ditails">{songDetails.name}</div>
                     <div className="song-date-ditails">
-                        {songDetails.created_at.slice(0, 10)}
+                        {songDetails.Album.releasedAt.slice(0, 10)}
                     </div>
                 </div>
                 <div className="iconButton">
@@ -38,28 +39,28 @@ export default function DataOfSong({ songDetails }) {
                 </div>
             </div>
             <div className="artistAndAlbum">
-                <Link to={`/artist/${songDetails.artist_id}`}>
+                <Link to={`/artists/${songDetails.artistId}`}>
                     <div className="song-artist-ditails">
                         <img
                             className="song-artist-img"
-                            src={songDetails.artist_cover_img}
+                            src={songDetails.Artist.coverImg}
                             alt=""
                         />
                         <div className="song-artist-name">
-                            {songDetails.artist_name}
+                            {songDetails.Artist.name}
                             <p> &nbsp;• Artist</p>
                         </div>
                     </div>
                 </Link>
-                <Link to={`/album/${songDetails.album_id}`}>
+                <Link to={`/albums/${songDetails.albumId}`}>
                     <div className="song-album-ditails">
                         <img
                             className="song-album-img"
-                            src={songDetails.album_cover_img}
+                            src={songDetails.Album.coverImg}
                             alt=""
                         />
                         <div className="song-album-name">
-                            {songDetails.album_name} <p>&nbsp;• Album</p>
+                            {songDetails.Album.name} <p>&nbsp;• Album</p>
                         </div>
                     </div>
                 </Link>

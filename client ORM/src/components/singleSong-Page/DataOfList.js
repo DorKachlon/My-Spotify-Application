@@ -31,7 +31,7 @@ export default function DataOfList({
                 </div>
                 {product === "album" && (
                     <Link
-                        to={`/artist/${dataOFProduct.artist_id}`}
+                        to={`/artists/${dataOFProduct.artist_id}`}
                         style={{ cursor: "pointer" }}
                     >
                         <div className="artist-name">

@@ -54,6 +54,7 @@ export default function MyList({
     coverImg,
     artistName,
     currentSong,
+    itsAlbum,
 }) {
     const classes = useStyles();
     function lengthSong(length) {
@@ -67,6 +68,7 @@ export default function MyList({
         var sDisplay = s < 10 ? "0" + s : s;
         return hDisplay + mDisplay + sDisplay;
     }
+    console.log("pathname", pathname);
     return (
         <List
             component="nav"
@@ -78,21 +80,26 @@ export default function MyList({
                 {list.map((songObj) => {
                     let link;
                     if (search) {
-                        link = `/song/${songObj.song_id}${search}`;
+                        link = `/songs/${songObj.song_id}${search}`; //---------------------------------------------
+                    } else if (itsAlbum) {
+                        link = `/songs/${songObj.id}?${
+                            pathname.split("/")[1]
+                        }=${pathname.split("/")[2]}`;
                     } else {
-                        link = `/song/${songObj.song_id}?${
+                        link = `/songs/${songObj.Song.id}?${
                             pathname.split("/")[1]
                         }=${pathname.split("/")[2]}`;
                     }
+                    console.log("songobj", songObj);
+                    console.log("currentSong", currentSong);
                     return (
-                        <Link to={link} key={songObj.song_id}>
+                        <Link to={link} key={songObj.id}>
                             <div className="containerListItem">
                                 <ListItem
                                     button
                                     className={
                                         search &&
-                                        Number(currentSong.song_id) ===
-                                            songObj.song_id
+                                        Number(currentSong.id) === songObj.id
                                             ? classes.itemSelected
                                             : classes.itemOfList
                                     }
@@ -108,7 +115,9 @@ export default function MyList({
                                             src={
                                                 coverImg
                                                     ? coverImg
-                                                    : songObj.cover_img
+                                                    :  songObj.Song.Album
+                                                          .coverImg
+                                                  
                                             }
                                             alt=""
                                         />
@@ -119,17 +128,30 @@ export default function MyList({
                                         />
                                         <div className="containerNames">
                                             <div className="nameListItem">
-                                                {songObj.name}
+                                                {itsAlbum
+                                                    ? songObj.name
+                                                    : pathname.includes(
+                                                        "songs"
+                                                    )?songObj.name:songObj.Song.name}
                                             </div>
                                             <div className="artistListItem">
                                                 {artistName
                                                     ? artistName
-                                                    : songObj.artist_name}
+                                                    : pathname.includes(
+                                                        "songs"
+                                                    )?songObj.Artist.name:songObj.Song.Artist.name}
                                             </div>
                                         </div>
                                     </div>
                                     <div className="duration">
-                                        {lengthSong(songObj.length)}
+                                        {itsAlbum
+                                            ? lengthSong(songObj.length)
+                                            : pathname.includes(
+                                                "songs"
+                                            )?lengthSong(
+                                                  songObj.length
+                                              ):lengthSong(
+                                                songObj.Song["length"])}
                                     </div>
                                 </ListItem>
                                 <Divider className={classes.divider} />

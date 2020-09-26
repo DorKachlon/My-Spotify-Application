@@ -29,19 +29,18 @@ export default function SearchBar() {
     //נכנס בקליק על אופציה
     //נכנס בעת כיתוב אחרי לואד
     function clickHendler(e) {
-        debugger;
+    
         if (e.keyCode === 13) {
-            debugger;
+           
             history.push(`/search?params=${inputValue}`);
         } else {
-            console.log(e.currentTarget.innerText);
             history.push(`/search?params=${e.currentTarget.innerText}`);
         }
     }
 
     //נכנס בעת כיתוב
     async function setter(e) {
-        debugger;
+      
         if (e.keyCode === 40) {
             if (option.length !== 0) {
                 let num = option.findIndex(

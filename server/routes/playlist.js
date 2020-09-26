@@ -8,7 +8,6 @@ playlistRouter.get("/:id", (req, res) => {
     let sql = `SELECT * FROM playlist;`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
-        console.log("Post fetched...");
         res.send(result);
     });
 });
@@ -26,7 +25,6 @@ playlistRouter.get("/songs/:idPlaylist", (req, res) => {
         WHERE playlist_id=${req.params.idPlaylist};`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
-        console.log("Post fetched...");
         res.send(result);
     });
 });
@@ -35,7 +33,6 @@ playlistRouter.get("/search/:word", (req, res) => {
     WHERE playlist.name like "%${req.params.word}%";`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
-        console.log("Post fetched...");
         res.send(result);
     });
 });

@@ -29,9 +29,9 @@ export default function SearchBar() {
     //נכנס בקליק על אופציה
     //נכנס בעת כיתוב אחרי לואד
     function clickHendler(e) {
-        debugger;
+   
         if (e.keyCode === 13) {
-            debugger;
+  
             history.push(`/search?params=${inputValue}`);
         } else {
             console.log(e.currentTarget.innerText);
@@ -41,7 +41,7 @@ export default function SearchBar() {
 
     //נכנס בעת כיתוב
     async function setter(e) {
-        debugger;
+
         if (e.keyCode === 40) {
             if (option.length !== 0) {
                 let num = option.findIndex(
@@ -82,7 +82,7 @@ export default function SearchBar() {
         if (e.target.value) {
             try {
                 const { data } = await axios.get(
-                    `/search?params=${e.target.value}`
+                    `/api/search?keyWord=${e.target.value}`
                 );
                 setOption(data);
             } catch (e) {

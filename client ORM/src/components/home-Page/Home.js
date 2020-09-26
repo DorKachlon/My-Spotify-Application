@@ -16,13 +16,13 @@ export default function Home() {
         (async function loadTop() {
             let newArr = [];
             try {
-                const { data } = await axios.get("/interaction/top_songs/");
+                const { data } = await axios.get("/api/interactions/top_songs/");
                 newArr.push(data);
-                const dataArtist = await axios.get("/interaction/top_artists/");
+                const dataArtist = await axios.get("/api/interactions/top_artists/");
                 newArr.push(dataArtist.data);
-                const dataPlaylist = await axios.get("/interaction/top_playlists/");
+                const dataPlaylist = await axios.get("/api/interactions/top_playlists/");
                 newArr.push(dataPlaylist.data);
-                const dataAlbum = await axios.get("/interaction/top_albums/");
+                const dataAlbum = await axios.get("/api/interactions/top_albums/");
                 newArr.push(dataAlbum.data);
                 setTopSongsArtistPlaylistAlbum(newArr);
             } catch (e) {
@@ -47,7 +47,7 @@ export default function Home() {
                                 topSongsArtistPlaylistAlbum
                             }
                             i={0}
-                            product={"song"}
+                            product={"Song"}
                         />
                     </>
                 )}
@@ -61,7 +61,7 @@ export default function Home() {
                                 topSongsArtistPlaylistAlbum
                             }
                             i={1}
-                            product={"artist"}
+                            product={"Artist"}
                         />
                     </>
                 )}
@@ -75,7 +75,7 @@ export default function Home() {
                                 topSongsArtistPlaylistAlbum
                             }
                             i={2}
-                            product={"playlist"}
+                            product={"Playlist"}
                         />
                     </>
                 )}
@@ -89,7 +89,7 @@ export default function Home() {
                                 topSongsArtistPlaylistAlbum
                             }
                             i={3}
-                            product={"album"}
+                            product={"Album"}
                         />
                     </>
                 )}

@@ -30,28 +30,28 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
     const [songAndList, setSongAndList] = useState();
     const product = search.split("=")[0].slice(1);
     const classes = useStyles();
-    const pathname2 = useLocation();
-    console.log(pathname2);
     useEffect(() => {
         (async function loadSongAndList() {
             try {
                 let newArr = [];
-                const { data } = await axios.get(pathname);
-                newArr.push(data[0]);
+                const { data } = await axios.get(`/api${pathname}`);
+                newArr.push(data);
                 if (search.includes("topSongs")) {
-                    const dataList = await axios.get("/interaction/top_songs/");
-                    newArr.push(dataList.data);
+                    const {data: dataList} = await axios.get(
+                        "/api/interactions/top_songs"
+                    );
+                    newArr.push(dataList);
                 } else {
-                    const dataList = await axios.get(
-                        `/${product}/songs/${search.split("=")[1]}`
+                    const {data: dataList} = await axios.get(
+                        `/api/${product}/${search.split("=")[1]}/songs`
                     );
-                    newArr.push(dataList.data);
+                    newArr.push(dataList);
                 }
-                if (["album", "playlist", "artist"].includes(product)) {
-                    const dataProduct = await axios.get(
-                        `/${product}/${search.split("=")[1]}`
+                if (["albums", "playlists", "artists"].includes(product)) {
+                    const {data: dataProduct} = await axios.get(
+                        `/api/${product}/${search.split("=")[1]}`
                     );
-                    newArr.push(dataProduct.data[0]);
+                    newArr.push(dataProduct);
                 }
                 console.log(newArr);
                 setSongAndList(newArr);
@@ -67,7 +67,7 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
 
     async function endSongFunc() {
         let currentIndex = songAndList[1].findIndex(
-            (obj) => obj.song_id === songAndList[0].song_id
+            (obj) => obj.Song.id === songAndList[0].id
         );
         if (songAndList[1].length === currentIndex + 1) {
             currentIndex = -1;
@@ -92,7 +92,7 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
                         <YouTube
                             className="YoutubeVid"
                             videoId={
-                                songAndList[0].youtube_link
+                                songAndList[0].youtubeLink
                                     .split("watch?v=")[1]
                                     .split("&list")[0]
                             }

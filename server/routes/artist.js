@@ -8,7 +8,6 @@ artistRouter.get("/", (req, res) => {
     let sql = `SELECT * FROM artist`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
-        console.log("Post fetched...");
         res.send(result);
     });
 });
@@ -25,7 +24,6 @@ artistRouter.get("/songs/:idArtist", (req, res) => {
     order by created_at desc;`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
-        console.log("Post fetched...");
         res.send(result);
     });
 });
@@ -34,7 +32,6 @@ artistRouter.get("/search/:word", (req, res) => {
     WHERE artist.name like "%${req.params.word}%";`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
-        console.log("Post fetched...");
         res.send(result);
     });
 });
@@ -46,7 +43,6 @@ artistRouter.get("/albums/:idArtist", (req, res) => {
     order by created_at desc;`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
-        console.log("Post fetched...");
         res.send(result);
     });
 });

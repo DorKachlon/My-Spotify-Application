@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
     res.json(allplaylists);
 });
 router.get("/:playlistId", async (req, res) => {
-    const playlist = await Playlist.findByPk(req.params.idPlaylist);
+    const playlist = await Playlist.findByPk(req.params.playlistId);
     res.json(playlist);
 });
 router.get("/:playlistId/songs", async (req, res) => {

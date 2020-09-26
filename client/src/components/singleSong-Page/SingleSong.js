@@ -31,7 +31,6 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
     const product = search.split("=")[0].slice(1);
     const classes = useStyles();
     const pathname2 = useLocation();
-    console.log(pathname2);
     useEffect(() => {
         (async function loadSongAndList() {
             try {
@@ -53,7 +52,6 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
                     );
                     newArr.push(dataProduct.data[0]);
                 }
-                console.log(newArr);
                 setSongAndList(newArr);
             } catch (e) {
                 Swal.fire({

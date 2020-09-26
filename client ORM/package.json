@@ -18,7 +18,7 @@
         "react-youtube": "^7.12.0",
         "sweetalert2": "^10.0.2"
     },
-    "proxy": "http://localhost:8080/",
+    "proxy": "http://localhost:8070/",
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",

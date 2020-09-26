@@ -6,12 +6,26 @@ export default function TopTwenty({ elements, product }) {
     return (
         <div className="singleCarousel">
             {elements.map((elem, i) => {
-                const id = `${product}_id`;
                 let link;
-                if (product === "song") {
-                    link = `/song/${elem[id]}?topSongs=1`;
-                } else {
-                    link = `/${product}/${elem[id]}`;
+                switch (product) {
+                    case "Song":{
+                            link=`/songs/${elem.Song.id}?topSongs=1`
+                        break;
+                    }
+                    case "Album":{
+                        link=`/albums/${elem.Album.id}`
+                        break;
+                    }
+                    case "Artist":{
+                        link=`/artists/${elem.Artist.id}`
+                        break;
+                    }
+                    case "Playlist":{
+                        link=`/playlists/${elem.Playlist.id}`
+                        break;
+                    }
+                    default:
+                        break;
                 }
                 return (
                     <Link to={link} key={i}>
@@ -19,37 +33,37 @@ export default function TopTwenty({ elements, product }) {
                             <div className="containerImage" >
                                 <img
                                     style={
-                                        product === "artist"
+                                        product === "Artist"
                                             ? { borderRadius: "50%" }
                                             : {}
                                     }
                                     className="image"
-                                    src={elem.cover_img}
+                                    src={product ==="Song"?elem.Song.Album.coverImg:elem[product].coverImg}
                                     alt=""
                                 ></img>
                             </div>
                             <p
                                 className="ProductName"
                                 style={
-                                    product === "artist"
+                                    product === "Artist"
                                         ? { textAlign: "center" }
                                         : {}
                                 }
                             >
-                                {elem.name}{" "}
+                                {elem[product].name}{" "}
                             </p>
                             <p className="artistName" style={
-                                    product === "artist"
+                                    product === "Artist"
                                         ? { textAlign: "center" }
                                         : {}
                                 }>
-                                {product === "album" &&
-                                    elem.artist_name + " • "}
-                                {product === "song" && elem.artist_name + " • "}
-                                {product === "artist"
-                                    ? elem.counter_subscribes
-                                    : elem.counter_player}{" "}
-                                {product === "artist" ? "subscribes" : "Plays"}
+                                {product === "Album" &&
+                                    elem.Album.Artist.name + " • "}
+                                {product === "Song" && elem.Song.Artist.name + " • "}
+                                {product === "Artist"
+                                    ? elem.counterSubscribes
+                                    : elem.counterPlayer}{" "}
+                                {product === "Artist" ? "subscribes" : "plays"}
                             </p>
                         </div>
                     </Link>

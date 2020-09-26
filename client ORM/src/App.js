@@ -48,24 +48,24 @@ function App() {
 
                         <Switch>
                             <Route exact path="/" component={Home} />
-                            <Route path="/songs" component={Songs} />
-                            <Route path="/albums" component={Albums} />
-                            <Route path="/playlists" component={Playlist} />
-                            <Route path="/song/:id">
+                            <Route exact path="/songs" component={Songs} />
+                            <Route exact path="/albums" component={Albums} />
+                            <Route exact path="/playlists" component={Playlist} />
+                            <Route path="/songs/:id">
                                 <SingleSong
                                     autoPlay={autoPlay}
                                     setAutoPlay={setAutoPlay}
                                 />
                             </Route>
                             <Route
-                                path="/artist/:id"
+                                path="/artists/:id"
                                 component={SingleArtist}
                             />
                             <Route
-                                path="/playlist/:id"
+                                path="/playlists/:id"
                                 component={SinglePlaylist}
                             />
-                            <Route path="/album/:id" component={SingleAlbum} />
+                            <Route path="/albums/:id" component={SingleAlbum} />
                             <Route path="/search" component={SearchPage} />
                             <Route path="/404" component={ErrorPage} />
                         </Switch>

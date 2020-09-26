@@ -8,7 +8,6 @@ albumRouter.get("/", (req, res) => {
     let sql = `SELECT * FROM Album;`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
-        console.log("Post fetched...");
         res.send(result);
     });
 });
@@ -20,7 +19,6 @@ albumRouter.get("/:id", (req, res) => {
     WHERE album_id = ${req.params.id}`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
-        console.log("Post fetched...");
         res.send(result);
     });
 });
@@ -32,7 +30,6 @@ albumRouter.get("/songs/:idAlbum", (req, res) => {
     order by track_number;`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
-        console.log("Post fetched...");
         res.send(result);
     });
 });
@@ -41,7 +38,6 @@ albumRouter.get("/search/:word", (req, res) => {
     WHERE album.name like "%${req.params.word}%";`;
     mysqlCon.query(sql, (err, result) => {
         if (err) throw err;
-        console.log("Post fetched...");
         res.send(result);
     });
 });
