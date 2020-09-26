@@ -11,15 +11,23 @@ module.exports = (sequelize, DataTypes) => {
             this.belongsTo(models.User, {
                 foreignKey: "userId",
             });
-            this.belongsTo(models.User, {
+            this.belongsTo(models.Song, {
                 foreignKey: "songId",
             });
         }
     }
     Interactions_by_song.init(
         {
-            userId: { type: DataTypes.INTEGER, allowNull: false },
-            songId: { type: DataTypes.INTEGER, allowNull: false },
+            userId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+            },
+            songId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+            },
             isLiked: { type: DataTypes.BOOLEAN, allowNull: false },
             playCount: { type: DataTypes.INTEGER, allowNull: false },
         },
