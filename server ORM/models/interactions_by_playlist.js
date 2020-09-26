@@ -18,8 +18,16 @@ module.exports = (sequelize, DataTypes) => {
     }
     Interactions_by_playlist.init(
         {
-            userId: { type: DataTypes.INTEGER, allowNull: false },
-            playlistId: { type: DataTypes.INTEGER, allowNull: false },
+            userId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+            },
+            playlistId: {
+                type: DataTypes.INTEGER,
+                allowNull: false,
+                primaryKey: true,
+            },
             isLiked: { type: DataTypes.BOOLEAN, allowNull: false },
             playCount: { type: DataTypes.INTEGER, allowNull: false },
         },
