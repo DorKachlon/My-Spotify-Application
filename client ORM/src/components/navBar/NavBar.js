@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
         marginRight: drawerWidth,
     },
     title: {
+        display: "flex",
         flexGrow: 1,
     },
     hide: {
@@ -86,7 +87,9 @@ export default function NavBar() {
 
     const [value, setValue] = useState(0);
     const [scrolling, setScrolling] = useState(false);
-    const [navOrMenu, setNavOrMenug] = useState(window.innerWidth < 1100?true:false);
+    const [navOrMenu, setNavOrMenug] = useState(
+        window.innerWidth < 1100 ? true : false
+    );
     const [drawerOpen, setDrawerOpen] = useState(false);
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -112,6 +115,10 @@ export default function NavBar() {
     window.addEventListener("scroll", changeBackground);
     window.addEventListener("resize", displayWindowSize);
 
+    const handleClicked = () => {
+        setDrawerOpen(!drawerOpen);
+    };
+
     return (
         <>
             {navOrMenu ? (
@@ -129,7 +136,19 @@ export default function NavBar() {
                                 noWrap
                                 className={classes.title}
                             >
-                                DK
+                                <img
+                                    style={{
+                                        width: "4em",
+                                        marginTop: "5px",
+                                        filter: "brightness(10%)",
+                                    }}
+                                    src="https://i.ibb.co/jgT3n13/dk-tube3.png"
+                                    alt="dk-tube2"
+                                    border="0"
+                                />
+                                <div style={{marginLeft:"25px"}}>
+                                <SearchBar />
+                                </div>
                             </Typography>
                             <IconButton
                                 color="secondary"
@@ -158,7 +177,13 @@ export default function NavBar() {
                         </div>
                         <Divider />
                         <List>
-                            <ListItem button key="home" component={Link} to="/">
+                            <ListItem
+                                button
+                                key="home"
+                                component={Link}
+                                to="/"
+                                onClick={handleClicked}
+                            >
                                 <ListItemIcon>
                                     <HomeIcon />
                                 </ListItemIcon>
@@ -170,6 +195,7 @@ export default function NavBar() {
                                 key="songs"
                                 component={Link}
                                 to="/songs"
+                                onClick={handleClicked}
                             >
                                 <ListItemIcon>
                                     <MusicNoteIcon />
@@ -182,6 +208,7 @@ export default function NavBar() {
                                 key="albums"
                                 component={Link}
                                 to="/albums"
+                                onClick={handleClicked}
                             >
                                 <ListItemIcon>
                                     <AlbumIcon />
@@ -194,6 +221,7 @@ export default function NavBar() {
                                 key="playlist"
                                 component={Link}
                                 to="/playlists"
+                                onClick={handleClicked}
                             >
                                 <ListItemIcon>
                                     <QueueMusicIcon />

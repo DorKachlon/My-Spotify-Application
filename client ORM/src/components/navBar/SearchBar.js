@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "-10px",
         "& > div >  input": {
             color: "white",
+            "@media (max-width:1100px)": {
+                color: "black",
+            },
         },
         "&:focus": {
             marginTop: "10px",

@@ -45,7 +45,7 @@ function App() {
                             border="0"
                         />
                         <NavBar />
-
+                                <div className="height-for-nav"></div>
                         <Switch>
                             <Route exact path="/" component={Home} />
                             <Route exact path="/songs" component={Songs} />
