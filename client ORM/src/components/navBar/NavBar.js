@@ -138,7 +138,8 @@ export default function NavBar() {
                             >
                                 <img
                                     style={{
-                                        width: "4em",
+                                        width: "50px",
+                                        height:"40px",
                                         marginTop: "5px",
                                         filter: "brightness(10%)",
                                     }}

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./App.css";
 
 import Home from "./components/home-Page/Home";
+import Login from "./components/Login";
+import Guest from "./components/Guest";
 import NavBar from "./components/navBar/NavBar";
 import Songs from "./components/Songs";
 import Albums from "./components/Albums";
@@ -45,12 +47,18 @@ function App() {
                             border="0"
                         />
                         <NavBar />
-                                <div className="height-for-nav"></div>
+                        <div className="height-for-nav"></div>
                         <Switch>
                             <Route exact path="/" component={Home} />
+                            <Route exact path="/guest" component={Guest} />
+                            <Route exact path="/login" component={Login} />
                             <Route exact path="/songs" component={Songs} />
                             <Route exact path="/albums" component={Albums} />
-                            <Route exact path="/playlists" component={Playlist} />
+                            <Route
+                                exact
+                                path="/playlists"
+                                component={Playlist}
+                            />
                             <Route path="/songs/:id">
                                 <SingleSong
                                     autoPlay={autoPlay}

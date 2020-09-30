@@ -39,10 +39,6 @@ module.exports = (sequelize, DataTypes) => {
             isAdmin: { type: DataTypes.BOOLEAN, allowNull: false },
             preferenced: { type: DataTypes.JSON, allowNull: false },
             rememberToken: { type: DataTypes.BOOLEAN, allowNull: false },
-            userCreatedAt: {
-                type: DataTypes.DATE,
-                defaultValue: sequelize.NOW,
-            },
         },
         {
             sequelize,
