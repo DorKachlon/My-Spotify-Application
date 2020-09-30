@@ -3,7 +3,7 @@ import YouTube from "react-youtube";
 import axios from "axios";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
-
+import network from "../../network/network"
 import "../../styles/SingleSong.css";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -34,21 +34,21 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
         (async function loadSongAndList() {
             try {
                 let newArr = [];
-                const { data } = await axios.get(`/api${pathname}`);
+                const { data } = await network.get(`/api${pathname}`);
                 newArr.push(data);
                 if (search.includes("topSongs")) {
-                    const {data: dataList} = await axios.get(
+                    const {data: dataList} = await network.get(
                         "/api/interactions/top_songs"
                     );
                     newArr.push(dataList);
                 } else {
-                    const {data: dataList} = await axios.get(
+                    const {data: dataList} = await network.get(
                         `/api/${product}/${search.split("=")[1]}/songs`
                     );
                     newArr.push(dataList);
                 }
                 if (["albums", "playlists", "artists"].includes(product)) {
-                    const {data: dataProduct} = await axios.get(
+                    const {data: dataProduct} = await network.get(
                         `/api/${product}/${search.split("=")[1]}`
                     );
                     newArr.push(dataProduct);

@@ -38,9 +38,9 @@ router.post("/register", async (req, res) => {
 //LOGIN
 router.post("/login", async (req, res) => {
     //LETS VALIDATION THE DATA BEFORE
-    loginValidation(req.body, res)
-        // const  {error}  = loginValidation(req.body);
-        // console.log(error);
+    loginValidation(req.body, res);
+    // const  {error}  = loginValidation(req.body);
+    // console.log(error);
     // if (error) return res.status(400).send(error.details[0].message);
 
     //Checking if the email exists
@@ -50,10 +50,12 @@ router.post("/login", async (req, res) => {
 
     //Password is correct
     const validPass = await bcrypt.compare(req.body.password, user.password);
-    if (!validPass)  res.status(400).send("Email or password is wrong");
+    if (!validPass) res.status(400).send("Email or password is wrong");
 
     //Create and assign a token
     const token = jwt.sign({ id: user.id }, process.env.TOKEN_SECRET);
-    res.header("auth-token", token).send("logged in !"+token);
+    res.cookie("token", token);
+    res.header("auth-token", token);
+    res.send("logged in !" + token);
 });
 module.exports = router;

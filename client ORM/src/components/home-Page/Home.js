@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 import MyCarousel from "./MyCarousel";
-
+import network from "../../network/network";
 import "../../styles/home.css";
 export default function Home() {
     const [
@@ -11,18 +11,26 @@ export default function Home() {
     ] = useState([]);
 
     // console.log("render home");
-    
+
     useEffect(() => {
         (async function loadTop() {
             let newArr = [];
             try {
-                const { data } = await axios.get("/api/interactions/top_songs/");
+                const { data } = await network.get(
+                    "/api/interactions/top_songs/"
+                );
                 newArr.push(data);
-                const dataArtist = await axios.get("/api/interactions/top_artists/");
+                const dataArtist = await network.get(
+                    "/api/interactions/top_artists/"
+                );
                 newArr.push(dataArtist.data);
-                const dataPlaylist = await axios.get("/api/interactions/top_playlists/");
+                const dataPlaylist = await network.get(
+                    "/api/interactions/top_playlists/"
+                );
                 newArr.push(dataPlaylist.data);
-                const dataAlbum = await axios.get("/api/interactions/top_albums/");
+                const dataAlbum = await network.get(
+                    "/api/interactions/top_albums/"
+                );
                 newArr.push(dataAlbum.data);
                 setTopSongsArtistPlaylistAlbum(newArr);
             } catch (e) {
