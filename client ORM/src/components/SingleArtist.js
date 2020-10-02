@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import Carousel from "react-material-ui-carousel";
-import axios from "axios";
+import network from "../network/network";
 import Swal from "sweetalert2";
 import "../styles/SingleArtist.css";
 import { Link } from "react-router-dom";
@@ -15,13 +15,13 @@ export default function SingleArtist() {
         (async function loadSongAndList() {
             try {
                 let newArr = [];
-                const { data } = await axios.get(`/api${pathname}`);
+                const { data } = await network.get(`/api${pathname}`);
                 newArr.push(data);
-                const { data: songs } = await axios.get(
+                const { data: songs } = await network.get(
                     `/api/artists/${pathname.split("/")[2]}/songs`
                 );
                 newArr.push(songs);
-                const { data: albums } = await axios.get(
+                const { data: albums } = await network.get(
                     `/api/artists/${pathname.split("/")[2]}/albums`
                 );
                 newArr.push(albums);

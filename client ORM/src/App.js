@@ -3,6 +3,7 @@ import "./App.css";
 
 import Home from "./components/home-Page/Home";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import Guest from "./components/Guest";
 import NavBar from "./components/navBar/NavBar";
 import Songs from "./components/Songs";
@@ -16,13 +17,14 @@ import ErrorPage from "./components/ErrorPage";
 import SearchPage from "./components/SearchPage";
 
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { green, pink } from "@material-ui/core/colors";
+import { green, pink, grey } from "@material-ui/core/colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const myTheme = createMuiTheme({
     palette: {
         secondary: green,
         primary: pink,
+        info: grey,
     },
 });
 
@@ -52,6 +54,7 @@ function App() {
                             <Route exact path="/" component={Home} />
                             <Route exact path="/guest" component={Guest} />
                             <Route exact path="/login" component={Login} />
+                            <Route exact path="/register" component={Register} />
                             <Route exact path="/songs" component={Songs} />
                             <Route exact path="/albums" component={Albums} />
                             <Route

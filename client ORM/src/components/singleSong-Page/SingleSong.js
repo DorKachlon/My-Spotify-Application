@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import YouTube from "react-youtube";
-import axios from "axios";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import network from "../../network/network"
@@ -72,11 +71,11 @@ export default function SingleSong({ autoPlay, setAutoPlay }) {
         if (songAndList[1].length === currentIndex + 1) {
             currentIndex = -1;
         }
-
-        const songId = songAndList[1][currentIndex + 1].song_id;
+        debugger
+        const songId = songAndList[1][currentIndex + 1].Song.id;
         let newArr = [...songAndList];
-        const { data } = await axios.get(`/song/${songId}`);
-        newArr[0] = data[0];
+        const { data } = await network.get(`/api/songs/${songId}`);
+        newArr[0] = data;
         window.history.replaceState(
             null,
             "New Page Title",

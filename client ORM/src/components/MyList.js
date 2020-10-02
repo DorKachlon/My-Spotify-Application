@@ -106,7 +106,7 @@ export default function MyList({
                                     button
                                     className={
                                         search &&
-                                        Number(currentSong.id) === songObj.id
+                                        Number(currentSong.id) === songObj.Song.id
                                             ? classes.itemSelected
                                             : classes.itemOfList
                                     }
@@ -191,8 +191,8 @@ export default function MyList({
                                             ? lengthSong(songObj.length)
                                             : search.includes("topSongs") ||
                                               search.includes("playlists")
-                                            ? songObj.Song.length
-                                            : songObj.length}
+                                            ? lengthSong(songObj.Song.length)
+                                            : lengthSong(songObj.length)}
                                     </div>
                                 </ListItem>
                                 <Divider className={classes.divider} />

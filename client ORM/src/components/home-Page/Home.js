@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import Swal from "sweetalert2";
 import MyCarousel from "./MyCarousel";
 import network from "../../network/network";

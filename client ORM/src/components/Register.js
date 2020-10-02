@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import network from "../network/network";
 import Email from "@material-ui/icons/Email";
 import FormControl from "@material-ui/core/FormControl";
-import "../styles/Login.css";
+import "../styles/Register.css";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import IconButton from "@material-ui/core/IconButton";
@@ -14,34 +14,45 @@ import LockIcon from "@material-ui/icons/Lock";
 import Button from "@material-ui/core/Button";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
+import PeopleIcon from "@material-ui/icons/People";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles((theme) => ({
+    name: {
+        marginBottom: "20px",
+        width: "320px",
+    },
     email: {
         marginBottom: "20px",
         width: "320px",
-        "&:hover": {
-            fontWeight: "normal",
-        },
     },
     password: {
-        marginBottom: "40px",
+        marginBottom: "20px",
+        width: "320px",
+    },
+    confirmPassword: {
+        marginBottom: "70px",
         width: "320px",
     },
     submit: {
-        marginBottom: "40px",
-        background: 'linear-gradient(45deg, #2AC796 30%, #31AD86 90%)',
-        color:"white",
+        marginBottom: "30px",
+        background: "linear-gradient(45deg, #2AC796 30%, #31AD86 90%)",
+        color: "white",
     },
 }));
 
-export default function Login() {
+export default function Register() {
     const classes = useStyles();
     const [values, setValues] = useState({
+        name:"",
         email: "",
         password: "",
+        confirmPassword:"",
         showPassword: false,
     });
-
+    const [chacked, setChecked] = useState(false);
+console.log(values);
     async function clickhandler() {
         console.log(values.email);
         console.log(values.password);
@@ -69,11 +80,13 @@ export default function Login() {
     const handleClickShowPassword = () => {
         setValues({ ...values, showPassword: !values.showPassword });
     };
-
+    const handleChecked = () => {
+        setChecked(!chacked);
+    };
     return (
         <div className="loginForm">
             <div className="header">
-                <div className="title">Login</div>
+                <div className="title">Register</div>
                 <div>
                     <IconButton>
                         <FacebookIcon style={{ color: "white" }} />
@@ -83,8 +96,30 @@ export default function Login() {
                     </IconButton>
                 </div>
             </div>
+
             <div className="paper">
-                <FormControl className={(classes.textField, classes.email)}>
+                <FormControl className={ classes.name}>
+                    <InputLabel
+                        style={{ color: "grey" }}
+                        htmlFor="standard-adornment-password"
+                    >
+                        Full Name
+                    </InputLabel>
+                    <Input
+                        color="secondary"
+                        onChange={handleChange("name")}
+                        endAdornment={
+                            <InputAdornment
+                                style={{ opacity: "0.7" }}
+                                position="end"
+                            >
+                                <PeopleIcon />
+                            </InputAdornment>
+                        }
+                    />
+                </FormControl>
+
+                <FormControl className={classes.email}>
                     <InputLabel
                         style={{ color: "grey" }}
                         htmlFor="standard-adornment-password"
@@ -105,10 +140,7 @@ export default function Login() {
                     />
                 </FormControl>
 
-                <FormControl
-                    // className={clsx(classes.margin, classes.textField)}
-                    className={(classes.textField, classes.password)}
-                >
+                <FormControl className={classes.password}>
                     <InputLabel
                         style={{ color: "grey" }}
                         className={classes.labelPass}
@@ -117,9 +149,28 @@ export default function Login() {
                         Password
                     </InputLabel>
                     <Input
-                        type={values.showPassword ? "text" : "password"}
-                        // value={values.password}
+                        type="password"
                         onChange={handleChange("password")}
+                        color="secondary"
+                        endAdornment={
+                            <InputAdornment position="end">
+                                <LockOutlinedIcon style={{ opacity: "0.7" }} />
+                            </InputAdornment>
+                        }
+                    />
+                </FormControl>
+
+                <FormControl className={ classes.confirmPassword}>
+                    <InputLabel
+                        style={{ color: "grey" }}
+                        className={classes.labelPass}
+                        htmlFor="standard-adornment-password"
+                    >
+                        Confirm Password
+                    </InputLabel>
+                    <Input
+                        type={values.showPassword ? "text" : "password"}
+                        onChange={handleChange("confirmPassword")}
                         color="secondary"
                         endAdornment={
                             <InputAdornment position="end">
@@ -139,13 +190,20 @@ export default function Login() {
                         }
                     />
                 </FormControl>
-                <Button
-                    className={classes.submit}
-                   
-                    onClick={clickhandler}
 
-                >
-                    submit
+                <div className="checkBoxContainer">
+                    <Checkbox
+                        checked={chacked}
+                        onChange={handleChecked}
+                        name="checkedA"
+                    />
+                    <div className="paregrapCheckbox">
+                        I accept the <i>Terms of Use</i> & <i>Privacy Policy</i>
+                    </div>
+                </div>
+
+                <Button className={classes.submit} onClick={clickhandler}>
+                    get started
                 </Button>
             </div>
         </div>

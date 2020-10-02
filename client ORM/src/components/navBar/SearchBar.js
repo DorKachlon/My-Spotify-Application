@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import axios from "axios";
+import network from "../../network/network";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 
@@ -84,7 +84,7 @@ export default function SearchBar() {
         SetInputValue(e.target.value);
         if (e.target.value) {
             try {
-                const { data } = await axios.get(
+                const { data } = await network.get(
                     `/api/search?keyWord=${e.target.value}`
                 );
                 setOption(data);

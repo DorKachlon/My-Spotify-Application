@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import network from "../network/network";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import MyList from "./MyList";
@@ -23,9 +23,9 @@ export default function SingleAlbum() {
         (async function loadSong() {
             try {
                 let newArr = [];
-                const { data } = await axios.get(`/api${pathname}`);
+                const { data } = await network.get(`/api${pathname}`);
                 newArr.push(data);
-                const { data: dataList } = await axios.get(
+                const { data: dataList } = await network.get(
                     `/api/albums/${pathname.split("/")[2]}/songs`
                 );
                 newArr.push(dataList);
