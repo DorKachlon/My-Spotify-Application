@@ -17,7 +17,7 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import PeopleIcon from "@material-ui/icons/People";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Checkbox from "@material-ui/core/Checkbox";
-
+import ErrorIcon from "@material-ui/icons/Error";
 const useStyles = makeStyles((theme) => ({
     name: {
         marginBottom: "20px",
@@ -45,28 +45,38 @@ const useStyles = makeStyles((theme) => ({
 export default function Register() {
     const classes = useStyles();
     const [values, setValues] = useState({
-        name:"",
+        name: "",
         email: "",
         password: "",
-        confirmPassword:"",
+        confirmPassword: "",
         showPassword: false,
     });
-    const [chacked, setChecked] = useState(false);
-console.log(values);
+    const [checked, setChecked] = useState(false);
+    const [error, setError] = useState("");
+
     async function clickhandler() {
-        console.log(values.email);
-        console.log(values.password);
+        if (!checked) {
+            setError("You must accept our polisy");
+            return;
+        }
+        if (values.password !== values.confirmPassword) {
+            setError("Your password not the same");
+            return;
+        }
         const obj = {
+            name: values.name,
             email: values.email,
             password: values.password,
         };
         setValues({
+            name: "",
             email: "",
             password: "",
+            confirmPassword: "",
             showPassword: false,
         });
         console.log(obj);
-        await network.post(`/api/auth/login`, obj).then((res) => {
+        await network.post(`/api/auth/register`, obj).then((res) => {
             if (res.status === 200) {
                 window.location = "/";
             }
@@ -81,11 +91,11 @@ console.log(values);
         setValues({ ...values, showPassword: !values.showPassword });
     };
     const handleChecked = () => {
-        setChecked(!chacked);
+        setChecked(!checked);
     };
     return (
-        <div className="loginForm">
-            <div className="header">
+        <div className="registerForm">
+            <div className="headerRegister">
                 <div className="title">Register</div>
                 <div>
                     <IconButton>
@@ -97,8 +107,8 @@ console.log(values);
                 </div>
             </div>
 
-            <div className="paper">
-                <FormControl className={ classes.name}>
+            <div className="paperRegister">
+                <FormControl className={classes.name}>
                     <InputLabel
                         style={{ color: "grey" }}
                         htmlFor="standard-adornment-password"
@@ -160,7 +170,7 @@ console.log(values);
                     />
                 </FormControl>
 
-                <FormControl className={ classes.confirmPassword}>
+                <FormControl className={classes.confirmPassword}>
                     <InputLabel
                         style={{ color: "grey" }}
                         className={classes.labelPass}
@@ -190,14 +200,21 @@ console.log(values);
                         }
                     />
                 </FormControl>
-
+                {error && (
+                    <div className="error">
+                        <ErrorIcon
+                            style={{ color: "white", marginLeft: "4px" }}
+                        />
+                        <div className="errorPeregraph">{error}</div>
+                    </div>
+                )}
                 <div className="checkBoxContainer">
                     <Checkbox
-                        checked={chacked}
+                        checked={checked}
                         onChange={handleChecked}
                         name="checkedA"
                     />
-                    <div className="paregrapCheckbox">
+                    <div className="paregraphCheckbox">
                         I accept the <i>Terms of Use</i> & <i>Privacy Policy</i>
                     </div>
                 </div>

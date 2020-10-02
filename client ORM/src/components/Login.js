@@ -57,7 +57,7 @@ export default function Login() {
         console.log(obj);
         await network.post(`/api/auth/login`, obj).then((res) => {
             if (res.status === 200) {
-                window.location = "/";
+                // window.location = "/";
             }
         });
     }

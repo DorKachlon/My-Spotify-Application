@@ -21,7 +21,7 @@ network.interceptors.response.use(
     },
     (error) => {
         if (error.response.status !== 200) {
-            window.location = "/login";
+            // window.location = "/login";
         }
         return error;
     }

@@ -11,7 +11,7 @@ const registerValidation = async (data, res) => {
         await schema.validateAsync(data);
     } catch (err) {
         const { details } = err;
-        res.send(details[0].message);
+        res.status(400).send(details[0].message);
     }
 };
 //Login validation
@@ -20,12 +20,12 @@ const loginValidation = async (data, res) => {
         email: Joi.string().min(6).required().email(),
         password: Joi.string().min(6).required(),
     });
-    
+
     try {
         await schema.validateAsync(data);
     } catch (err) {
         const { details } = err;
-        res.send(details[0].message);
+        res.status(400).send(details[0].message);
     }
 };
 

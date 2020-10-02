@@ -1,4 +1,4 @@
-.paper {
+.paperRegister {
     margin-top: 20px;
     background-color: rgba(255, 255, 255, 0.972);
     border-radius: 5px;
@@ -13,13 +13,13 @@
 .submitButton {
     margin-bottom: 50px;
 }
-.loginForm {
+.registerForm {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 50px;
 }
-.header {
+.headerRegister {
     border-radius: 4px;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.356);
     text-align: center;
@@ -46,6 +46,21 @@
     align-items: center;
     margin-bottom: 10px;
 }
-.paregrapCheckbox{
+.paregraphCheckbox{
     height: auto;
+}
+.error{
+    position: absolute;
+    margin-bottom: 120px;
+    height: 40px;
+    width: 380px;
+    border-radius: 10px;
+    background-color: rgba(255, 0, 0, 0.616);
+    display: flex;
+    align-items: center;
+}
+.errorPeregraph{
+    height: auto;
+    margin-left: 5px;
+    color: white;
 }
