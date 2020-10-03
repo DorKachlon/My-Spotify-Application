@@ -7,31 +7,37 @@ const { registerValidation, loginValidation } = require("../validation");
 
 router.post("/register", async (req, res) => {
     //LETS VALIDATION THE DATA BEFORE
-    registerValidation(req.body, res);
+    const { error } = await registerValidation(req.body);
+    if (error !== "ok") {
+        console.log(error);
+        res.status(400).send({ message: "asdfadsf" });
+    } else {
+        //Checking if the user is already in the database
+        const emailExist = await User.findOne({
+            where: { email: req.body.email },
+        });
+        if (emailExist) res.status(400).send("Email already exists");
 
-    //Checking if the user is already in the database
-    const emailExist = await User.findOne({ where: { email: req.body.email } });
-    if (emailExist) res.status(400).send("Email already exists");
+        //Hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(req.body.password, salt);
 
-    //Hash password
-    const salt = await bcrypt.genSalt(10);
-    const hashPassword = await bcrypt.hash(req.body.password, salt);
+        //Create a new user
+        const obj = {
+            name: req.body.name,
+            email: req.body.email,
+            password: hashPassword,
+            isAdmin: false,
+            preferenced: [{}],
+            rememberToken: false,
+        };
 
-    //Create a new user
-    const obj = {
-        name: req.body.name,
-        email: req.body.email,
-        password: hashPassword,
-        isAdmin: false,
-        preferenced: [{}],
-        rememberToken: false,
-    };
-
-    try {
-        const savedUser = await User.create(obj);
-        res.send({ user: savedUser.id });
-    } catch (err) {
-        res.status(400).send(err);
+        try {
+            const savedUser = await User.create(obj);
+            res.send({ user: savedUser.id });
+        } catch (err) {
+            res.status(400).send(err);
+        }
     }
 });
 

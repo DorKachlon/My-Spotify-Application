@@ -9,9 +9,10 @@ const registerValidation = async (data, res) => {
     });
     try {
         await schema.validateAsync(data);
+        return { error: "ok" };
     } catch (err) {
         const { details } = err;
-        res.status(400).send(details[0].message);
+        return { error: details[0].message };
     }
 };
 //Login validation

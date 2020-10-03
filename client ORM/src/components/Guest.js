@@ -1,9 +1,31 @@
-import React from 'react'
+import React from "react";
+import Particles from "react-particles-js";
 
 export default function Guest() {
     return (
-        <div>
-            Guest page
-        </div>
-    )
+        <>
+            <Particles
+                width="100vw"
+                height="100vh"
+                params={{
+                    particles: {
+                        number: {
+                            value: 50,
+                        },
+                        size: {
+                            value: 3,
+                        },
+                    },
+                    interactivity: {
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: "repulse",
+                            },
+                        },
+                    },
+                }}
+            />
+        </>
+    );
 }

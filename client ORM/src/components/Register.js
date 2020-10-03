@@ -18,6 +18,9 @@ import PeopleIcon from "@material-ui/icons/People";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Checkbox from "@material-ui/core/Checkbox";
 import ErrorIcon from "@material-ui/icons/Error";
+import Particles from "react-particles-js";
+import axios from "axios";
+
 const useStyles = makeStyles((theme) => ({
     name: {
         marginBottom: "20px",
@@ -76,11 +79,12 @@ export default function Register() {
             showPassword: false,
         });
         console.log(obj);
-        await network.post(`/api/auth/register`, obj).then((res) => {
-            if (res.status === 200) {
-                window.location = "/";
-            }
-        });
+        try {
+            const data = await axios.post(`/api/auth/register`, obj);
+            console.log("data", data);
+        } catch (error) {
+            alert(error);
+        }
     }
 
     const handleChange = (prop) => (event) => {
@@ -94,135 +98,162 @@ export default function Register() {
         setChecked(!checked);
     };
     return (
-        <div className="registerForm">
-            <div className="headerRegister">
-                <div className="title">Register</div>
-                <div>
-                    <IconButton>
-                        <FacebookIcon style={{ color: "white" }} />
-                    </IconButton>
-                    <IconButton>
-                        <InstagramIcon style={{ color: "white" }} />
-                    </IconButton>
+        <div style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
+            <div className="registerForm">
+                <div className="headerRegister">
+                    <div className="title">Register</div>
+                    <div>
+                        <IconButton>
+                            <FacebookIcon style={{ color: "white" }} />
+                        </IconButton>
+                        <IconButton>
+                            <InstagramIcon style={{ color: "white" }} />
+                        </IconButton>
+                    </div>
                 </div>
-            </div>
 
-            <div className="paperRegister">
-                <FormControl className={classes.name}>
-                    <InputLabel
-                        style={{ color: "grey" }}
-                        htmlFor="standard-adornment-password"
-                    >
-                        Full Name
-                    </InputLabel>
-                    <Input
-                        color="secondary"
-                        onChange={handleChange("name")}
-                        endAdornment={
-                            <InputAdornment
-                                style={{ opacity: "0.7" }}
-                                position="end"
-                            >
-                                <PeopleIcon />
-                            </InputAdornment>
-                        }
-                    />
-                </FormControl>
-
-                <FormControl className={classes.email}>
-                    <InputLabel
-                        style={{ color: "grey" }}
-                        htmlFor="standard-adornment-password"
-                    >
-                        Email
-                    </InputLabel>
-                    <Input
-                        color="secondary"
-                        onChange={handleChange("email")}
-                        endAdornment={
-                            <InputAdornment
-                                style={{ opacity: "0.7" }}
-                                position="end"
-                            >
-                                <Email />
-                            </InputAdornment>
-                        }
-                    />
-                </FormControl>
-
-                <FormControl className={classes.password}>
-                    <InputLabel
-                        style={{ color: "grey" }}
-                        className={classes.labelPass}
-                        htmlFor="standard-adornment-password"
-                    >
-                        Password
-                    </InputLabel>
-                    <Input
-                        type="password"
-                        onChange={handleChange("password")}
-                        color="secondary"
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <LockOutlinedIcon style={{ opacity: "0.7" }} />
-                            </InputAdornment>
-                        }
-                    />
-                </FormControl>
-
-                <FormControl className={classes.confirmPassword}>
-                    <InputLabel
-                        style={{ color: "grey" }}
-                        className={classes.labelPass}
-                        htmlFor="standard-adornment-password"
-                    >
-                        Confirm Password
-                    </InputLabel>
-                    <Input
-                        type={values.showPassword ? "text" : "password"}
-                        onChange={handleChange("confirmPassword")}
-                        color="secondary"
-                        endAdornment={
-                            <InputAdornment position="end">
-                                <IconButton
+                <div className="paperRegister">
+                    <FormControl className={classes.name}>
+                        <InputLabel
+                            style={{ color: "grey" }}
+                            htmlFor="standard-adornment-password"
+                        >
+                            Full Name
+                        </InputLabel>
+                        <Input
+                            color="secondary"
+                            onChange={handleChange("name")}
+                            endAdornment={
+                                <InputAdornment
                                     style={{ opacity: "0.7" }}
-                                    aria-label="toggle password visibility"
-                                    onClick={handleClickShowPassword}
+                                    position="end"
                                 >
-                                    {values.showPassword ? (
-                                        <Visibility />
-                                    ) : (
-                                        <VisibilityOff />
-                                    )}
-                                </IconButton>
-                                <LockIcon style={{ opacity: "0.7" }} />
-                            </InputAdornment>
-                        }
-                    />
-                </FormControl>
-                {error && (
-                    <div className="error">
-                        <ErrorIcon
-                            style={{ color: "white", marginLeft: "4px" }}
+                                    <PeopleIcon />
+                                </InputAdornment>
+                            }
                         />
-                        <div className="errorPeregraph">{error}</div>
-                    </div>
-                )}
-                <div className="checkBoxContainer">
-                    <Checkbox
-                        checked={checked}
-                        onChange={handleChecked}
-                        name="checkedA"
-                    />
-                    <div className="paregraphCheckbox">
-                        I accept the <i>Terms of Use</i> & <i>Privacy Policy</i>
-                    </div>
-                </div>
+                    </FormControl>
 
-                <Button className={classes.submit} onClick={clickhandler}>
-                    get started
-                </Button>
+                    <FormControl className={classes.email}>
+                        <InputLabel
+                            style={{ color: "grey" }}
+                            htmlFor="standard-adornment-password"
+                        >
+                            Email
+                        </InputLabel>
+                        <Input
+                            color="secondary"
+                            onChange={handleChange("email")}
+                            endAdornment={
+                                <InputAdornment
+                                    style={{ opacity: "0.7" }}
+                                    position="end"
+                                >
+                                    <Email />
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
+
+                    <FormControl className={classes.password}>
+                        <InputLabel
+                            style={{ color: "grey" }}
+                            className={classes.labelPass}
+                            htmlFor="standard-adornment-password"
+                        >
+                            Password
+                        </InputLabel>
+                        <Input
+                            type="password"
+                            onChange={handleChange("password")}
+                            color="secondary"
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <LockOutlinedIcon
+                                        style={{ opacity: "0.7" }}
+                                    />
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
+
+                    <FormControl className={classes.confirmPassword}>
+                        <InputLabel
+                            style={{ color: "grey" }}
+                            className={classes.labelPass}
+                            htmlFor="standard-adornment-password"
+                        >
+                            Confirm Password
+                        </InputLabel>
+                        <Input
+                            type={values.showPassword ? "text" : "password"}
+                            onChange={handleChange("confirmPassword")}
+                            color="secondary"
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        style={{ opacity: "0.7" }}
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                    >
+                                        {values.showPassword ? (
+                                            <Visibility />
+                                        ) : (
+                                            <VisibilityOff />
+                                        )}
+                                    </IconButton>
+                                    <LockIcon style={{ opacity: "0.7" }} />
+                                </InputAdornment>
+                            }
+                        />
+                    </FormControl>
+                    {error && (
+                        <div className="error">
+                            <ErrorIcon
+                                style={{ color: "white", marginLeft: "4px" }}
+                            />
+                            <div className="errorPeregraph">{error}</div>
+                        </div>
+                    )}
+                    <div className="checkBoxContainer">
+                        <Checkbox
+                            checked={checked}
+                            onChange={handleChecked}
+                            name="checkedA"
+                        />
+                        <div className="paregraphCheckbox">
+                            I accept the <i>Terms of Use</i> &{" "}
+                            <i>Privacy Policy</i>
+                        </div>
+                    </div>
+
+                    <Button className={classes.submit} onClick={clickhandler}>
+                        get started
+                    </Button>
+                </div>
             </div>
+            <Particles
+                width="100vw"
+                height="70vh"
+                params={{
+                    particles: {
+                        number: {
+                            value: 50,
+                        },
+                        size: {
+                            value: 3,
+                        },
+                    },
+                    interactivity: {
+                        events: {
+                            onhover: {
+                                enable: true,
+                                mode: "repulse",
+                            },
+                        },
+                    },
+                }}
+            />
         </div>
     );
 }
