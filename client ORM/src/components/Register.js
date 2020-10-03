@@ -19,7 +19,8 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Checkbox from "@material-ui/core/Checkbox";
 import ErrorIcon from "@material-ui/icons/Error";
 import Particles from "react-particles-js";
-import axios from "axios";
+// import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     name: {
@@ -56,6 +57,7 @@ export default function Register() {
     });
     const [checked, setChecked] = useState(false);
     const [error, setError] = useState("");
+    let history = useHistory();
 
     async function clickhandler() {
         if (!checked) {
@@ -71,19 +73,19 @@ export default function Register() {
             email: values.email,
             password: values.password,
         };
-        setValues({
-            name: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            showPassword: false,
-        });
         console.log(obj);
         try {
-            const data = await axios.post(`/api/auth/register`, obj);
-            console.log("data", data);
+            await network.post(`/api/auth/register`, obj);
+            setValues({
+                name: "",
+                email: "",
+                password: "",
+                confirmPassword: "",
+                showPassword: false,
+            });
+            history.push("/");
         } catch (error) {
-            alert(error);
+            setError(error.response.data);
         }
     }
 
@@ -98,7 +100,13 @@ export default function Register() {
         setChecked(!checked);
     };
     return (
-        <div style={{display:"flex", justifyContent:"center",alignItems:"center"}}>
+        <div
+            style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+            }}
+        >
             <div className="registerForm">
                 <div className="headerRegister">
                     <div className="title">Register</div>
