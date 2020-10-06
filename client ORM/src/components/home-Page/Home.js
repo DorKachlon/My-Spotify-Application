@@ -3,6 +3,8 @@ import Swal from "sweetalert2";
 import MyCarousel from "./MyCarousel";
 import network from "../../network/network";
 import "../../styles/home.css";
+import { motion } from "framer-motion";
+
 export default function Home() {
     const [
         topSongsArtistPlaylistAlbum,
@@ -43,7 +45,13 @@ export default function Home() {
     }, []);
 
     return (
-        <>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+                default: { duration: 4 },
+            }}
+        >
             <h1 className="welcomeTitle">WELCOME</h1>
             <div className="carouselTopTwenty">
                 {topSongsArtistPlaylistAlbum[0] && (
@@ -101,6 +109,6 @@ export default function Home() {
                     </>
                 )}
             </div>
-        </>
+        </motion.div>
     );
 }

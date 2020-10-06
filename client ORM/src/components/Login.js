@@ -17,7 +17,7 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import Particles from "react-particles-js";
 import { useHistory } from "react-router-dom";
 import ErrorIcon from "@material-ui/icons/Error";
-
+import { motion } from "framer-motion";
 const useStyles = makeStyles((theme) => ({
     email: {
         marginBottom: "20px",
@@ -82,7 +82,14 @@ export default function Login() {
                 alignItems: "center",
             }}
         >
-            <div className="loginForm">
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                    default: { duration: 2 },
+                }}
+                className="loginForm"
+            >
                 <div className="header">
                     <div className="title">Login</div>
                     <div>
@@ -151,18 +158,18 @@ export default function Login() {
                         />
                     </FormControl>
                     {error && (
-                        <div className="errorLogin">
+                        <motion.div className="errorLogin">
                             <ErrorIcon
                                 style={{ color: "white", marginLeft: "4px" }}
                             />
                             <div className="errorPeregraph">{error}</div>
-                        </div>
+                        </motion.div>
                     )}
                     <Button className={classes.submit} onClick={clickhandler}>
                         Login
                     </Button>
                 </div>
-            </div>
+            </motion.div>
             <Particles
                 width="100vw"
                 height="70vh"

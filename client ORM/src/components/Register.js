@@ -19,7 +19,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Checkbox from "@material-ui/core/Checkbox";
 import ErrorIcon from "@material-ui/icons/Error";
 import Particles from "react-particles-js";
-// import axios from "axios";
+import { motion } from "framer-motion";
 import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -107,7 +107,14 @@ export default function Register() {
                 alignItems: "center",
             }}
         >
-            <div className="registerForm">
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                    default: { duration: 2 },
+                }}
+                className="registerForm"
+            >
                 <div className="headerRegister">
                     <div className="title">Register</div>
                     <div>
@@ -239,7 +246,7 @@ export default function Register() {
                         get started
                     </Button>
                 </div>
-            </div>
+            </motion.div>
             <Particles
                 width="100vw"
                 height="70vh"

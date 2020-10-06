@@ -15,7 +15,7 @@ import SinglePlaylist from "./components/SinglePlaylist";
 import SingleAlbum from "./components/SingleAlbum";
 import ErrorPage from "./components/ErrorPage";
 import SearchPage from "./components/SearchPage";
-
+import ProtectedRoute from "./components/protectedRoute";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { green, pink, grey } from "@material-ui/core/colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -51,34 +51,38 @@ function App() {
                         <NavBar />
                         <div className="height-for-nav"></div>
                         <Switch>
-                            <Route exact path="/" component={Home} />
+                            <ProtectedRoute exact path="/" component={Home} />
                             <Route exact path="/guest" component={Guest} />
                             <Route exact path="/login" component={Login} />
-                            <Route exact path="/register" component={Register} />
-                            <Route exact path="/songs" component={Songs} />
-                            <Route exact path="/albums" component={Albums} />
                             <Route
+                                exact
+                                path="/register"
+                                component={Register}
+                            />
+                            <ProtectedRoute exact path="/songs" component={Songs} />
+                            <ProtectedRoute exact path="/albums" component={Albums} />
+                            <ProtectedRoute
                                 exact
                                 path="/playlists"
                                 component={Playlist}
                             />
-                            <Route path="/songs/:id">
+                            <ProtectedRoute path="/songs/:id">
                                 <SingleSong
                                     autoPlay={autoPlay}
                                     setAutoPlay={setAutoPlay}
                                 />
-                            </Route>
-                            <Route
+                            </ProtectedRoute>
+                            <ProtectedRoute
                                 path="/artists/:id"
                                 component={SingleArtist}
                             />
-                            <Route
+                            <ProtectedRoute
                                 path="/playlists/:id"
                                 component={SinglePlaylist}
                             />
-                            <Route path="/albums/:id" component={SingleAlbum} />
-                            <Route path="/search" component={SearchPage} />
-                            <Route path="/404" component={ErrorPage} />
+                            <ProtectedRoute path="/albums/:id" component={SingleAlbum} />
+                            <ProtectedRoute path="/search" component={SearchPage} />
+                            <Route component={ErrorPage} />
                         </Switch>
                     </div>
                 </Router>
