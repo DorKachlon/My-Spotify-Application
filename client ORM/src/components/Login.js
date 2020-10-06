@@ -83,8 +83,8 @@ export default function Login() {
             }}
         >
             <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{
                     default: { duration: 2 },
                 }}
@@ -170,28 +170,36 @@ export default function Login() {
                     </Button>
                 </div>
             </motion.div>
-            <Particles
-                width="100vw"
-                height="70vh"
-                params={{
-                    particles: {
-                        number: {
-                            value: 50,
-                        },
-                        size: {
-                            value: 3,
-                        },
-                    },
-                    interactivity: {
-                        events: {
-                            onhover: {
-                                enable: true,
-                                mode: "repulse",
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{
+                    default: { duration: 5 },
+                }}
+            >
+                <Particles
+                    width="100vw"
+                    height="70vh"
+                    params={{
+                        particles: {
+                            number: {
+                                value: 50,
+                            },
+                            size: {
+                                value: 3,
                             },
                         },
-                    },
-                }}
-            />
+                        interactivity: {
+                            events: {
+                                onhover: {
+                                    enable: true,
+                                    mode: "repulse",
+                                },
+                            },
+                        },
+                    }}
+                />
+            </motion.div>
         </div>
     );
 }
