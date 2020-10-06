@@ -9,7 +9,7 @@ export default function ProtectedRoute({ component: Component, ...rest }) {
                 if (Cookies.get("token")) {
                     return <Component {...props} />;
                 } else {
-                    return <Redirect to="/login" />;
+                    return <Redirect to="/" />;
                 }
             }}
         />

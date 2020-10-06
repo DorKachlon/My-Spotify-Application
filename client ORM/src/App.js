@@ -19,6 +19,7 @@ import ProtectedRoute from "./components/protectedRoute";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { green, pink, grey } from "@material-ui/core/colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Cookies from "js-cookie";
 
 const myTheme = createMuiTheme({
     palette: {
@@ -32,6 +33,7 @@ function App() {
     const [autoPlay, setAutoPlay] = useState(
         !document.cookie.includes("autoPlay=false")
     );
+    const [login, setLogin] = useState(Cookies.get("token"));
     return (
         <div className="body">
             <ThemeProvider theme={myTheme}>
@@ -48,19 +50,31 @@ function App() {
                             alt="dk-tube2"
                             border="0"
                         />
-                        <NavBar />
+                        <NavBar login={login} setLogin={setLogin} />
                         <div className="height-for-nav"></div>
                         <Switch>
-                            <ProtectedRoute exact path="/" component={Home} />
-                            <Route exact path="/guest" component={Guest} />
-                            <Route exact path="/login" component={Login} />
-                            <Route
+                            <ProtectedRoute
                                 exact
-                                path="/register"
-                                component={Register}
+                                path="/home"
+                                component={Home}
                             />
-                            <ProtectedRoute exact path="/songs" component={Songs} />
-                            <ProtectedRoute exact path="/albums" component={Albums} />
+                            <Route exact path="/" component={Guest} />
+                            <Route exact path="/login">
+                                <Login setLogin={setLogin} />
+                            </Route>
+                            <Route exact path="/register">
+                                <Register setLogin={setLogin} />
+                            </Route>
+                            <ProtectedRoute
+                                exact
+                                path="/songs"
+                                component={Songs}
+                            />
+                            <ProtectedRoute
+                                exact
+                                path="/albums"
+                                component={Albums}
+                            />
                             <ProtectedRoute
                                 exact
                                 path="/playlists"
@@ -80,8 +94,14 @@ function App() {
                                 path="/playlists/:id"
                                 component={SinglePlaylist}
                             />
-                            <ProtectedRoute path="/albums/:id" component={SingleAlbum} />
-                            <ProtectedRoute path="/search" component={SearchPage} />
+                            <ProtectedRoute
+                                path="/albums/:id"
+                                component={SingleAlbum}
+                            />
+                            <ProtectedRoute
+                                path="/search"
+                                component={SearchPage}
+                            />
                             <Route component={ErrorPage} />
                         </Switch>
                     </div>

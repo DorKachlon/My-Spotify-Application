@@ -22,6 +22,11 @@ import Typography from "@material-ui/core/Typography";
 import AlbumIcon from "@material-ui/icons/Album";
 import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
+import Cookies from "js-cookie";
+import Button from "@material-ui/core/Button";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
+import CreateIcon from "@material-ui/icons/Create";
+import FingerprintIcon from "@material-ui/icons/Fingerprint";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -81,11 +86,18 @@ const useStyles = makeStyles((theme) => ({
         }),
         marginRight: 0,
     },
+    logout: {
+        marginBottom: "0px",
+        background: "linear-gradient(45deg, #28B869 30%, #00E676 90%)",
+        color: "white",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+    },
 }));
 
-export default function NavBar() {
+export default function NavBar({ login, setLogin }) {
     const classes = useStyles();
-
     const [value, setValue] = useState(0);
     const [scrolling, setScrolling] = useState(false);
     const [navOrMenu, setNavOrMenug] = useState(
@@ -119,6 +131,15 @@ export default function NavBar() {
     const handleClicked = () => {
         setDrawerOpen(!drawerOpen);
     };
+    const logoutClickHandler = () => {
+        Cookies.remove("token");
+        setLogin(false);
+    };
+    const logoutClickHandlerDrawer = () => {
+        setDrawerOpen(false);
+        Cookies.remove("token");
+        setLogin(false);
+    };
 
     return (
         <>
@@ -140,7 +161,7 @@ export default function NavBar() {
                                 <img
                                     style={{
                                         width: "50px",
-                                        height:"40px",
+                                        height: "40px",
                                         marginTop: "5px",
                                         filter: "brightness(10%)",
                                     }}
@@ -148,9 +169,11 @@ export default function NavBar() {
                                     alt="dk-tube2"
                                     border="0"
                                 />
-                                <div style={{marginLeft:"25px"}}>
-                                <SearchBar />
-                                </div>
+                                {login && (
+                                    <div style={{ marginLeft: "25px" }}>
+                                        <SearchBar />
+                                    </div>
+                                )}
                             </Typography>
                             <IconButton
                                 color="secondary"
@@ -179,85 +202,173 @@ export default function NavBar() {
                         </div>
                         <Divider />
                         <List>
-                            <ListItem
-                                button
-                                key="home"
-                                component={Link}
-                                to="/"
-                                onClick={handleClicked}
-                            >
-                                <ListItemIcon>
-                                    <HomeIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Home" />
-                            </ListItem>
-                            <Divider />
-                            <ListItem
-                                button
-                                key="songs"
-                                component={Link}
-                                to="/songs"
-                                onClick={handleClicked}
-                            >
-                                <ListItemIcon>
-                                    <MusicNoteIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="songs" />
-                            </ListItem>
-                            <Divider />
-                            <ListItem
-                                button
-                                key="albums"
-                                component={Link}
-                                to="/albums"
-                                onClick={handleClicked}
-                            >
-                                <ListItemIcon>
-                                    <AlbumIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="albums" />
-                            </ListItem>
-                            <Divider />
-                            <ListItem
-                                button
-                                key="playlist"
-                                component={Link}
-                                to="/playlists"
-                                onClick={handleClicked}
-                            >
-                                <ListItemIcon>
-                                    <QueueMusicIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="playlist" />
-                            </ListItem>
-                            <Divider />
+                            {login ? (
+                                <>
+                                    <ListItem
+                                        button
+                                        key="home"
+                                        component={Link}
+                                        to="/home"
+                                        onClick={handleClicked}
+                                    >
+                                        <ListItemIcon>
+                                            <HomeIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Home" />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem
+                                        button
+                                        key="songs"
+                                        component={Link}
+                                        to="/songs"
+                                        onClick={handleClicked}
+                                    >
+                                        <ListItemIcon>
+                                            <MusicNoteIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="songs" />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem
+                                        button
+                                        key="albums"
+                                        component={Link}
+                                        to="/albums"
+                                        onClick={handleClicked}
+                                    >
+                                        <ListItemIcon>
+                                            <AlbumIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="albums" />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem
+                                        button
+                                        key="playlist"
+                                        component={Link}
+                                        to="/playlists"
+                                        onClick={handleClicked}
+                                    >
+                                        <ListItemIcon>
+                                            <QueueMusicIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="playlist" />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem
+                                        button
+                                        key="logout"
+                                        onClick={logoutClickHandlerDrawer}
+                                    >
+                                        <ListItemIcon>
+                                            <ExitToAppIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Log Out" />
+                                    </ListItem>
+                                    <Divider />
+                                </>
+                            ) : (
+                                <>
+                                    <ListItem
+                                        button
+                                        key="home"
+                                        component={Link}
+                                        to="/"
+                                        onClick={handleClicked}
+                                    >
+                                        <ListItemIcon>
+                                            <HomeIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Home" />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem
+                                        button
+                                        key="login"
+                                        component={Link}
+                                        to="/login"
+                                        onClick={handleClicked}
+                                    >
+                                        <ListItemIcon>
+                                            <FingerprintIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Log in" />
+                                    </ListItem>
+                                    <Divider />
+                                    <ListItem
+                                        button
+                                        key="signup"
+                                        component={Link}
+                                        to="/register"
+                                        onClick={handleClicked}
+                                    >
+                                        <ListItemIcon>
+                                            <CreateIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Sign Up" />
+                                    </ListItem>
+                                    <Divider />
+                                </>
+                            )}
                         </List>
                     </Drawer>
                 </nav>
             ) : (
                 <nav>
-                    <Tabs
-                        style={{
-                            justifyContent: "space-around",
-                            color: "white",
-                        }}
-                        value={value}
-                        onChange={handleChange}
-                        indicatorColor="secondary"
-                        className={scrolling ? "scrollingBacground" : "nothing"}
-                    >
-                        <Tab label="Home" component={Link} to="/" />
-                        <Tab label="Songs" component={Link} to="/songs" />
-                        <Tab label="Albums" component={Link} to="/albums" />
-                        <Tab
-                            label="Playlists"
-                            component={Link}
-                            to="/playlists"
-                        />
-                        <div className="searchBar">
-                            <SearchBar />
-                        </div>
-                    </Tabs>
+                    {login ? (
+                        <Tabs
+                            style={{
+                                justifyContent: "space-around",
+                                color: "white",
+                            }}
+                            value={value}
+                            onChange={handleChange}
+                            indicatorColor="secondary"
+                            className={
+                                scrolling ? "scrollingBacground" : "nothing"
+                            }
+                        >
+                            <Tab label="Home" component={Link} to="/home" />
+                            <Tab label="Songs" component={Link} to="/songs" />
+                            <Tab label="Albums" component={Link} to="/albums" />
+                            <Tab
+                                label="Playlists"
+                                component={Link}
+                                to="/playlists"
+                            />
+                            <div className="searchBar">
+                                <SearchBar />
+                            </div>
+                            <Button
+                                className={classes.logout}
+                                onClick={logoutClickHandler}
+                            >
+                                Log Out
+                            </Button>
+                        </Tabs>
+                    ) : (
+                        <Tabs
+                            style={{
+                                justifyContent: "space-around",
+                                color: "white",
+                            }}
+                            value={value}
+                            onChange={handleChange}
+                            indicatorColor="secondary"
+                            className={
+                                scrolling ? "scrollingBacground" : "nothing"
+                            }
+                        >
+                            <Tab label="Home" component={Link} to="/" />
+                            <Tab label="log in" component={Link} to="/login" />
+                            <Tab
+                                label="Sign up"
+                                component={Link}
+                                to="/register"
+                            />
+                        </Tabs>
+                    )}
                 </nav>
             )}
         </>

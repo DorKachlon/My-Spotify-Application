@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Register() {
+export default function Register({ setLogin }) {
     const classes = useStyles();
     const [values, setValues] = useState({
         name: "",
@@ -83,7 +83,8 @@ export default function Register() {
                 confirmPassword: "",
                 showPassword: false,
             });
-            history.push("/");
+            setLogin(true);
+            history.push("/home");
         } catch (error) {
             setError(error.response.data);
         }
@@ -251,7 +252,7 @@ export default function Register() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{
-                    default: { duration: 5 },
+                    default: { duration: 1 },
                 }}
             >
                 <Particles

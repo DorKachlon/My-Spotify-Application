@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Login() {
+export default function Login({ setLogin }) {
     const classes = useStyles();
     const [values, setValues] = useState({
         email: "",
@@ -60,7 +60,8 @@ export default function Login() {
                 password: "",
                 showPassword: false,
             });
-            history.push("/");
+            setLogin(true);
+            history.push("/home");
         } catch (error) {
             setError(error.response.data);
         }
@@ -174,7 +175,7 @@ export default function Login() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{
-                    default: { duration: 5 },
+                    default: { duration: 1 },
                 }}
             >
                 <Particles
