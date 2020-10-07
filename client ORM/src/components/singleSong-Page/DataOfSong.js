@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 export default function DataOfSong({ songDetails }) {
     const [like, setLike] = useState(false);
     const [sentence, setSentence] = useState(false);
-    console.log('song details', songDetails);
     function clickHandler() {
         setLike(!like);
         if (!like === true) {

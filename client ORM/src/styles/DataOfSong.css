@@ -3,7 +3,7 @@
     display: flex;
     margin-top: 10px;
     margin-left: 10px;
-    background-color: rgb(40,184,105);
+    background: linear-gradient(270deg, rgba(49,171,89,1) 0%, rgba(120,255,192,1) 100%);
     border-radius: 10px 10px 0 0;
 }
 .song-name-ditails{
@@ -45,7 +45,7 @@ p{
 .artistAndAlbum{
     display: flex;
     justify-content: space-around;
-    background-color: rgb(24,24,24);
+    background: linear-gradient(45deg, #181818 0%, #3f3f3f 80%);
     border-radius: 0 0 10px 10px ;
     margin-left: 10px;
 

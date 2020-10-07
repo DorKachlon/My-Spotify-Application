@@ -68,7 +68,6 @@ export default function MyList({
         var sDisplay = s < 10 ? "0" + s : s;
         return hDisplay + mDisplay + sDisplay;
     }
-    console.log("pathname", pathname);
     return (
         <List
             component="nav"
@@ -97,17 +96,23 @@ export default function MyList({
                             pathname.split("/")[1]
                         }=${pathname.split("/")[2]}`;
                     }
-                    console.log("songobj", songObj);
-                    console.log("currentSong", currentSong);
                     return (
                         <Link to={link} key={songObj.id}>
                             <div className="containerListItem">
                                 <ListItem
                                     button
                                     className={
-                                        search &&
-                                        Number(currentSong.id) === songObj.Song.id
-                                            ? classes.itemSelected
+                                        search
+                                            ? search.includes("topSongs") ||
+                                              search.includes("playlists")
+                                                ? Number(currentSong.id) ===
+                                                  songObj.Song.id
+                                                    ? classes.itemSelected
+                                                    : classes.itemOfList
+                                                : Number(currentSong.id) ===
+                                                  songObj.id
+                                                ? classes.itemSelected
+                                                : classes.itemOfList
                                             : classes.itemOfList
                                     }
                                     style={
@@ -189,8 +194,11 @@ export default function MyList({
                                     <div className="duration">
                                         {itsAlbum
                                             ? lengthSong(songObj.length)
-                                            : search.includes("topSongs") ||
-                                              search.includes("playlists")
+                                            : search.includes("topSongs")
+                                            ? lengthSong(songObj.Song.length)
+                                            : search.includes("playlists")
+                                            ? lengthSong(songObj.Song.length)
+                                            : pathname.includes("playlists")
                                             ? lengthSong(songObj.Song.length)
                                             : lengthSong(songObj.length)}
                                     </div>

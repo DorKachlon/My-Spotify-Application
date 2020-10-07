@@ -27,6 +27,8 @@ import Button from "@material-ui/core/Button";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import CreateIcon from "@material-ui/icons/Create";
 import FingerprintIcon from "@material-ui/icons/Fingerprint";
+import { useHistory } from "react-router-dom";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -98,6 +100,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function NavBar({ login, setLogin }) {
     const classes = useStyles();
+      let history = useHistory();
     const [value, setValue] = useState(0);
     const [scrolling, setScrolling] = useState(false);
     const [navOrMenu, setNavOrMenug] = useState(
@@ -134,11 +137,13 @@ export default function NavBar({ login, setLogin }) {
     const logoutClickHandler = () => {
         Cookies.remove("token");
         setLogin(false);
+        history.push("/");
     };
     const logoutClickHandlerDrawer = () => {
         setDrawerOpen(false);
         Cookies.remove("token");
         setLogin(false);
+        history.push("/");
     };
 
     return (

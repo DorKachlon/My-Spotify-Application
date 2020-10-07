@@ -103,7 +103,11 @@ export default function Login({ setLogin }) {
                     </div>
                 </div>
                 <div className="paper">
-                    <FormControl className={(classes.textField, classes.email)}>
+                    <FormControl
+                        // name="email"
+                        // type="email"
+                        className={(classes.textField, classes.email)}
+                    >
                         <InputLabel
                             style={{ color: "grey" }}
                             htmlFor="standard-adornment-password"
@@ -111,6 +115,8 @@ export default function Login({ setLogin }) {
                             Email
                         </InputLabel>
                         <Input
+                            name="email"
+                            type="email"
                             color="secondary"
                             onChange={handleChange("email")}
                             endAdornment={
@@ -123,7 +129,6 @@ export default function Login({ setLogin }) {
                             }
                         />
                     </FormControl>
-
                     <FormControl
                         // className={clsx(classes.margin, classes.textField)}
                         className={(classes.textField, classes.password)}
@@ -136,6 +141,7 @@ export default function Login({ setLogin }) {
                             Password
                         </InputLabel>
                         <Input
+                            name="password"
                             type={values.showPassword ? "text" : "password"}
                             // value={values.password}
                             onChange={handleChange("password")}

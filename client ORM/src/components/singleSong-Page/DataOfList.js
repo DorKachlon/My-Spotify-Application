@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Switch from "@material-ui/core/Switch";
-
+import Cookies from "js-cookie";
+// import Switch from "react-switch";
 export default function DataOfList({
     search,
     product,
@@ -9,10 +10,16 @@ export default function DataOfList({
     autoPlay,
     setAutoPlay,
 }) {
+    console.log(autoPlay);
     const handleChange = (event) => {
-        document.cookie = `autoPlay=${event.target.checked};path=/`;
-        setAutoPlay(event.target.checked);
+        if (event.target.checked) {
+            Cookies.remove("stopAutoPlay");
+        } else {
+            Cookies.set("stopAutoPlay", true);
+        }
+        setAutoPlay(!autoPlay);
     };
+
     return (
         <div className="dataPlaylist">
             <div>
@@ -47,14 +54,7 @@ export default function DataOfList({
             </div>
             <div className="autoPlay">
                 <div>auto play:</div>
-                <Switch
-                    checked={autoPlay}
-                    onChange={handleChange}
-                    color="primary"
-                    inputProps={{
-                        "aria-label": "primary checkbox",
-                    }}
-                />
+                <Switch checked={autoPlay} onChange={handleChange} />
             </div>
         </div>
     );

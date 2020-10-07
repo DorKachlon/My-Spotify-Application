@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState} from "react";
 import "./App.css";
 
 import Home from "./components/home-Page/Home";
@@ -30,9 +30,7 @@ const myTheme = createMuiTheme({
 });
 
 function App() {
-    const [autoPlay, setAutoPlay] = useState(
-        !document.cookie.includes("autoPlay=false")
-    );
+
     const [login, setLogin] = useState(Cookies.get("token"));
     return (
         <div className="body">
@@ -82,8 +80,7 @@ function App() {
                             />
                             <ProtectedRoute path="/songs/:id">
                                 <SingleSong
-                                    autoPlay={autoPlay}
-                                    setAutoPlay={setAutoPlay}
+
                                 />
                             </ProtectedRoute>
                             <ProtectedRoute
