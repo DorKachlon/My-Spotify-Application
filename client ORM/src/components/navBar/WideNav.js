@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import "../../styles/navBar.css";
-import SearchBar from "./SearchBar";
-
+import SearchBar from "./SearchBarV2";
 import { makeStyles } from "@material-ui/core/styles";
 import Cookies from "js-cookie";
 import Button from "@material-ui/core/Button";
 import { useHistory } from "react-router-dom";
-const drawerWidth = 240;
+import "../../styles/navBar.css";
 
 const useStyles = makeStyles((theme) => ({
     logout: {
@@ -22,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function WideNav({login,setLogin}) {
+export default function WideNav({ login, setLogin }) {
     let history = useHistory();
     const classes = useStyles();
     const [value, setValue] = useState(0);
@@ -62,12 +60,12 @@ export default function WideNav({login,setLogin}) {
                     <Tab label="Songs" component={Link} to="/songs" />
                     <Tab label="Albums" component={Link} to="/albums" />
                     <Tab label="Playlists" component={Link} to="/playlists" />
-                    <div className="searchBar">
-                        <SearchBar />
-                    </div>
                     <Button className={classes.logout} onClick={logoutClickHandler}>
                         Log Out
                     </Button>
+                    <div className="searchBar">
+                        <SearchBar />
+                    </div>
                 </Tabs>
             ) : (
                 <Tabs

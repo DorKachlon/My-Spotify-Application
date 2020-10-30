@@ -1,7 +1,7 @@
 import React from "react";
-import "../../styles/navBar.css";
 import NarrowNav from "./NarrowNav";
 import WideNav from "./WideNav";
+import "../../styles/navBar.css";
 
 export default function NavBar({ login, setLogin, smallScreen }) {
     return (
