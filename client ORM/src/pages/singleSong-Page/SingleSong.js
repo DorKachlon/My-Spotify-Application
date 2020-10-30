@@ -3,10 +3,10 @@ import YouTube from "react-youtube";
 import Swal from "sweetalert2";
 import { useLocation } from "react-router-dom";
 import network from "../../network/network";
-import "../../styles/SingleSong.css";
+import "./SingleSong.css";
 import { makeStyles } from "@material-ui/core/styles";
 
-import MyList from "../MyList";
+import MyList from "../../components/MyList";
 import DataOfSong from "./DataOfSong";
 import DataOfList from "./DataOfList";
 import Cookies from "js-cookie";
@@ -19,8 +19,9 @@ const useStyles = makeStyles(() => ({
         height: "auto",
         overflow: "auto",
         "@media (max-width:1100px)": {
-            width: "97vw",
+            width: "100%",
             overflow: "visible",
+            justifyContent: "center",
         },
     },
 }));
@@ -40,9 +41,7 @@ export default function SingleSong() {
                 const { data } = await network.get(`/api${pathname}`);
                 newArr.push(data);
                 if (search.includes("topSongs")) {
-                    const { data: dataList } = await network.get(
-                        "/api/interactions/top_songs"
-                    );
+                    const { data: dataList } = await network.get("/api/interactions/top_songs");
                     newArr.push(dataList);
                 } else {
                     const { data: dataList } = await network.get(
@@ -67,22 +66,16 @@ export default function SingleSong() {
         })();
     }, [pathname, search, product]);
     async function endSongFunc() {
-        let currentIndex = songAndList[1].findIndex(
-            (obj) => obj.Song.id === songAndList[0].id
-        );
+        let currentIndex = songAndList[1].findIndex((obj) => obj.Song.id === songAndList[0].id);
         if (songAndList[1].length === currentIndex + 1) {
             currentIndex = -1;
         }
-   
+
         const songId = songAndList[1][currentIndex + 1].Song.id;
         let newArr = [...songAndList];
         const { data } = await network.get(`/api/songs/${songId}`);
         newArr[0] = data;
-        window.history.replaceState(
-            null,
-            "New Page Title",
-            `/song/${songId}${search}`
-        );
+        window.history.replaceState(null, "New Page Title", `/song/${songId}${search}`);
         setSongAndList(newArr);
     }
     return (
@@ -93,9 +86,7 @@ export default function SingleSong() {
                         <YouTube
                             className="YoutubeVid"
                             videoId={
-                                songAndList[0].youtubeLink
-                                    .split("watch?v=")[1]
-                                    .split("&list")[0]
+                                songAndList[0].youtubeLink.split("watch?v=")[1].split("&list")[0]
                             }
                             onEnd={endSongFunc}
                             opts={

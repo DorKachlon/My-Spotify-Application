@@ -98,14 +98,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function NavBar({ login, setLogin }) {
+export default function NavBar({ login, setLogin, smallWindow }) {
     const classes = useStyles();
-      let history = useHistory();
+    let history = useHistory();
     const [value, setValue] = useState(0);
     const [scrolling, setScrolling] = useState(false);
-    const [navOrMenu, setNavOrMenug] = useState(
-        window.innerWidth < 1100 ? true : false
-    );
+    // const [navOrMenu, setNavOrMenug] = useState(
+    //     window.innerWidth < 1100 ? true : false
+    // );
     const [drawerOpen, setDrawerOpen] = useState(false);
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -118,18 +118,18 @@ export default function NavBar({ login, setLogin }) {
         }
     };
 
-    const displayWindowSize = () => {
-        if (window.innerWidth < 1100) {
-            setNavOrMenug(true);
-        } else {
-            setNavOrMenug(false);
-        }
-    };
+    // const displayWindowSize = () => {
+    //     if (window.innerWidth < 1100) {
+    //         setNavOrMenug(true);
+    //     } else {
+    //         setNavOrMenug(false);
+    //     }
+    // };
     const handleDrawer = () => {
         setDrawerOpen(!drawerOpen);
     };
     window.addEventListener("scroll", changeBackground);
-    window.addEventListener("resize", displayWindowSize);
+    // window.addEventListener("resize", displayWindowSize);
 
     const handleClicked = () => {
         setDrawerOpen(!drawerOpen);
@@ -148,7 +148,7 @@ export default function NavBar({ login, setLogin }) {
 
     return (
         <>
-            {navOrMenu ? (
+            {smallWindow ? (
                 <nav>
                     <AppBar
                         color="secondary"
@@ -158,11 +158,7 @@ export default function NavBar({ login, setLogin }) {
                         })}
                     >
                         <Toolbar>
-                            <Typography
-                                variant="h6"
-                                noWrap
-                                className={classes.title}
-                            >
+                            <Typography variant="h6" noWrap className={classes.title}>
                                 <img
                                     style={{
                                         width: "50px",
@@ -187,7 +183,7 @@ export default function NavBar({ login, setLogin }) {
                                 onClick={handleDrawer}
                                 className={clsx(drawerOpen && classes.hide)}
                             >
-                                <MenuIcon />
+                                <MenuIcon style={{ color: "black" }} />
                             </IconButton>
                         </Toolbar>
                     </AppBar>
@@ -330,25 +326,16 @@ export default function NavBar({ login, setLogin }) {
                             value={value}
                             onChange={handleChange}
                             indicatorColor="secondary"
-                            className={
-                                scrolling ? "scrollingBacground" : "nothing"
-                            }
+                            className={scrolling ? "scrollingBacground" : "nothing"}
                         >
                             <Tab label="Home" component={Link} to="/home" />
                             <Tab label="Songs" component={Link} to="/songs" />
                             <Tab label="Albums" component={Link} to="/albums" />
-                            <Tab
-                                label="Playlists"
-                                component={Link}
-                                to="/playlists"
-                            />
+                            <Tab label="Playlists" component={Link} to="/playlists" />
                             <div className="searchBar">
                                 <SearchBar />
                             </div>
-                            <Button
-                                className={classes.logout}
-                                onClick={logoutClickHandler}
-                            >
+                            <Button className={classes.logout} onClick={logoutClickHandler}>
                                 Log Out
                             </Button>
                         </Tabs>
@@ -361,17 +348,11 @@ export default function NavBar({ login, setLogin }) {
                             value={value}
                             onChange={handleChange}
                             indicatorColor="secondary"
-                            className={
-                                scrolling ? "scrollingBacground" : "nothing"
-                            }
+                            className={scrolling ? "scrollingBacground" : "nothing"}
                         >
                             <Tab label="Home" component={Link} to="/" />
                             <Tab label="log in" component={Link} to="/login" />
-                            <Tab
-                                label="Sign up"
-                                component={Link}
-                                to="/register"
-                            />
+                            <Tab label="Sign up" component={Link} to="/register" />
                         </Tabs>
                     )}
                 </nav>

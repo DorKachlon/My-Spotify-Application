@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "../../styles/TopTwenty.css";
+import "./TopTwenty.css";
 
 export default function TopTwenty({ elements, product }) {
     return (

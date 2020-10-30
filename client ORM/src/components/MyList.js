@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
         },
         "@media (max-width:1100px)": {
             width: "90vw",
+           
         },
     },
     itemSelected: {
@@ -42,6 +43,7 @@ const useStyles = makeStyles(() => ({
         width: "38vw",
         "@media (max-width:1100px)": {
             width: "90vw",
+            margin: "0 auto",
         },
     },
     divider: { backgroundColor: "grey" },

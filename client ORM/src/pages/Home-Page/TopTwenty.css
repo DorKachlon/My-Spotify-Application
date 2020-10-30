@@ -46,11 +46,18 @@
     .containerSingleItem {
         display: flex;
         flex-direction: column;
-        width: 10vw;
+        width: 18vw;
         opacity: 0.8;
         margin: 0 0.5em;
     }
     svg.MuiSvgIcon-root.Carousel-indicator-7.undefined{
         font-size: 9px;
+    }
+    .image {
+        width: 18vw;
+        height: 18vw;
+    }
+    .singleCarousel {
+        padding: 10px;  
     }
 }

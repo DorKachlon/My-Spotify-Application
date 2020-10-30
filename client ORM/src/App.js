@@ -1,7 +1,7 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import "./App.css";
 
-import Home from "./components/home-Page/Home";
+import Home from "./pages/Home-Page/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Guest from "./components/Guest";
@@ -9,7 +9,7 @@ import NavBar from "./components/navBar/NavBar";
 import Songs from "./components/Songs";
 import Albums from "./components/Albums";
 import Playlist from "./components/Playlist";
-import SingleSong from "./components/singleSong-Page/SingleSong";
+import SingleSong from "./pages/singleSong-Page/SingleSong";
 import SingleArtist from "./components/SingleArtist";
 import SinglePlaylist from "./components/SinglePlaylist";
 import SingleAlbum from "./components/SingleAlbum";
@@ -30,8 +30,17 @@ const myTheme = createMuiTheme({
 });
 
 function App() {
-
     const [login, setLogin] = useState(Cookies.get("token"));
+    const [smallWindow, setSmallWindow] = useState(window.innerWidth < 1100 ? true : false);
+
+    const displayWindowSize = () => {
+        if (window.innerWidth < 1100) {
+            setSmallWindow(true);
+        } else {
+            setSmallWindow(false);
+        }
+    };
+    window.addEventListener("resize", displayWindowSize);
     return (
         <div className="body">
             <ThemeProvider theme={myTheme}>
@@ -48,14 +57,12 @@ function App() {
                             alt="dk-tube2"
                             border="0"
                         />
-                        <NavBar login={login} setLogin={setLogin} />
+                        <NavBar login={login} setLogin={setLogin} smallWindow={smallWindow} />
                         <div className="height-for-nav"></div>
                         <Switch>
-                            <ProtectedRoute
-                                exact
-                                path="/home"
-                                component={Home}
-                            />
+                            <ProtectedRoute exact path="/home">
+                                <Home smallWindow={smallWindow} />
+                            </ProtectedRoute>
                             <Route exact path="/" component={Guest} />
                             <Route exact path="/login">
                                 <Login setLogin={setLogin} />
@@ -63,42 +70,16 @@ function App() {
                             <Route exact path="/register">
                                 <Register setLogin={setLogin} />
                             </Route>
-                            <ProtectedRoute
-                                exact
-                                path="/songs"
-                                component={Songs}
-                            />
-                            <ProtectedRoute
-                                exact
-                                path="/albums"
-                                component={Albums}
-                            />
-                            <ProtectedRoute
-                                exact
-                                path="/playlists"
-                                component={Playlist}
-                            />
+                            <ProtectedRoute exact path="/songs" component={Songs} />
+                            <ProtectedRoute exact path="/albums" component={Albums} />
+                            <ProtectedRoute exact path="/playlists" component={Playlist} />
                             <ProtectedRoute path="/songs/:id">
-                                <SingleSong
-
-                                />
+                                <SingleSong />
                             </ProtectedRoute>
-                            <ProtectedRoute
-                                path="/artists/:id"
-                                component={SingleArtist}
-                            />
-                            <ProtectedRoute
-                                path="/playlists/:id"
-                                component={SinglePlaylist}
-                            />
-                            <ProtectedRoute
-                                path="/albums/:id"
-                                component={SingleAlbum}
-                            />
-                            <ProtectedRoute
-                                path="/search"
-                                component={SearchPage}
-                            />
+                            <ProtectedRoute path="/artists/:id" component={SingleArtist} />
+                            <ProtectedRoute path="/playlists/:id" component={SinglePlaylist} />
+                            <ProtectedRoute path="/albums/:id" component={SingleAlbum} />
+                            <ProtectedRoute path="/search" component={SearchPage} />
                             <Route component={ErrorPage} />
                         </Switch>
                     </div>
