@@ -31,13 +31,13 @@ const myTheme = createMuiTheme({
 
 function App() {
     const [login, setLogin] = useState(Cookies.get("token"));
-    const [smallWindow, setSmallWindow] = useState(window.innerWidth < 1100 ? true : false);
+    const [smallScreen, setSmallScreen] = useState(window.innerWidth < 1100 ? true : false);
 
     const displayWindowSize = () => {
         if (window.innerWidth < 1100) {
-            setSmallWindow(true);
+            setSmallScreen(true);
         } else {
-            setSmallWindow(false);
+            setSmallScreen(false);
         }
     };
     window.addEventListener("resize", displayWindowSize);
@@ -57,11 +57,11 @@ function App() {
                             alt="dk-tube2"
                             border="0"
                         />
-                        <NavBar login={login} setLogin={setLogin} smallWindow={smallWindow} />
+                        <NavBar login={login} setLogin={setLogin} smallScreen={smallScreen} />
                         <div className="height-for-nav"></div>
                         <Switch>
                             <ProtectedRoute exact path="/home">
-                                <Home smallWindow={smallWindow} />
+                                <Home smallScreen={smallScreen} />
                             </ProtectedRoute>
                             <Route exact path="/" component={Guest} />
                             <Route exact path="/login">

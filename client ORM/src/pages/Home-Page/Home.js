@@ -7,9 +7,9 @@ import { motion } from "framer-motion";
 //horizontal scroll
 import CarouselForSmallScreen from "./CarouselForSmallScreen";
 
-export default function Home({ smallWindow }) {
+export default function Home({ smallScreen }) {
     const [topSongsArtistPlaylistAlbum, setTopSongsArtistPlaylistAlbum] = useState([]);
-    console.log(smallWindow);
+    console.log(smallScreen);
     useEffect(() => {
         (async function loadTop() {
             let newArr = [];
@@ -36,7 +36,7 @@ export default function Home({ smallWindow }) {
     }, []);
 
     const CarouselForSmallOrWideScreen = (product, i) => {
-        if (smallWindow) {
+        if (smallScreen) {
             return (
                 <CarouselForSmallScreen
                     topSongsArtistPlaylistAlbum={topSongsArtistPlaylistAlbum[i]}
