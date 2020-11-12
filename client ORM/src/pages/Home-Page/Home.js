@@ -9,7 +9,6 @@ import CarouselForSmallScreen from "./CarouselForSmallScreen";
 
 export default function Home({ smallScreen }) {
     const [topSongsArtistPlaylistAlbum, setTopSongsArtistPlaylistAlbum] = useState([]);
-    console.log(smallScreen);
     useEffect(() => {
         (async function loadTop() {
             let newArr = [];

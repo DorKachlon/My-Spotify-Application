@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 const network = axios.create({});
 
 const getToken = () => {
-    return Cookies.get("token");
+    return Cookies.get("accessToken");
 };
 
 network.interceptors.request.use((config) => {

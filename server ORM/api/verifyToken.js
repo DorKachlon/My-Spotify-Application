@@ -4,7 +4,7 @@ module.exports = function (req, res, next) {
     const token = req.header("auth-token");
     if (!token) return res.status(401).send("Access Denaid");
     try {
-        const verified = jwt.verify(token, process.env.TOKEN_SECRET); //return id
+        const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET); //return id
         req.userId = verified;
         next();
     } catch (err) {

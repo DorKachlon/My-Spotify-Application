@@ -1,34 +1,31 @@
 const Joi = require("joi");
 
 //Register validation
-const registerValidation = async (data, res) => {
-    const schema = Joi.object({
-        name: Joi.string().required(),
-        email: Joi.string().min(6).required().email(),
-        password: Joi.string().min(6).required(),
-    });
-    try {
-        await schema.validateAsync(data);
-        return { error: "ok" };
-    } catch (err) {
-        const { details } = err;
-        return { error: details[0].message };
-    }
+const registerValidation = (data) => {
+  const schema = Joi.object({
+    name: Joi.string().required(),
+    email: Joi.string().min(6).required().email(),
+    password: Joi.string().min(6).required(),
+  });
+  return schema.validate(data);
 };
 //Login validation
-const loginValidation = async (data, res) => {
-    const schema = Joi.object({
-        email: Joi.string().min(6).required().email(),
-        password: Joi.string().min(6).required(),
-    });
+const loginValidation = (data) => {
+  const schema = Joi.object({
+    email: Joi.string().min(6).required().email(),
+    password: Joi.string().min(6).required(),
+    rememberMe: Joi.boolean().required(),
+  });
+  return schema.validate(data);
+};
 
-    try {
-        await schema.validateAsync(data);
-    } catch (err) {
-        const { details } = err;
-        res.status(400).send(details[0].message);
-    }
+const tokenValidation = (data) => {
+  const schema = Joi.object({
+    token: Joi.string().required(),
+  });
+  return schema.validate(data);
 };
 
 module.exports.registerValidation = registerValidation;
 module.exports.loginValidation = loginValidation;
+module.exports.tokenValidation = tokenValidation;

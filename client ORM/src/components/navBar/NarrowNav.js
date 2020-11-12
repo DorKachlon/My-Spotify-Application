@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import SearchBar from "./SearchBarV2";
 import MenuIcon from "@material-ui/icons/Menu";
@@ -24,227 +24,205 @@ import CreateIcon from "@material-ui/icons/Create";
 import FingerprintIcon from "@material-ui/icons/Fingerprint";
 import { makeStyles } from "@material-ui/core/styles";
 import clsx from "clsx";
+import network from "../../network/network";
 import "../../styles/navBar.css";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-    appBar: {
-        background: "linear-gradient(45deg, #2AC796 30%, #31AD86 90%)",
-        transition: theme.transitions.create(["margin", "width"], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-    },
-    appBarShift: {
-        width: `calc(100% - ${drawerWidth}px)`,
-        transition: theme.transitions.create(["margin", "width"], {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginRight: drawerWidth,
-    },
-    title: {
-        display: "flex",
-        flexGrow: 1,
-    },
-    hide: {
-        display: "none",
-    },
-    drawer: {
-        width: drawerWidth,
-        flexShrink: 0,
-    },
-    drawerPaper: {
-        width: drawerWidth,
-    },
-    drawerHeader: {
-        display: "flex",
-        alignItems: "center",
-        padding: theme.spacing(0, 1),
-        ...theme.mixins.toolbar,
-        justifyContent: "flex-start",
-    },
+  appBar: {
+    background: "linear-gradient(45deg, #2AC796 30%, #31AD86 90%)",
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+  },
+  appBarShift: {
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["margin", "width"], {
+      easing: theme.transitions.easing.easeOut,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+    marginRight: drawerWidth,
+  },
+  title: {
+    display: "flex",
+    flexGrow: 1,
+  },
+  hide: {
+    display: "none",
+  },
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0,
+  },
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: theme.spacing(0, 1),
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-start",
+  },
 }));
 
 export default function NarrowNav({ login, setLogin }) {
-    const classes = useStyles();
-    let history = useHistory();
-    const [drawerOpen, setDrawerOpen] = useState(false);
-    const handleClicked = () => {
-        setDrawerOpen(!drawerOpen);
-    };
-    const handleDrawer = () => {
-        setDrawerOpen(!drawerOpen);
-    };
-    const logoutClickHandlerDrawer = () => {
-        setDrawerOpen(false);
-        Cookies.remove("token");
-        setLogin(false);
-        history.push("/");
-    };
-    return (
-        <nav>
-            <AppBar
-                color="secondary"
-                position="fixed"
-                className={clsx(classes.appBar, {
-                    [classes.appBarShift]: drawerOpen,
-                })}
-            >
-                <Toolbar>
-                    <Typography variant="h6" noWrap className={classes.title}>
-                        <img
-                            style={{
-                                width: "50px",
-                                height: "40px",
-                                marginTop: "5px",
-                                filter: "brightness(10%)",
-                            }}
-                            src="https://i.ibb.co/jgT3n13/dk-tube3.png"
-                            alt="dk-tube2"
-                            border="0"
-                        />
-                        {login && (
-                            <div style={{ marginLeft: "25px" }}>
-                                <SearchBar />
-                            </div>
-                        )}
-                    </Typography>
-                    <IconButton
-                        color="secondary"
-                        aria-label="open drawer"
-                        edge="end"
-                        onClick={handleDrawer}
-                        className={clsx(drawerOpen && classes.hide)}
-                    >
-                        <MenuIcon style={{ color: "black" }} />
-                    </IconButton>
-                </Toolbar>
-            </AppBar>
-            <Drawer
-                className={classes.drawer}
-                variant="persistent"
-                anchor="right"
-                open={drawerOpen}
-                classes={{
-                    paper: classes.drawerPaper,
+  const classes = useStyles();
+  let history = useHistory();
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const handleClicked = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+  const handleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+  const logoutClickHandlerDrawer = async () => {
+    try {
+      setDrawerOpen(false);
+      await network.post("/api/auth/logout", {
+        token: Cookies.get("refreshToken"),
+      });
+      Cookies.remove("refreshToken");
+      Cookies.remove("accessToken");
+      Cookies.remove("name");
+      Cookies.remove("email");
+      setLogin(false);
+      history.push("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <nav>
+      <AppBar
+        color="secondary"
+        position="fixed"
+        className={clsx(classes.appBar, {
+          [classes.appBarShift]: drawerOpen,
+        })}
+      >
+        <Toolbar>
+          <Typography variant="h6" noWrap className={classes.title}>
+            <NavLink to="/home" exact>
+              <img
+                style={{
+                  width: "50px",
+                  height: "40px",
+                  marginTop: "5px",
+                  filter: "brightness(10%)",
                 }}
-            >
-                <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawer}>
-                        <ChevronRightIcon />
-                    </IconButton>
-                </div>
-                <Divider />
-                <List>
-                    {login ? (
-                        <>
-                            <ListItem
-                                button
-                                key="home"
-                                component={Link}
-                                to="/home"
-                                onClick={handleClicked}
-                            >
-                                <ListItemIcon>
-                                    <HomeIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Home" />
-                            </ListItem>
-                            <Divider />
-                            <ListItem
-                                button
-                                key="songs"
-                                component={Link}
-                                to="/songs"
-                                onClick={handleClicked}
-                            >
-                                <ListItemIcon>
-                                    <MusicNoteIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="songs" />
-                            </ListItem>
-                            <Divider />
-                            <ListItem
-                                button
-                                key="albums"
-                                component={Link}
-                                to="/albums"
-                                onClick={handleClicked}
-                            >
-                                <ListItemIcon>
-                                    <AlbumIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="albums" />
-                            </ListItem>
-                            <Divider />
-                            <ListItem
-                                button
-                                key="playlist"
-                                component={Link}
-                                to="/playlists"
-                                onClick={handleClicked}
-                            >
-                                <ListItemIcon>
-                                    <QueueMusicIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="playlist" />
-                            </ListItem>
-                            <Divider />
-                            <ListItem button key="logout" onClick={logoutClickHandlerDrawer}>
-                                <ListItemIcon>
-                                    <ExitToAppIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Log Out" />
-                            </ListItem>
-                            <Divider />
-                        </>
-                    ) : (
-                        <>
-                            <ListItem
-                                button
-                                key="home"
-                                component={Link}
-                                to="/"
-                                onClick={handleClicked}
-                            >
-                                <ListItemIcon>
-                                    <HomeIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Home" />
-                            </ListItem>
-                            <Divider />
-                            <ListItem
-                                button
-                                key="login"
-                                component={Link}
-                                to="/login"
-                                onClick={handleClicked}
-                            >
-                                <ListItemIcon>
-                                    <FingerprintIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Log in" />
-                            </ListItem>
-                            <Divider />
-                            <ListItem
-                                button
-                                key="signup"
-                                component={Link}
-                                to="/register"
-                                onClick={handleClicked}
-                            >
-                                <ListItemIcon>
-                                    <CreateIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Sign Up" />
-                            </ListItem>
-                            <Divider />
-                        </>
-                    )}
-                </List>
-            </Drawer>
-        </nav>
-    );
+                src="https://i.ibb.co/jgT3n13/dk-tube3.png"
+                alt="dk-tube2"
+                border="0"
+              />
+            </NavLink>
+            {login && (
+              <div style={{ marginLeft: "25px" }}>
+                <SearchBar />
+              </div>
+            )}
+          </Typography>
+          <IconButton
+            color="secondary"
+            aria-label="open drawer"
+            edge="end"
+            onClick={handleDrawer}
+            className={clsx(drawerOpen && classes.hide)}
+          >
+            <MenuIcon style={{ color: "black" }} />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={drawerOpen}
+        classes={{
+          paper: classes.drawerPaper,
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={handleDrawer}>
+            <ChevronRightIcon />
+          </IconButton>
+        </div>
+        <Divider />
+        <List>
+          {login ? (
+            <>
+              <ListItem button key="home" component={Link} to="/home" onClick={handleClicked}>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Home" />
+              </ListItem>
+              <Divider />
+              <ListItem button key="songs" component={Link} to="/songs" onClick={handleClicked}>
+                <ListItemIcon>
+                  <MusicNoteIcon />
+                </ListItemIcon>
+                <ListItemText primary="songs" />
+              </ListItem>
+              <Divider />
+              <ListItem button key="albums" component={Link} to="/albums" onClick={handleClicked}>
+                <ListItemIcon>
+                  <AlbumIcon />
+                </ListItemIcon>
+                <ListItemText primary="albums" />
+              </ListItem>
+              <Divider />
+              <ListItem
+                button
+                key="playlist"
+                component={Link}
+                to="/playlists"
+                onClick={handleClicked}
+              >
+                <ListItemIcon>
+                  <QueueMusicIcon />
+                </ListItemIcon>
+                <ListItemText primary="playlist" />
+              </ListItem>
+              <Divider />
+              <ListItem button key="logout" onClick={logoutClickHandlerDrawer}>
+                <ListItemIcon>
+                  <ExitToAppIcon />
+                </ListItemIcon>
+                <ListItemText primary="Log Out" />
+              </ListItem>
+              <Divider />
+            </>
+          ) : (
+            <>
+              <ListItem button key="home" component={Link} to="/" onClick={handleClicked}>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+                <ListItemText primary="Home" />
+              </ListItem>
+              <Divider />
+              <ListItem button key="login" component={Link} to="/login" onClick={handleClicked}>
+                <ListItemIcon>
+                  <FingerprintIcon />
+                </ListItemIcon>
+                <ListItemText primary="Log in" />
+              </ListItem>
+              <Divider />
+              <ListItem button key="signup" component={Link} to="/register" onClick={handleClicked}>
+                <ListItemIcon>
+                  <CreateIcon />
+                </ListItemIcon>
+                <ListItemText primary="Sign Up" />
+              </ListItem>
+              <Divider />
+            </>
+          )}
+        </List>
+      </Drawer>
+    </nav>
+  );
 }

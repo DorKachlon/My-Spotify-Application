@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import Home from "./pages/Home-Page/Home";
@@ -19,74 +19,79 @@ import ProtectedRoute from "./components/protectedRoute";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { green, pink, grey } from "@material-ui/core/colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import network from "./network/network";
 import Cookies from "js-cookie";
 
 const myTheme = createMuiTheme({
-    palette: {
-        secondary: green,
-        primary: pink,
-        info: grey,
-    },
+  palette: {
+    secondary: green,
+    primary: pink,
+    info: grey,
+  },
 });
 
 function App() {
-    const [login, setLogin] = useState(Cookies.get("token"));
-    const [smallScreen, setSmallScreen] = useState(window.innerWidth < 1100 ? true : false);
-
-    const displayWindowSize = () => {
-        if (window.innerWidth < 1100) {
-            setSmallScreen(true);
-        } else {
-            setSmallScreen(false);
+  const [login, setLogin] = useState(false);
+  const [smallScreen, setSmallScreen] = useState(window.innerWidth < 1100 ? true : false);
+  console.log(login);
+  useEffect(() => {
+    // auth
+    (async () => {
+      if (Cookies.get("accessToken")) {
+        try {
+          const { data } = await network.get("/api/auth/validateToken");
+          if (data.valid) setLogin(true);
+        } catch (e) {
+          console.error(e);
         }
-    };
-    window.addEventListener("resize", displayWindowSize);
-    return (
-        <div className="body">
-            <ThemeProvider theme={myTheme}>
-                <Router>
-                    <div className="App">
-                        <img
-                            style={{
-                                position: "fixed",
-                                width: "4em",
-                                margin: "12px",
-                                zIndex: "2",
-                            }}
-                            src="https://i.ibb.co/jgT3n13/dk-tube3.png"
-                            alt="dk-tube2"
-                            border="0"
-                        />
-                        <NavBar login={login} setLogin={setLogin} smallScreen={smallScreen} />
-                        <div className="height-for-nav"></div>
-                        <Switch>
-                            <ProtectedRoute exact path="/home">
-                                <Home smallScreen={smallScreen} />
-                            </ProtectedRoute>
-                            <Route exact path="/" component={Guest} />
-                            <Route exact path="/login">
-                                <Login setLogin={setLogin} />
-                            </Route>
-                            <Route exact path="/register">
-                                <Register setLogin={setLogin} />
-                            </Route>
-                            <ProtectedRoute exact path="/songs" component={Songs} />
-                            <ProtectedRoute exact path="/albums" component={Albums} />
-                            <ProtectedRoute exact path="/playlists" component={Playlist} />
-                            <ProtectedRoute path="/songs/:id">
-                                <SingleSong />
-                            </ProtectedRoute>
-                            <ProtectedRoute path="/artists/:id" component={SingleArtist} />
-                            <ProtectedRoute path="/playlists/:id" component={SinglePlaylist} />
-                            <ProtectedRoute path="/albums/:id" component={SingleAlbum} />
-                            <ProtectedRoute path="/search" component={SearchPage} />
-                            <Route component={ErrorPage} />
-                        </Switch>
-                    </div>
-                </Router>
-            </ThemeProvider>
-        </div>
-    );
+      }
+    })();
+  }, []);
+
+  const displayWindowSize = () => {
+    if (window.innerWidth < 1100) {
+      setSmallScreen(true);
+    } else {
+      setSmallScreen(false);
+    }
+  };
+  window.addEventListener("resize", displayWindowSize);
+
+  return (
+    <div className="body">
+      <ThemeProvider theme={myTheme}>
+        <Router>
+          <div className="App">
+            <NavBar login={login} setLogin={setLogin} smallScreen={smallScreen} />
+            <div className="height-for-nav"></div>
+            <Switch>
+              <ProtectedRoute exact path="/home">
+                <Home smallScreen={smallScreen} />
+              </ProtectedRoute>
+              <Route exact path="/" component={Guest} />
+              <Route exact path="/login">
+                <Login setLogin={setLogin} />
+              </Route>
+              <Route exact path="/register">
+                <Register setLogin={setLogin} />
+              </Route>
+              <ProtectedRoute exact path="/songs" component={Songs} />
+              <ProtectedRoute exact path="/albums" component={Albums} />
+              <ProtectedRoute exact path="/playlists" component={Playlist} />
+              <ProtectedRoute path="/songs/:id">
+                <SingleSong />
+              </ProtectedRoute>
+              <ProtectedRoute path="/artists/:id" component={SingleArtist} />
+              <ProtectedRoute path="/playlists/:id" component={SinglePlaylist} />
+              <ProtectedRoute path="/albums/:id" component={SingleAlbum} />
+              <ProtectedRoute path="/search" component={SearchPage} />
+              <Route component={ErrorPage} />
+            </Switch>
+          </div>
+        </Router>
+      </ThemeProvider>
+    </div>
+  );
 }
 
 export default App;
