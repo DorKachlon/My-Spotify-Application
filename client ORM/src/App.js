@@ -15,6 +15,7 @@ import SinglePlaylist from "./components/SinglePlaylist";
 import SingleAlbum from "./components/SingleAlbum";
 import ErrorPage from "./components/ErrorPage";
 import SearchPage from "./components/SearchPage";
+import ValidatingMail from "./components/ValidatingMail";
 import ProtectedRoute from "./components/protectedRoute";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 import { green, pink, grey } from "@material-ui/core/colors";
@@ -74,6 +75,9 @@ function App() {
               </Route>
               <Route exact path="/register">
                 <Register setLogin={setLogin} />
+              </Route>
+              <Route exact path="/auth">
+                <ValidatingMail />
               </Route>
               <ProtectedRoute exact path="/songs" component={Songs} />
               <ProtectedRoute exact path="/albums" component={Albums} />

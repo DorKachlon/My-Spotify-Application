@@ -5,44 +5,69 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { registerValidation, loginValidation, tokenValidation } = require("../validation");
 const verifyToken = require("./verifyToken");
+const mailer = require("../communicator");
 
 // ! REGISTER
 router.post("/register", async (req, res) => {
-  //LETS VALIDATION THE DATA BEFORE
-  registerValidation(req.body, res);
-  // const { error } = await registerValidation(req.body);
-  // if (error !== "ok") {
-  //     return res.status(400).send(error);
-  // }
-  //Checking if the user is already in the database
-  const emailExist = await User.findOne({
-    where: { email: req.body.email },
-  });
-  if (emailExist) return res.status(400).send("Email already exists");
-
-  //Hash password
-  const salt = await bcrypt.genSalt(10);
-  const hashPassword = await bcrypt.hash(req.body.password, salt);
-
-  //Create a new user
-  const obj = {
-    name: req.body.name,
-    email: req.body.email,
-    password: hashPassword,
-    isAdmin: false,
-    preferenced: [{}],
-    rememberToken: false,
-  };
-
   try {
-    const savedUser = await User.create(obj);
-    //Create and assign a token
-    const token = jwt.sign({ id: savedUser.id }, process.env.TOKEN_SECRET);
-    res.cookie("token", token);
-    res.header("auth-token", token);
-    res.send({ user: savedUser.id });
-  } catch (err) {
-    res.status(400).send(err);
+    //LETS VALIDATION THE DATA BEFORE
+    const { error } = await registerValidation(req.body);
+    if (error) {
+      return res.status(400).send(error.details[0].message);
+    }
+    //Checking if the user is already in the database
+    const emailExist = await User.findOne({
+      where: { email: req.body.email },
+    });
+    if (emailExist) return res.status(400).send("Email already exists");
+
+    //Hash password
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(req.body.password, salt);
+
+    //Create a new user
+    const newUser = {
+      name: req.body.name,
+      email: req.body.email,
+      password: hashPassword,
+      isAdmin: false,
+      preferenced: [{}],
+      rememberToken: false,
+    };
+    const mailedToken = jwt.sign(newUser, process.env.EMAIL_TOKEN_SECRET);
+    mailer.sendHTMLMail(
+      req.body.email,
+      "Validate your E-mail",
+      ` <div style="background-color:green;width:100%;height:500px;">
+            <p>
+               Conregulation Challenger, and welcome! You are now offically a part of challenge me
+              community! To start challenging your friends and undertake challenges
+               yourself, click on the buttom bellow.
+            </p>
+             <form action="${process.env.IP_ADDRESS}/auth">
+                  <input name="token" value="${mailedToken}" type="hidden">
+                  <button style="width: 200px; background-color: purple; color: white;">Get Schwifty</button>
+             </form>
+        </div>`,
+      (error, info) => {
+        if (error) {
+          console.error(error.message);
+          res.status(400).json({ message: "Email Invalid" });
+        } else {
+          console.log(info);
+          res.json({ message: "Waiting For Mail Validation" });
+        }
+      }
+    );
+    // ! const savedUser = await User.create(obj);
+    // ! //Create and assign a token
+    // ! const token = jwt.sign({ id: savedUser.id }, process.env.TOKEN_SECRET);
+    // ! res.cookie("token", token);
+    // ! res.header("auth-token", token);
+    // ! res.send({ user: savedUser.id });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ message: "Cannot process request" });
   }
 });
 
@@ -56,11 +81,11 @@ router.post("/login", async (req, res) => {
     }
     //Checking if the email exists
     const user = await User.findOne({ where: { email: req.body.email } });
-    if (!user) res.status(400).send("Email or password is wrong"); //here its if user doesnt exsit
+    if (!user) return res.status(400).send("Email or password is wrong"); //here its if user doesnt exsit
 
     //Password is correct
     const validPass = await bcrypt.compare(req.body.password, user.password);
-    if (!validPass) res.status(400).send("Email or password is wrong");
+    if (!validPass) return res.status(400).send("Email or password is wrong");
 
     //Create and assign a token
     const expired = req.body.rememberMe ? "365 days" : "24h";
