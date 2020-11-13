@@ -1,0 +1,17 @@
+.container-search-page {
+  width: 80vw;
+  min-width: 850px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.title-search {
+  color: white;
+  margin: 50px;
+}
+
+.title-search-input {
+  color: rgb(165, 165, 165);
+  text-decoration: underline;
+  font-style: italic;
+}

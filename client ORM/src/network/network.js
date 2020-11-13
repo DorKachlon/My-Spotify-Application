@@ -13,18 +13,23 @@ network.interceptors.request.use((config) => {
     return config;
 });
 
-// network.interceptors.response.use(
-//     (config) => {
-//         console.log("RESPONSE", config);
-//         return config;
-//     },
-//     (error) => {
-//         console.log(error, "afhgahgfahgdfhadfghdgafdgsfgsdfsfs");
-//         if (error.response.status === 403) {
-//             window.location = "/login";
-//         }
-//         return error;
-//     }
-// );
+network.interceptors.response.use(
+  (response) => response,
+  async (error) => {
+    const status = error.response ? error.response.status : null;
+    const originalRequest = error.config;
 
+    if (status === 408) {
+      try {
+        await network.post('/api/auth/token', { token: Cookies.get('refreshToken') });
+        const data = await network(originalRequest);
+        return data;
+      } catch (e) {
+        throw e;
+      }
+    } else {
+      throw error;
+    }
+  },
+);
 export default network;

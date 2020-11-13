@@ -159,6 +159,39 @@ router.post("/logout", async (req, res) => {
   }
 });
 
+//! Get new access token
+router.post("/token", async (req, res) => {
+  try {
+    // Joi Validation
+    const { error } = tokenValidation(req.body);
+    if (error) {
+      console.error(error.message);
+      return res.status(400).json({ success: false, message: "Don't mess with me" });
+    }
+    const refreshToken = req.body.token;
+    const validRefreshToken = await Refresh_token.findOne({
+      where: {
+        token: refreshToken,
+      },
+    });
+    if (!validRefreshToken) return res.status(403).json({ message: "Invalid Refresh Token" });
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (error, decoded) => {
+      if (error) {
+        console.error(error.message);
+        return res.status(403).json({ message: "Invalid Refresh Token" });
+      }
+      delete decoded.iat;
+      delete decoded.exp;
+      const accessToken = jwt.sign(decoded, process.env.ACCESS_TOKEN_SECRET, { expiresIn: "900s" });
+      res.cookie("accessToken", accessToken);
+      res.json({ message: "token updated" });
+    });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ message: "Cannot process request" });
+  }
+});
+
 // ! validateToken
 router.get("/validateToken", verifyToken, (req, res) => {
   res.json({ valid: true });

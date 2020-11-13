@@ -65,7 +65,6 @@ export default function SearchBarV2() {
       try {
         const { data } = await network.get(`/api/search?keyWord=${e.target.value}`);
         setOptions(data);
-        console.log(data);
       } catch (e) {
         Swal.fire({
           icon: "error",

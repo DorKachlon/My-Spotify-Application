@@ -22,6 +22,7 @@ import { green, pink, grey } from "@material-ui/core/colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import network from "./network/network";
 import Cookies from "js-cookie";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const myTheme = createMuiTheme({
   palette: {
@@ -34,7 +35,9 @@ const myTheme = createMuiTheme({
 function App() {
   const [login, setLogin] = useState(false);
   const [smallScreen, setSmallScreen] = useState(window.innerWidth < 1100 ? true : false);
-  console.log(login);
+  const [loading, setLoading] = useState(true);
+
+  // console.log(login);
   useEffect(() => {
     // auth
     (async () => {
@@ -42,9 +45,13 @@ function App() {
         try {
           const { data } = await network.get("/api/auth/validateToken");
           if (data.valid) setLogin(true);
+          setLoading(false);
         } catch (e) {
           console.error(e);
+          setLoading(false);
         }
+      } else {
+        setLoading(false);
       }
     })();
   }, []);
@@ -62,36 +69,50 @@ function App() {
     <div className="body">
       <ThemeProvider theme={myTheme}>
         <Router>
-          <div className="App">
-            <NavBar login={login} setLogin={setLogin} smallScreen={smallScreen} />
-            <div className="height-for-nav"></div>
-            <Switch>
-              <ProtectedRoute exact path="/home">
-                <Home smallScreen={smallScreen} />
-              </ProtectedRoute>
-              <Route exact path="/" component={Guest} />
-              <Route exact path="/login">
-                <Login setLogin={setLogin} />
-              </Route>
-              <Route exact path="/register">
-                <Register setLogin={setLogin} />
-              </Route>
-              <Route exact path="/auth">
-                <ValidatingMail />
-              </Route>
-              <ProtectedRoute exact path="/songs" component={Songs} />
-              <ProtectedRoute exact path="/albums" component={Albums} />
-              <ProtectedRoute exact path="/playlists" component={Playlist} />
-              <ProtectedRoute path="/songs/:id">
-                <SingleSong />
-              </ProtectedRoute>
-              <ProtectedRoute path="/artists/:id" component={SingleArtist} />
-              <ProtectedRoute path="/playlists/:id" component={SinglePlaylist} />
-              <ProtectedRoute path="/albums/:id" component={SingleAlbum} />
-              <ProtectedRoute path="/search" component={SearchPage} />
-              <Route component={ErrorPage} />
-            </Switch>
-          </div>
+          {!loading ? (
+            <div className="App">
+              <NavBar login={login} setLogin={setLogin} smallScreen={smallScreen} />
+              <div className="height-for-nav"></div>
+              <Switch>
+                <ProtectedRoute exact path="/home">
+                  <Home smallScreen={smallScreen} />
+                </ProtectedRoute>
+                <Route exact path="/" component={Guest} />
+                <Route exact path="/login">
+                  <Login setLogin={setLogin} />
+                </Route>
+                <Route exact path="/register">
+                  <Register setLogin={setLogin} />
+                </Route>
+                <Route exact path="/auth">
+                  <ValidatingMail />
+                </Route>
+                <ProtectedRoute exact path="/songs" component={Songs} />
+                <ProtectedRoute exact path="/albums" component={Albums} />
+                <ProtectedRoute exact path="/playlists" component={Playlist} />
+                <ProtectedRoute path="/songs/:id">
+                  <SingleSong />
+                </ProtectedRoute>
+                <ProtectedRoute path="/artists/:id" component={SingleArtist} />
+                <ProtectedRoute path="/playlists/:id" component={SinglePlaylist} />
+                <ProtectedRoute path="/albums/:id" component={SingleAlbum} />
+                <ProtectedRoute path="/search" component={SearchPage} />
+                <Route component={ErrorPage} />
+              </Switch>
+            </div>
+          ) : (
+            <div
+              style={{
+                height: "100vh",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <CircularProgress color="secondary" />
+            </div>
+          )}
         </Router>
       </ThemeProvider>
     </div>

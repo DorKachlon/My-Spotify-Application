@@ -5,9 +5,9 @@ module.exports = function (req, res, next) {
     if (!token) return res.status(401).send("Access Denaid");
     try {
         const verified = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET); //return id
-        req.userId = verified;
+        req.user = verified;
         next();
     } catch (err) {
-        res.status(400).send("Invalid Token");
+        return res.status(408).json({ message: 'Invalid Access Token' });
     }
 };
