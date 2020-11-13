@@ -5,7 +5,8 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { registerValidation, loginValidation, tokenValidation } = require("../validation");
 const verifyToken = require("./verifyToken");
-const mailer = require("../communicator");
+const { sendMail } = require("../sendMail");
+require("dotenv").config();
 
 // ! REGISTER
 router.post("/register", async (req, res) => {
@@ -35,36 +36,42 @@ router.post("/register", async (req, res) => {
       rememberToken: false,
     };
     const mailedToken = jwt.sign(newUser, process.env.EMAIL_TOKEN_SECRET);
-    mailer.sendHTMLMail(
-      req.body.email,
-      "Validate your E-mail",
-      ` <div style="background-color:green;width:100%;height:500px;">
-            <p>
-               Conregulation Challenger, and welcome! You are now offically a part of challenge me
-              community! To start challenging your friends and undertake challenges
-               yourself, click on the buttom bellow.
-            </p>
-             <form action="${process.env.IP_ADDRESS}/auth">
-                  <input name="token" value="${mailedToken}" type="hidden">
-                  <button style="width: 200px; background-color: purple; color: white;">Get Schwifty</button>
-             </form>
-        </div>`,
-      (error, info) => {
-        if (error) {
-          console.error(error.message);
-          res.status(400).json({ message: "Email Invalid" });
-        } else {
-          console.log(info);
-          res.json({ message: "Waiting For Mail Validation" });
-        }
-      }
-    );
+    sendMail(req.body.email, mailedToken, res);
+
     // ! const savedUser = await User.create(obj);
     // ! //Create and assign a token
     // ! const token = jwt.sign({ id: savedUser.id }, process.env.TOKEN_SECRET);
     // ! res.cookie("token", token);
     // ! res.header("auth-token", token);
     // ! res.send({ user: savedUser.id });
+  } catch (error) {
+    console.error(error.message);
+    res.status(400).json({ message: "Cannot process request" });
+  }
+});
+
+// ! create-user
+router.post("/create-user", (req, res) => {
+  try {
+    const { error } = tokenValidation(req.body);
+    if (error) {
+      console.error(error.message);
+      return res.status(400).json({ success: false, message: "Don't mess with us" });
+    }
+    jwt.verify(req.body.token, process.env.EMAIL_TOKEN_SECRET, async (error, decoded) => {
+      if (error) {
+        console.error(error.message);
+        return res.status(403).json({ message: "Invalid Token" });
+      }
+      console.log(decoded);
+      delete decoded.iat;
+      delete decoded.exp;
+
+      const checkUser = await userIsExist(decoded.email);
+      if (checkUser) return res.status(201).json({ message: "user name already exists" });
+      await User.create(decoded);
+      res.status(201).json({ message: "Register Success" });
+    });
   } catch (error) {
     console.error(error.message);
     res.status(400).json({ message: "Cannot process request" });
@@ -157,4 +164,20 @@ router.get("/validateToken", verifyToken, (req, res) => {
   res.json({ valid: true });
 });
 
+// ! check in the DateBase if user is in the system
+async function userIsExist(email) {
+  try {
+    const user = await User.findOne({
+      where: {
+        email,
+      },
+    });
+    if (user) {
+      return user.dataValues;
+    }
+    return false;
+  } catch (error) {
+    console.error(error.message);
+  }
+}
 module.exports = router;

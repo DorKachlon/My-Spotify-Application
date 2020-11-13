@@ -18,7 +18,7 @@ const loginValidation = (data) => {
   });
   return schema.validate(data);
 };
-
+//Token validation
 const tokenValidation = (data) => {
   const schema = Joi.object({
     token: Joi.string().required(),
