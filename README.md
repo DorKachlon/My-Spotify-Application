@@ -126,3 +126,8 @@ router.get("/", async (req, res) => {
 ```
 
 ![Search gif](./readme-files/Search.gif)
+
+
+
+## ERD SQL
+![ERD SQL](./readme-files/drawSQL.png)
