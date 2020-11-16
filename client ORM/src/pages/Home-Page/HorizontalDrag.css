@@ -1,0 +1,15 @@
+.container {
+    /* height: calc(100vh - 20px); */
+    display: flex;
+  }
+  
+  .containerdivs{
+    display: flex;
+  }
+  
+  .div{
+  width:500px;
+  height:500px;
+  background-color:pink;
+  margin:10px;
+  }

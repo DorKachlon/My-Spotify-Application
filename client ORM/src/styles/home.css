@@ -1,0 +1,30 @@
+.carouselTopTwenty {
+    margin: 3em 100px;
+}
+.welcomeTitle{
+    color:white;
+    margin-left: 6vw;
+    margin-top:3vw;
+    font-size: 3em;
+}
+ .topTitle{
+     color:white;
+     margin-left: 10vw;
+     margin-bottom: 2vw;
+ }
+
+ .carouselTopTwenty button{
+    background-color: white;
+    color: black;
+ }
+ .Carousel-buttonWrapper-21:hover .Carousel-button-23{
+     background-color:rgb(88, 255, 88) !important;
+}
+ .carouselTopTwenty button:hover{
+     background-color: green !important;
+ }
+ @media (max-width: 1100px) {
+    .carouselTopTwenty {
+        margin: 3em 0px;
+    }
+}

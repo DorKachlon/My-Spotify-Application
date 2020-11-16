@@ -1,0 +1,55 @@
+.paper {
+    margin-top: 100px;
+    background-color: rgba(255, 255, 255, 0.972);
+    border-radius: 5px;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    box-shadow: 5px 5px 20px rgba(255, 255, 255, 0.548);
+}
+.submitButton {
+    margin-bottom: 50px;
+}
+.loginForm {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+}
+.header {
+    border-radius: 4px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.356);
+    text-align: center;
+    color: white;
+    width: 350px;
+    height: 150px;
+    background: linear-gradient(
+        90deg,
+        rgba(49, 171, 133, 1) 0%,
+        rgba(42, 201, 151, 1) 100%
+    );
+
+    
+    position: absolute;
+    margin-bottom: 220px;
+    display: flex;
+    flex-direction: column;
+}
+.title {
+    font-size: 30px;
+    margin: 20px;
+}
+.errorLogin {
+    position: absolute;
+    margin-bottom: 80px;
+    height: 40px;
+    width: 380px;
+    border-radius: 10px;
+    background-color: rgba(255, 0, 0, 0.616);
+    display: flex;
+    align-items: center;
+}

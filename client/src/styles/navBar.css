@@ -1,0 +1,34 @@
+.MuiTab-wrapper {
+    font-size: 1.3em;
+    margin: 1vw 2vw;
+}
+.MuiTab-wrapper:hover {
+    color: rgba(70, 192, 117, 0.87);
+}
+
+.MuiTabs-flexContainer {
+    display: flex;
+    justify-content: space-around;
+    justify-content: center;
+}
+span.MuiTab-wrapper {
+    margin: 0 !important;
+}
+@media (max-width: 1100px) {
+    .MuiTab-wrapper {
+        font-size: 0.7em;
+        margin: 0;
+    }
+}
+
+label#free-solo-2-demo-label{
+    color: green;
+    font-family: "Raleway", sans-serif;
+    font-size: 1.3em;
+    
+}
+.searchBar{
+    position: absolute;
+    right: 10px;
+    top: 0;
+}

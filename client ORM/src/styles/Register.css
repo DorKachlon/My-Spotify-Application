@@ -1,0 +1,69 @@
+.paperRegister {
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.972);
+    border-radius: 5px;
+    width: 400px;
+    height: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    box-shadow: 5px 5px 20px rgba(255, 255, 255, 0.548);
+}
+.submitButton {
+    margin-bottom: 50px;
+}
+.registerForm {
+    position: absolute;
+    /* margin-left: 40vw; */
+    /* width: 100vw; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 150px;
+}
+.headerRegister {
+    border-radius: 4px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.356);
+    text-align: center;
+    color: white;
+    width: 350px;
+    height: 130px;
+    background: linear-gradient(
+        90deg,
+        rgba(49, 171, 133, 1) 0%,
+        rgba(42, 201, 151, 1) 100%
+    );
+
+    position: absolute;
+    margin-bottom: 500px;
+    display: flex;
+    flex-direction: column;
+}
+.title {
+    font-size: 30px;
+    margin: 20px;
+}
+.checkBoxContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.paregraphCheckbox {
+    height: auto;
+}
+.error {
+    position: absolute;
+    margin-bottom: 120px;
+    height: 40px;
+    width: 380px;
+    border-radius: 10px;
+    background-color: rgba(255, 0, 0, 0.616);
+    display: flex;
+    align-items: center;
+}
+.errorPeregraph {
+    height: auto;
+    margin-left: 5px;
+    color: white;
+}
