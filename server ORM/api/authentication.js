@@ -63,7 +63,6 @@ router.post("/create-user", (req, res) => {
         console.error(error.message);
         return res.status(403).json({ message: "Invalid Token" });
       }
-      console.log(decoded);
       delete decoded.iat;
       delete decoded.exp;
 
@@ -103,7 +102,7 @@ router.post("/login", async (req, res) => {
     const refreshToken = jwt.sign(infoForCookie, process.env.REFRESH_TOKEN_SECRET, {
       expiresIn: expired,
     });
-    const accessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {
+    const accessToken = jwt.sign(infoForCookie, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "900s",
     });
     const isTokenExist = await Refresh_token.findOne({

@@ -20,6 +20,7 @@ router.get("/like-song/:songId", async (req, res) => {
 });
 router.get("/subscribe/:artistId", async (req, res) => {
   try {
+    console.log(req.user);
     const subscribe = await User_artist.findAll({
       where: {
         userId: req.user.userId,
