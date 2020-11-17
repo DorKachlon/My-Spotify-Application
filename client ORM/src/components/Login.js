@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   password: {
-    marginBottom: "80px",
+  
     width: "320px",
   },
   submit: {
@@ -38,6 +38,10 @@ const useStyles = makeStyles((theme) => ({
     background: "linear-gradient(45deg, #2AC796 30%, #31AD86 90%)",
     color: "white",
   },
+  rememberMe:{
+    marginBottom: "60px",
+    marginRight:"180px",
+  }
 }));
 
 export default function Login({ setLogin }) {
@@ -161,6 +165,7 @@ export default function Login({ setLogin }) {
             />
           </FormControl>
           <FormControlLabel
+             className={classes.rememberMe}
             htmlFor="rememberMe"
             value="start"
             control={<Checkbox />}

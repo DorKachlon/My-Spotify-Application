@@ -75,7 +75,7 @@ export default function SearchPage() {
             {songsPlaylistAlbumsArtists[1].length !== 0 && (
               <>
                 <h2 className="topTitle">Playlist :</h2>
-                <Carousel //carousel for song
+                <Carousel //carousel for Playlist
                   autoPlay={false}
                   navButtonsAlwaysVisible={true}
                 >
@@ -83,7 +83,7 @@ export default function SearchPage() {
                     return (
                       <div className="singleCarousel" key={i}>
                         {array.map((elem, j) => {
-                          const link = `/songs/${elem.id}?artists=${elem.artistId}`;
+                          const link = `/playlists/${elem.id}`
                           return (
                             <Link to={link} key={j}>
                               <div className="containerSingleItemArtist">

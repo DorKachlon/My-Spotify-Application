@@ -110,6 +110,7 @@
 .name-of-album-playlist {
     display: flex;
     font-size: 1em;
+    margin-left: 15px;
 }
 .iFrameAndDataSong > div  {
     display: flex;
