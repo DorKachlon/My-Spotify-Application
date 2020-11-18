@@ -180,7 +180,7 @@ function sendMail(email, mailedToken, res) {
                     <td class="innerpadding borderbottom">
                       <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
-                          <td class="h2">Conregulation, Welcome to our community!</td>
+                          <td class="h2">Congratulations, Welcome to our community!</td>
                         </tr>
                         <tr>
                           <td class="bodycopy" style="line-height: 1.7em">
