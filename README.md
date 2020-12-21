@@ -13,7 +13,6 @@
 - react-router-dom
 - Material-UI
 - framer-motion
-- framer-motion
 - Axios
 - Express
 - sequelize
