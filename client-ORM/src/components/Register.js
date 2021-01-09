@@ -61,7 +61,7 @@ export default function Register({ setLogin }) {
 
   async function clickhandler() {
     if (!checked) {
-      setError("You must accept our polisy");
+      setError("You must accept our policy");
       return;
     }
     if (values.password !== values.confirmPassword) {
