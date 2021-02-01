@@ -73,7 +73,6 @@ export default function Register({ setLogin }) {
       email: values.email,
       password: values.password,
     };
-    console.log(obj);
     try {
       await network.post(`/api/auth/register`, obj);
       setValues({

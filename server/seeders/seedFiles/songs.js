@@ -29,7 +29,7 @@ module.exports = [
   },
   {
     id: 3,
-    name: " SOS",
+    name: "SOS",
     youtube_link:
       "https://www.youtube.com/watch?v=u8tdT5pAE34&list=PLl8VaWiKm5ovR7ZsG1uOb9PbFzvmC9y0u&index=3",
     album_id: 1,
@@ -43,7 +43,7 @@ module.exports = [
   },
   {
     id: 4,
-    name: "Tough Love ",
+    name: "Tough Love",
     youtube_link:
       "https://www.youtube.com/watch?v=McJgc3Nb46I&list=PLl8VaWiKm5ovR7ZsG1uOb9PbFzvmC9y0u&index=4",
     album_id: 1,
@@ -57,7 +57,7 @@ module.exports = [
   },
   {
     id: 5,
-    name: " Ain't A Thing",
+    name: "Ain't A Thing",
     youtube_link:
       "https://www.youtube.com/watch?v=nGsmOd8xPJE&list=PLl8VaWiKm5ovR7ZsG1uOb9PbFzvmC9y0u&index=6",
     album_id: 1,
@@ -197,7 +197,7 @@ module.exports = [
   },
   {
     id: 15,
-    name: " Nice For What",
+    name: "Nice For What",
     youtube_link:
       "https://www.youtube.com/watch?v=U9BwWKXjVaI&list=OLAK5uy_nxmoDMMD7YOXBekv9Pt-55UoMI0tKDlyU&index=16",
     album_id: 3,
@@ -281,7 +281,7 @@ module.exports = [
   },
   {
     id: 25,
-    name: " Walk On Wate",
+    name: "Walk On Wate",
     youtube_link:
       "https://www.youtube.com/watch?v=ryr75N0nki0&list=OLAK5uy_m8R1SwPPUCgq777T9Nt-zLRzaekFmhet0",
     album_id: 5,
@@ -295,7 +295,7 @@ module.exports = [
   },
   {
     id: 26,
-    name: " Untouchable",
+    name: "Untouchable",
     youtube_link:
       "https://www.youtube.com/watch?v=IJvjj6Fiwvw&list=OLAK5uy_m8R1SwPPUCgq777T9Nt-zLRzaekFmhet0&index=4",
     album_id: 5,

@@ -25,7 +25,6 @@ export default function SingleArtist() {
         newArr.push(albums);
         setArtiatAndList(newArr);
         const { data: ifSubscribe } = await network.get(`/api/users/subscribe/${newArr[0].id}`);
-        console.log(ifSubscribe);
         if (ifSubscribe.message === "subscribed") setSubscribe(true);
         else setSubscribe(false);
         setLoading(false);
@@ -47,7 +46,6 @@ export default function SingleArtist() {
     (async () => {
       try {
         const { data } = await network.get(`/api/users/subscribe/${artiatAndList[0].id}`);
-        console.log(data);
         if (data.message === "subscribed") setSubscribe(true);
         else setSubscribe(false);
       } catch (error) {

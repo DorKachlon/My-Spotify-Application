@@ -10,7 +10,6 @@ export default function DataOfSong({ songDetails }) {
   const [like, setLike] = useState(false);
   const [sentence, setSentence] = useState(false);
   const [loading, setLoading] = useState(true);
-  console.log(loading);
   async function clickHandler() {
     if (like === false) {
       await network.post(`/api/users/like-song/${songDetails.id}`);
@@ -25,7 +24,7 @@ export default function DataOfSong({ songDetails }) {
       setLike(false);
     }
   }
-  
+
   useEffect(() => {
     setLoading(true);
     setSentence(false);
@@ -35,7 +34,6 @@ export default function DataOfSong({ songDetails }) {
     (async () => {
       try {
         const { data } = await network.get(`/api/users/like-song/${songDetails.id}`);
-        console.log(data);
         if (data.message === "like") setLike(true);
         else setLike(false);
         setLoading(false);

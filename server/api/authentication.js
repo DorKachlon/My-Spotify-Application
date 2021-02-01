@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const { User, Refresh_token } = require("../models");
+const { User, RefreshToken } = require("../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { registerValidation, loginValidation, tokenValidation } = require("../validation");
@@ -105,18 +105,18 @@ router.post("/login", async (req, res) => {
     const accessToken = jwt.sign(infoForCookie, process.env.ACCESS_TOKEN_SECRET, {
       expiresIn: "900s",
     });
-    const isTokenExist = await Refresh_token.findOne({
+    const isTokenExist = await RefreshToken.findOne({
       where: {
         email: user.email,
       },
     });
     if (!isTokenExist) {
-      await Refresh_token.create({
+      await RefreshToken.create({
         email: user.email,
         token: refreshToken,
       });
     } else {
-      await Refresh_token.update(
+      await RefreshToken.update(
         { token: refreshToken },
         {
           where: {
@@ -145,7 +145,7 @@ router.post("/logout", async (req, res) => {
       return res.status(400).send(error.details[0].message);
     }
 
-    const result = await Refresh_token.destroy({
+    const result = await RefreshToken.destroy({
       where: {
         token: req.body.token,
       },
@@ -168,7 +168,7 @@ router.post("/token", async (req, res) => {
       return res.status(400).json({ success: false, message: "Don't mess with me" });
     }
     const refreshToken = req.body.token;
-    const validRefreshToken = await Refresh_token.findOne({
+    const validRefreshToken = await RefreshToken.findOne({
       where: {
         token: refreshToken,
       },

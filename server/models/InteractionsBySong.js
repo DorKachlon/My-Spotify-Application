@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Interactions_by_playlist extends Model {
+  class InteractionsBySong extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,19 +11,19 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.User, {
         foreignKey: "userId",
       });
-      this.belongsTo(models.Playlist, {
-        foreignKey: "playlistId",
+      this.belongsTo(models.Song, {
+        foreignKey: "songId",
       });
     }
   }
-  Interactions_by_playlist.init(
+  InteractionsBySong.init(
     {
       userId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
       },
-      playlistId: {
+      songId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true,
@@ -33,9 +33,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Interactions_by_playlist",
-      tableName: "interactions_by_playlists",
+      modelName: "InteractionsBySong",
+      tableName: "interactions_by_songs",
     }
   );
-  return Interactions_by_playlist;
+  return InteractionsBySong;
 };

@@ -354,7 +354,6 @@ function sendMail(email, mailedToken, res) {
         console.error(error.message);
         res.status(400).json({ message: "Email Invalid" });
       } else {
-        console.log(info);
         res.json({ message: "Waiting For Mail Validation" });
       }
     }

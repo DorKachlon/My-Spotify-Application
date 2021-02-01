@@ -37,7 +37,6 @@ function App() {
   const [smallScreen, setSmallScreen] = useState(window.innerWidth < 1100 ? true : false);
   const [loading, setLoading] = useState(true);
 
-  // console.log(login);
   useEffect(() => {
     // auth
     (async () => {

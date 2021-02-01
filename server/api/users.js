@@ -1,11 +1,11 @@
-const { User_song, User_artist } = require("../models");
+const { UserSong, UserArtist } = require("../models");
 const { Router } = require("express");
 const router = Router();
 
 //GET REQUEST
 router.get("/like-song/:songId", async (req, res) => {
   try {
-    const likeOrNot = await User_song.findAll({
+    const likeOrNot = await UserSong.findAll({
       where: {
         userId: req.user.userId,
         songId: req.params.songId,
@@ -20,8 +20,7 @@ router.get("/like-song/:songId", async (req, res) => {
 });
 router.get("/subscribe/:artistId", async (req, res) => {
   try {
-    console.log(req.user);
-    const subscribe = await User_artist.findAll({
+    const subscribe = await UserArtist.findAll({
       where: {
         userId: req.user.userId,
         artistId: req.params.artistId,
@@ -43,7 +42,7 @@ router.post("/like-song/:songId", async (req, res) => {
       userId,
       songId,
     };
-    const newUserSong = await User_song.create(obj);
+    const newUserSong = await UserSong.create(obj);
     res.json(newUserSong);
   } catch (error) {
     console.error(error);
@@ -58,7 +57,7 @@ router.post("/subscribe/:artistId", async (req, res) => {
       userId,
       artistId,
     };
-    const newUserArtist = await User_artist.create(obj);
+    const newUserArtist = await UserArtist.create(obj);
     res.json(newUserArtist);
   } catch (error) {
     console.error(error);
@@ -70,7 +69,7 @@ router.post("/subscribe/:artistId", async (req, res) => {
 
 //DELETE REQUEST
 router.delete("/like-song/:songId", async (req, res) => {
-  await User_song.destroy({
+  await UserSong.destroy({
     where: {
       userId: req.user.userId,
       songId: req.params.songId,
@@ -79,7 +78,7 @@ router.delete("/like-song/:songId", async (req, res) => {
   res.json(`unlike done`);
 });
 router.delete("/subscribe/:artistId", async (req, res) => {
-  await User_artist.destroy({
+  await UserArtist.destroy({
     where: {
       userId: req.user.userId,
       artistId: req.params.artistId,

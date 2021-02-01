@@ -14,13 +14,13 @@ module.exports = (sequelize, DataTypes) => {
       this.belongsTo(models.Artist, {
         foreignKey: "artistId",
       });
-      this.hasMany(models.User_song, {
+      this.hasMany(models.UserSong, {
         foreignKey: "songId",
       });
-      this.hasMany(models.Interactions_by_song, {
+      this.hasMany(models.InteractionsBySong, {
         foreignKey: "songId",
       });
-      this.hasMany(models.Playlist_song, {
+      this.hasMany(models.PlaylistSong, {
         foreignKey: "songId",
       });
     }
