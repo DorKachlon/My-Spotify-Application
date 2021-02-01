@@ -31,4 +31,8 @@ label#free-solo-2-demo-label{
     position: absolute;
     right: 10px;
     top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    
 }

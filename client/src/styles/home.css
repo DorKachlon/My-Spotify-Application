@@ -1,5 +1,5 @@
 .carouselTopTwenty {
-    margin: 3em 0;
+    margin: 3em 100px;
 }
 .welcomeTitle{
     color:white;
@@ -12,29 +12,19 @@
      margin-left: 10vw;
      margin-bottom: 2vw;
  }
-button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-next-15 {
+
+ .carouselTopTwenty button{
     background-color: white;
-    margin-right: 5vw;
-    margin-bottom: 10vw;
-    opacity: 1;
-    width: 3vw;
-    height: 3vw;
-}
-button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-next-15:hover {
-    background-color: green;
-    opacity: 1;
-}
-button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-prev-16{
-    background-color: white;
-    margin-left: 5vw;
-    opacity: 1;
-    width: 3vw;
-    height: 3vw;
-}
-button.MuiButtonBase-root.MuiIconButton-root.Carousel-button-11.Carousel-buttonVisible-13.Carousel-fullHeightHoverButton-12.Carousel-prev-16:hover{
-    background-color: green;
-    opacity: 1;
-}
-span.MuiIconButton-label{
     color: black;
+ }
+ .Carousel-buttonWrapper-21:hover .Carousel-button-23{
+     background-color:rgb(88, 255, 88) !important;
+}
+ .carouselTopTwenty button:hover{
+     background-color: green !important;
+ }
+ @media (max-width: 1100px) {
+    .carouselTopTwenty {
+        margin: 3em 0px;
+    }
 }

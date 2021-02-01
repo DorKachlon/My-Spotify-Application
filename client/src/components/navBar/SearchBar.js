@@ -3,7 +3,7 @@ import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";
-import axios from "axios";
+import network from "../../network/network";
 import Swal from "sweetalert2";
 import { useHistory } from "react-router-dom";
 
@@ -13,6 +13,9 @@ const useStyles = makeStyles((theme) => ({
         marginTop: "-10px",
         "& > div >  input": {
             color: "white",
+            "@media (max-width:1100px)": {
+                color: "black",
+            },
         },
         "&:focus": {
             marginTop: "10px",
@@ -29,18 +32,19 @@ export default function SearchBar() {
     //נכנס בקליק על אופציה
     //נכנס בעת כיתוב אחרי לואד
     function clickHendler(e) {
-    
+   
         if (e.keyCode === 13) {
-           
+  
             history.push(`/search?params=${inputValue}`);
         } else {
+            console.log(e.currentTarget.innerText);
             history.push(`/search?params=${e.currentTarget.innerText}`);
         }
     }
 
     //נכנס בעת כיתוב
     async function setter(e) {
-      
+
         if (e.keyCode === 40) {
             if (option.length !== 0) {
                 let num = option.findIndex(
@@ -80,8 +84,8 @@ export default function SearchBar() {
         SetInputValue(e.target.value);
         if (e.target.value) {
             try {
-                const { data } = await axios.get(
-                    `/search?params=${e.target.value}`
+                const { data } = await network.get(
+                    `/api/search?keyWord=${e.target.value}`
                 );
                 setOption(data);
             } catch (e) {
