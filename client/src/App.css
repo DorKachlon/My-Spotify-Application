@@ -5,6 +5,7 @@
     text-decoration: none;
     /* font-family: 'Baloo Tammudu 2', cursive; */
     font-family: "Raleway", sans-serif;
+    box-sizing: border-box;
 
 }
 
@@ -44,4 +45,14 @@
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: white;
+}
+
+.height-for-nav{
+    height: 0;
+}
+
+@media (max-width: 1100px) {
+    .height-for-nav{
+        height: 70px;
+    }
 }

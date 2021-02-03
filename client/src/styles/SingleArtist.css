@@ -20,7 +20,7 @@
     cursor: pointer;
 }
 
-.image {
+.single-artist-image {
     width: 10vw;
     height: 10vw;
     padding: 0px;
@@ -33,7 +33,7 @@
 
 @media (max-width: 1100px) {
     .ProductName {
-        font-size: 8px;
+        font-size: 15px;
     }
 }
 .year {
@@ -42,7 +42,7 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.topTitle {
+.single-artist-top-title {
     color: white;
     margin-left: 10vw;
     margin-bottom: 2vw;

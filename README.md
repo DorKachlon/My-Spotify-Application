@@ -42,7 +42,7 @@ An example of Request for the TOP songs is here:
 
 ```js
 router.get("/top_songs", async (req, res) => {
-  const topSongs = await Interactions_by_song.findAll({
+  const topSongs = await InteractionsBySong.findAll({
     attributes: [[sequelize.fn("SUM", sequelize.col("play_count")), "counterPlayer"]],
     include: [
       {
@@ -125,8 +125,6 @@ router.get("/", async (req, res) => {
 ```
 
 ![Search gif](./readme-files/Search.gif)
-
-
 
 ## ERD SQL
 ![ERD SQL](./readme-files/drawSQL.png)

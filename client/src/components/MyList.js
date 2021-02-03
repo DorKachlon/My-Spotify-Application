@@ -20,6 +20,7 @@ const useStyles = makeStyles(() => ({
         },
         "@media (max-width:1100px)": {
             width: "90vw",
+           
         },
     },
     itemSelected: {
@@ -42,6 +43,7 @@ const useStyles = makeStyles(() => ({
         width: "38vw",
         "@media (max-width:1100px)": {
             width: "90vw",
+            margin: "0 auto",
         },
     },
     divider: { backgroundColor: "grey" },
@@ -54,6 +56,7 @@ export default function MyList({
     coverImg,
     artistName,
     currentSong,
+    itsAlbum,
 }) {
     const classes = useStyles();
     function lengthSong(length) {
@@ -78,22 +81,40 @@ export default function MyList({
                 {list.map((songObj) => {
                     let link;
                     if (search) {
-                        link = `/song/${songObj.song_id}${search}`;
+                        if (
+                            search.includes("topSongs") ||
+                            search.includes("playlists")
+                        ) {
+                            link = `/songs/${songObj.Song.id}${search}`;
+                        } else {
+                            link = `/songs/${songObj.id}${search}`;
+                        }
+                    } else if (itsAlbum) {
+                        link = `/songs/${songObj.id}?${
+                            pathname.split("/")[1]
+                        }=${pathname.split("/")[2]}`;
                     } else {
-                        link = `/song/${songObj.song_id}?${
+                        link = `/songs/${songObj.Song.id}?${
                             pathname.split("/")[1]
                         }=${pathname.split("/")[2]}`;
                     }
                     return (
-                        <Link to={link} key={songObj.song_id}>
+                        <Link to={link} key={songObj.id}>
                             <div className="containerListItem">
                                 <ListItem
                                     button
                                     className={
-                                        search &&
-                                        Number(currentSong.song_id) ===
-                                            songObj.song_id
-                                            ? classes.itemSelected
+                                        search
+                                            ? search.includes("topSongs") ||
+                                              search.includes("playlists")
+                                                ? Number(currentSong.id) ===
+                                                  songObj.Song.id
+                                                    ? classes.itemSelected
+                                                    : classes.itemOfList
+                                                : Number(currentSong.id) ===
+                                                  songObj.id
+                                                ? classes.itemSelected
+                                                : classes.itemOfList
                                             : classes.itemOfList
                                     }
                                     style={
@@ -108,7 +129,22 @@ export default function MyList({
                                             src={
                                                 coverImg
                                                     ? coverImg
-                                                    : songObj.cover_img
+                                                    : search
+                                                    ? search.includes(
+                                                          "topSongs"
+                                                      ) ||
+                                                      search.includes(
+                                                          "playlists"
+                                                      )
+                                                        ? songObj.Song.Album
+                                                              .coverImg
+                                                        : songObj.Album.coverImg
+                                                    : pathname.includes(
+                                                          "playlists"
+                                                      )
+                                                    ? songObj.Song.Album
+                                                          .coverImg
+                                                    : ""
                                             }
                                             alt=""
                                         />
@@ -119,17 +155,54 @@ export default function MyList({
                                         />
                                         <div className="containerNames">
                                             <div className="nameListItem">
-                                                {songObj.name}
+                                                {itsAlbum
+                                                    ? songObj.name
+                                                    : search
+                                                    ? search.includes(
+                                                          "topSongs"
+                                                      ) ||
+                                                      search.includes(
+                                                          "playlists"
+                                                      )
+                                                        ? songObj.Song.name
+                                                        : songObj.name
+                                                    : pathname.includes(
+                                                          "playlists"
+                                                      )
+                                                    ? songObj.Song.name
+                                                    : ""}
                                             </div>
                                             <div className="artistListItem">
                                                 {artistName
                                                     ? artistName
-                                                    : songObj.artist_name}
+                                                    : search
+                                                    ? search.includes(
+                                                          "topSongs"
+                                                      ) ||
+                                                      search.includes(
+                                                          "playlists"
+                                                      )
+                                                        ? songObj.Song.Artist
+                                                              .name
+                                                        : songObj.Artist.name
+                                                    : pathname.includes(
+                                                          "playlists"
+                                                      )
+                                                    ? songObj.Song.Artist.name
+                                                    : ""}
                                             </div>
                                         </div>
                                     </div>
                                     <div className="duration">
-                                        {lengthSong(songObj.length)}
+                                        {itsAlbum
+                                            ? lengthSong(songObj.length)
+                                            : search.includes("topSongs")
+                                            ? lengthSong(songObj.Song.length)
+                                            : search.includes("playlists")
+                                            ? lengthSong(songObj.Song.length)
+                                            : pathname.includes("playlists")
+                                            ? lengthSong(songObj.Song.length)
+                                            : lengthSong(songObj.length)}
                                     </div>
                                 </ListItem>
                                 <Divider className={classes.divider} />
