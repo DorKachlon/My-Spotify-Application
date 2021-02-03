@@ -1,0 +1,72 @@
+version: "3.1"
+
+services:
+  mysql:
+    image: mysql:8
+    restart: always
+    stdin_open: true
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_DEV}
+      MYSQL_USER: ${DB_USERNAME}
+    networks:
+      - application-network
+
+  api-spotify:
+    depends_on:
+      - mysql
+    build:
+      context: ./server
+      dockerfile: DockerFile.dev
+    networks:
+      - application-network
+    ports:
+      - 8080:8080
+    environment:
+      PORT: 8080
+      DB_HOST: mysql
+      DATABASE_DEV: ${DATABASE_DEV}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      REFRESH_TOKEN_SECRET: ${REFRESH_TOKEN_SECRET}
+      ACCESS_TOKEN_SECRET: ${ACCESS_TOKEN_SECRET}
+      EMAIL_TOKEN_SECRET: ${EMAIL_TOKEN_SECRET}
+      IP_ADDRESS: ${IP_ADDRESS}
+      MY_MAIL: ${MY_MAIL}
+      MY_PASSWORD: ${MY_PASSWORD}
+
+  app-spotify:
+    depends_on:
+      - api-spotify
+    build:
+      context: ./client
+      dockerfile: DockerFile.dev
+    networks:
+      - application-network
+    stdin_open: true
+    ports:
+      - 3030:3000
+
+networks:
+  application-network:
+    driver: bridge
+volumes:
+  mysql-data:
+    driver: local
+#----------4 steps: -----------
+# 1 create this file
+
+# 2 change the host in the config file (server) to environment. add this env to .env and to environment here
+
+# 3 change proxy to the name of the contariner
+# from     "proxy": "http://localhost:8080/",
+# to       "proxy": "http://my-spotify-application_api-spotify_1:8080/",
+#first of all its the name of project _ name of api server _ version (first one will be 1)
+
+#4 change the script in the server to build migrations
+#     "docker": "node_modules/.bin/sequelize db:create && node_modules/.bin/sequelize db:migrate && node_modules/.bin/sequelize db:seed:all && nodemon index.js",
+
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#bring the .env to the parent folder
+#!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

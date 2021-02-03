@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import network from "../network/network";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import MyList from "./MyList";
-import "../styles/SinglePlaylist.css"
+import "../styles/SinglePlaylist.css";
 export default function SinglePlaylist() {
     const { pathname, search } = useLocation();
     const [playlistAndList, setPlaylistAndList] = useState();
@@ -11,12 +11,12 @@ export default function SinglePlaylist() {
         (async function loadSong() {
             try {
                 let newArr = [];
-                const { data } = await axios.get(pathname);
-                newArr.push(data[0]);
-                const dataList = await axios.get(
-                    `/playlist/songs/${pathname.split("/")[2]}`
+                const { data } = await network.get(`/api${pathname}`);
+                newArr.push(data);
+                const { data: dataList } = await network.get(
+                    `/api/playlists/${pathname.split("/")[2]}/songs`
                 );
-                newArr.push(dataList.data);
+                newArr.push(dataList);
                 setPlaylistAndList(newArr);
             } catch (e) {
                 Swal.fire({
@@ -34,7 +34,7 @@ export default function SinglePlaylist() {
                     <div className="playlist">
                         <img
                             className="playlist-cover-img"
-                            src={playlistAndList[0].cover_img}
+                            src={playlistAndList[0].coverImg}
                             alt=""
                         />
                         <div>
@@ -43,10 +43,12 @@ export default function SinglePlaylist() {
                             </div>
                             <div className="playlist-ditails">
                                 Playlist &nbsp;• &nbsp;
-                                {playlistAndList[0].created_at.slice(0, 10)}
+                                {playlistAndList[0].releasedAt.slice(0, 10)}
                                 <br></br>
                                 {playlistAndList[1].length}{" "}
-                                {playlistAndList[1].length > 1 ? "songs" : "song"}
+                                {playlistAndList[1].length > 1
+                                    ? "songs"
+                                    : "song"}
                             </div>
                         </div>
                     </div>

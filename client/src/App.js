@@ -1,79 +1,121 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
-import Home from "./components/home-Page/Home";
+import Home from "./pages/Home-Page/Home";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Guest from "./components/Guest";
 import NavBar from "./components/navBar/NavBar";
 import Songs from "./components/Songs";
 import Albums from "./components/Albums";
 import Playlist from "./components/Playlist";
-import SingleSong from "./components/singleSong-Page/SingleSong";
+import SingleSong from "./pages/singleSong-Page/SingleSong";
 import SingleArtist from "./components/SingleArtist";
 import SinglePlaylist from "./components/SinglePlaylist";
 import SingleAlbum from "./components/SingleAlbum";
 import ErrorPage from "./components/ErrorPage";
 import SearchPage from "./components/SearchPage";
-
+import ValidatingMail from "./components/ValidatingMail";
+import ProtectedRoute from "./components/protectedRoute";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
-import { green, pink } from "@material-ui/core/colors";
+import { green, pink, grey } from "@material-ui/core/colors";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import network from "./network/network";
+import Cookies from "js-cookie";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const myTheme = createMuiTheme({
-    palette: {
-        secondary: green,
-        primary: pink,
-    },
+  palette: {
+    secondary: green,
+    primary: pink,
+    info: grey,
+  },
 });
 
 function App() {
-    const [autoPlay, setAutoPlay] = useState(
-        !document.cookie.includes("autoPlay=false")
-    );
-    return (
-        <div className="body">
-            <ThemeProvider theme={myTheme}>
-                <Router>
-                    <div className="App">
-                        <img
-                            style={{
-                                position: "fixed",
-                                width: "4em",
-                                margin: "12px",
-                                zIndex: "2",
-                            }}
-                            src="https://i.ibb.co/jgT3n13/dk-tube3.png"
-                            alt="dk-tube2"
-                            border="0"
-                        />
-                        <NavBar />
+  const [login, setLogin] = useState(false);
+  const [smallScreen, setSmallScreen] = useState(window.innerWidth < 1100 ? true : false);
+  const [loading, setLoading] = useState(true);
 
-                        <Switch>
-                            <Route exact path="/" component={Home} />
-                            <Route path="/songs" component={Songs} />
-                            <Route path="/albums" component={Albums} />
-                            <Route path="/playlists" component={Playlist} />
-                            <Route path="/song/:id">
-                                <SingleSong
-                                    autoPlay={autoPlay}
-                                    setAutoPlay={setAutoPlay}
-                                />
-                            </Route>
-                            <Route
-                                path="/artist/:id"
-                                component={SingleArtist}
-                            />
-                            <Route
-                                path="/playlist/:id"
-                                component={SinglePlaylist}
-                            />
-                            <Route path="/album/:id" component={SingleAlbum} />
-                            <Route path="/search" component={SearchPage} />
-                            <Route path="/404" component={ErrorPage} />
-                        </Switch>
-                    </div>
-                </Router>
-            </ThemeProvider>
-        </div>
-    );
+  useEffect(() => {
+    // auth
+    (async () => {
+      if (Cookies.get("accessToken")) {
+        try {
+          const { data } = await network.get("/api/auth/validateToken");
+          if (data.valid) setLogin(true);
+          setLoading(false);
+        } catch (e) {
+          console.error(e);
+          setLoading(false);
+        }
+      } else {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
+  const displayWindowSize = () => {
+    if (window.innerWidth < 1100) {
+      setSmallScreen(true);
+    } else {
+      setSmallScreen(false);
+    }
+  };
+  window.addEventListener("resize", displayWindowSize);
+
+  return (
+    <div className="body">
+      <ThemeProvider theme={myTheme}>
+        <Router>
+          {!loading ? (
+            <div className="App">
+              <NavBar login={login} setLogin={setLogin} smallScreen={smallScreen} />
+              <div className="height-for-nav"></div>
+              <Switch>
+                <ProtectedRoute exact path="/home">
+                  <Home smallScreen={smallScreen} />
+                </ProtectedRoute>
+                <Route exact path="/" component={Guest} />
+                <Route exact path="/login">
+                  <Login setLogin={setLogin} />
+                </Route>
+                <Route exact path="/register">
+                  <Register setLogin={setLogin} />
+                </Route>
+                <Route exact path="/auth">
+                  <ValidatingMail />
+                </Route>
+                <ProtectedRoute exact path="/songs" component={Songs} />
+                <ProtectedRoute exact path="/albums" component={Albums} />
+                <ProtectedRoute exact path="/playlists" component={Playlist} />
+                <ProtectedRoute path="/songs/:id">
+                  <SingleSong />
+                </ProtectedRoute>
+                <ProtectedRoute path="/artists/:id" component={SingleArtist} />
+                <ProtectedRoute path="/playlists/:id" component={SinglePlaylist} />
+                <ProtectedRoute path="/albums/:id" component={SingleAlbum} />
+                <ProtectedRoute path="/search" component={SearchPage} />
+                <Route component={ErrorPage} />
+              </Switch>
+            </div>
+          ) : (
+            <div
+              style={{
+                height: "100vh",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <CircularProgress color="secondary" />
+            </div>
+          )}
+        </Router>
+      </ThemeProvider>
+    </div>
+  );
 }
 
 export default App;

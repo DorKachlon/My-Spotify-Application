@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import network from "../network/network";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import MyList from "./MyList";
@@ -23,12 +23,12 @@ export default function SingleAlbum() {
         (async function loadSong() {
             try {
                 let newArr = [];
-                const { data } = await axios.get(pathname);
-                newArr.push(data[0]);
-                const dataList = await axios.get(
-                    `/album/songs/${pathname.split("/")[2]}`
+                const { data } = await network.get(`/api${pathname}`);
+                newArr.push(data);
+                const { data: dataList } = await network.get(
+                    `/api/albums/${pathname.split("/")[2]}/songs`
                 );
-                newArr.push(dataList.data);
+                newArr.push(dataList);
                 setAlbumAndList(newArr);
             } catch (e) {
                 Swal.fire({
@@ -46,7 +46,7 @@ export default function SingleAlbum() {
                     <div className="album">
                         <img
                             className="album-cover-img"
-                            src={albumAndList[0].cover_img}
+                            src={albumAndList[0].coverImg}
                             alt=""
                         />
                         <div>
@@ -56,12 +56,12 @@ export default function SingleAlbum() {
                             <div className="album-ditails">
                                 Album &nbsp;• &nbsp;
                                 <Link
-                                    to={`/artist/${albumAndList[0].artist_id}`}
+                                    to={`/artists/${albumAndList[0].artistId}`}
                                 >
-                                    {albumAndList[0].artist_name}
+                                    {albumAndList[0].Artist.name}
                                 </Link>
                                 &nbsp;•&nbsp;
-                                {albumAndList[0].created_at.slice(0, 10)}
+                                {albumAndList[0].releasedAt.slice(0, 10)}
                                 <br></br>
                                 {albumAndList[1].length}{" "}
                                 {albumAndList[1].length > 1 ? "songs" : "song"}
@@ -73,8 +73,9 @@ export default function SingleAlbum() {
                             list={albumAndList[1]}
                             search={search}
                             pathname={pathname}
-                            coverImg={albumAndList[0].cover_img}
-                            artistName={albumAndList[0].artist_name}
+                            coverImg={albumAndList[0].coverImg}
+                            artistName={albumAndList[0].Artist.name}
+                            itsAlbum={true}
                         />
                     </div>
                 </div>
