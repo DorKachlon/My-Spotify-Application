@@ -6,8 +6,8 @@
   "scripts": {
     "test-create-db": "cross-env NODE_ENV=test npx sequelize db:create && cross-env NODE_ENV=test npx sequelize db:migrate && cross-env NODE_ENV=test jest ",
     "test": "jest ",
-    "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create",
-    "db:migrate:test": "cross-env NODE_ENV=test npx sequelize db:migrate",
+    "initDB": "node_modules/.bin/sequelize db:create",
+    "migrateTest": "node_modules/.bin/sequelize db:migrate",
     "dev": "nodemon index.js",
     "start": "nodemon index.js",
     "create": "npx sequelize db:create",

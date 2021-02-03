@@ -38,9 +38,9 @@ jobs:
         working-directory: ./server
       - name: create DB and migrate, the play test
         run: |
-          npm run db:create:test &&
-          npm run db:migrate:test && 
-          npm test
+          npm run initDB &&
+          npm run migrateTest &&
+          npm run test
         env:
           NODE_ENV: "test"
           DB_TEST: "spotify_orm_test"
