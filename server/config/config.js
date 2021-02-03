@@ -10,10 +10,10 @@ module.exports = {
     logging: false,
   },
   test: {
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
+    username: process.env.DB_USERNAME || "root",
+    password: process.env.DB_PASSWORD || null,
     database: process.env.DATABASE_TEST,
-    host: "127.0.0.1",
+    host: process.env.DB_HOST || "127.0.0.1",
     dialect: "mysql",
     define: { underscored: true },
     logging: false,
