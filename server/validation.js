@@ -9,6 +9,7 @@ const registerValidation = (data) => {
   });
   return schema.validate(data);
 };
+
 //Login validation
 const loginValidation = (data) => {
   const schema = Joi.object({
@@ -18,6 +19,7 @@ const loginValidation = (data) => {
   });
   return schema.validate(data);
 };
+
 //Token validation
 const tokenValidation = (data) => {
   const schema = Joi.object({
