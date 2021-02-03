@@ -37,7 +37,9 @@ jobs:
         run: npm ci
         working-directory: ./server
       - name: create DB and migrate2222
-        run: node_modules/.bin/sequelize db:create && node_modules/.bin/sequelize db:migrate
+        run: |
+          npm run db:create:test &&
+          npm run db:migrate:test &&
       - name: testing
         run: jest
         env:
