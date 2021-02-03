@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const verify = require("./verifyToken");
+const verify = require("../middleware/verifyToken");
 const router = Router();
 
 router.use("/songs", verify, require("./songs"));

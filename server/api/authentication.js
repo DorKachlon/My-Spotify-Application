@@ -4,7 +4,7 @@ const { User, RefreshToken } = require("../models");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { registerValidation, loginValidation, tokenValidation } = require("../validation");
-const verifyToken = require("./verifyToken");
+const verifyToken = require("../middleware/verifyToken");
 const { sendMail } = require("../sendMail");
 require("dotenv").config();
 
