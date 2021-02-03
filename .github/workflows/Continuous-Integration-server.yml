@@ -36,12 +36,11 @@ jobs:
       - name: Install Server dependencies
         run: npm ci
         working-directory: ./server
-      - name: create DB and migrate2222
+      - name: create DB and migrate, the play test
         run: |
           npm run db:create:test &&
-          npm run db:migrate:test
-      - name: testing
-        run: jest
+          npm run db:migrate:test && 
+          npm test
         env:
           NODE_ENV: "test"
           DB_TEST: "spotify_orm_test"
