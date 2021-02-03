@@ -9,7 +9,7 @@ describe("api artist", () => {
     await Artist.destroy({ truncate: true, force: true });
   });
 
-  it("Can create artists and get them", async () => {
+  it("Can create artists and get them", async (done) => {
     await request(app)
       .post("/api/artists")
       .send(artistsMocks[0])
@@ -23,9 +23,10 @@ describe("api artist", () => {
       .set("authorization", `bearer ${generateToken(usersMocks[0])}`);
     expect(body[0].name).toBe(artistsMocks[0].name);
     expect(body[1].name).toBe(artistsMocks[1].name);
+    done();
   });
 
-  it("Can get single artist", async () => {
+  it("Can get single artist", async (done) => {
     await request(app)
       .post("/api/artists")
       .send(artistsMocks[0])
@@ -39,9 +40,10 @@ describe("api artist", () => {
       .set("authorization", `bearer ${generateToken(usersMocks[0])}`);
     expect(getSingleArtistResponseBody.name).toBe(artistsMocks[1].name);
     expect(getSingleArtistResponseBody.id).toBe(artistsMocks[1].id);
+    done();
   });
 
-  it("Can update single artist", async () => {
+  it("Can update single artist", async (done) => {
     await request(app)
       .post("/api/artists")
       .send(artistsMocks[0])
@@ -54,9 +56,10 @@ describe("api artist", () => {
       .get(`/api/artists/1`)
       .set("authorization", `bearer ${generateToken(usersMocks[0])}`);
     expect(getSingleArtistResponseBody.name).toBe("newName");
+    done();
   });
 
-  it("Can delete single artist", async () => {
+  it("Can delete single artist", async (done) => {
     await request(app)
       .post("/api/artists")
       .send(artistsMocks[0])
@@ -75,5 +78,6 @@ describe("api artist", () => {
       .get(`/api/artists/`)
       .set("authorization", `bearer ${generateToken(usersMocks[0])}`);
     expect(newBody.length).toBe(1);
-  });
+    done();
+  }, 10000);
 });

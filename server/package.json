@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test-create-db": "cross-env NODE_ENV=test npx sequelize db:create && cross-env NODE_ENV=test npx sequelize db:migrate && cross-env NODE_ENV=test jest ",
-    "test": "jest ",
+    "test": "jest --detectOpenHandles --forceExit --runInBand",
     "initDB": "node_modules/.bin/sequelize db:create",
     "migrateTest": "node_modules/.bin/sequelize db:migrate",
     "dev": "nodemon index.js",
