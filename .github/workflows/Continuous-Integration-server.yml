@@ -39,7 +39,7 @@ jobs:
       - name: create DB and migrate2222
         run: |
           npm run db:create:test &&
-          npm run db:migrate:test &&
+          npm run db:migrate:test
       - name: testing
         run: jest
         env:
