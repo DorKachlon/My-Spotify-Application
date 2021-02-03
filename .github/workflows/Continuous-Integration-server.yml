@@ -36,7 +36,7 @@ jobs:
       - name: Install Server dependencies
         run: npm ci
         working-directory: ./server
-      - name: create DB and migrate
+      - name: create DB and migrate2222
         run: node_modules/.bin/sequelize db:create && node_modules/.bin/sequelize db:migrate
       - name: testing
         run: jest
