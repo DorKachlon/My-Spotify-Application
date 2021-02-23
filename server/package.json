@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test-create-db": "cross-env NODE_ENV=test npx sequelize db:create && cross-env NODE_ENV=test npx sequelize db:migrate && cross-env NODE_ENV=test jest ",
-    "test": "jest ",
-    "db:create:test": "cross-env NODE_ENV=test npx sequelize-cli db:create",
-    "db:migrate:test": "cross-env NODE_ENV=test npx sequelize db:migrate",
+    "test": "jest --detectOpenHandles --forceExit --runInBand",
+    "initDB": "node_modules/.bin/sequelize db:create",
+    "migrateTest": "node_modules/.bin/sequelize db:migrate",
     "dev": "nodemon index.js",
     "start": "nodemon index.js",
     "create": "npx sequelize db:create",
@@ -17,6 +17,13 @@
     "spinup": "npm run migrate && npm run dev",
     "spinup-seed": "npm run create && npm run migrate && npm run undo-seed && npm run seed && npm run dev",
     "docker": "node_modules/.bin/sequelize db:migrate && node_modules/.bin/sequelize db:seed:all && node index.js"
+  },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "engines": {
+    "node": "10.x"
   },
   "author": "",
   "license": "ISC",
