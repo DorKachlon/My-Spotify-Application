@@ -8,11 +8,17 @@
     "heroku-postbuild": "cd client && npm i && npm run build && cd .. && cd server && npm i ",
     "start": "cd server  && node index"
   },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "engines": {
+    "node": "10.x"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DorKachlon/My-Spotify-Application.git"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
