@@ -18,6 +18,13 @@
     "spinup-seed": "npm run create && npm run migrate && npm run undo-seed && npm run seed && npm run dev",
     "docker": "node_modules/.bin/sequelize db:migrate && node_modules/.bin/sequelize db:seed:all && node index.js"
   },
+  "keywords": [
+    "example",
+    "heroku"
+  ],
+  "engines": {
+    "node": "10.x"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {
